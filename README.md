@@ -1,2 +1,0 @@
-wikiTT by ITT students.
-:)
