@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>wikITT | Sign in</title>
+        <link rel="icon" href="/common/image/icon.ico" type="image/x-icon">
+        
+        <link rel="stylesheet" type="text/css" href="/common/css/general.css"/>
+        
+        <!--Frameworks-->
+        <!--Pace-->
+        <link rel="stylesheet" type="text/css" href="/common/framework/pace/pace.min.css"/>
+        <script src="/common/framework/pace/pace.min.js" type="text/javascript"></script>
+        <!--Jquery-->
+        <script src="/common/framework/jquery.min.js" type="text/javascript"></script>
+        <!--Semantic-UI-->
+        <link rel="stylesheet" type="text/css" href="/common/framework/semantic-UI/semantic.min.css"/>
+        <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
+        <!--Bootstrap-->
+        <link rel="stylesheet" type="text/css" href="/common/framework/bootstrap.min.css"/>
+        <!--END Framweworks-->
+    </head>
+    <body>
+        <style>
+            .container .row img {
+                display: block;
+                margin: 0 auto;
+                width: 80px;
+                height: 80px;
+            }
+            @media screen and (max-width: 768px) {
+                #facebook {
+                    margin-top: 5px;
+                }
+            }
+        </style>
+        
+        <div class="scrollbar normal">
+            <div class="wrapper">
+                <!--#include virtual="/common/component/header-main.html" -->
+                <div class="section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3 col-lg-4"></div>
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <img src="/common/image/icon.png" alt="wikITT"/>
+                                <form class="ui form segment">
+                                    <div class="field">
+                                        <label>E-mail</label>
+                                        <div class="ui left icon input">
+                                            <input type="email" name="email" placeholder="E-mail">
+                                            <i class="mail icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label>Password</label>
+                                        <div class="ui left icon input">
+                                            <input type="password" name="password" placeholder="Password">
+                                            <i class="lock icon"></i>
+                                        </div>
+                                    </div>
+
+                                    <!--Button-->
+                                    <button type="submit" class="ui button teal fluid large">Sign in</button>
+                                    <div class="ui horizontal divider" style="color: #8c8b8b;">
+                                        or
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button class="ui google plus button fluid disabled">
+                                                <i class="google plus icon"></i>
+                                                Google
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-6" id="facebook">
+                                            <button class="ui facebook button fluid disabled">
+                                                <i class="facebook icon"></i>
+                                                Facebook
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <a href="/register/index.html" class="ui inverted button blue fluid">
+                                    New to us ? | Sign Up
+                                </a>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--#include virtual="/common/component/footer-main.html" -->
+        </div>
+    </body>
+</html>

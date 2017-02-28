@@ -1,0 +1,89 @@
+<div class="header-main">
+    <div class="header-container">
+        <div class="ui menu huge">
+            <!--Logo-->
+            <a href="/index.html" class="item">
+                <img src="/common/image/icon.png" alt="wikITT"/>
+            </a>
+            <!--Search-->
+            <div class="item hide">
+                <div class="ui action input">
+                    <input type="text" placeholder="Search...">
+                    <button class="ui icon button">
+                        <i class="search icon"></i>
+                    </button>
+                </div>
+            </div>
+            <!--User & Cart-->
+            <div class="right menu">
+                <div class="item borderless">
+                    <div class="ui buttons large">
+                        <a href="/sign-in/index.html" class="ui button teal">Sign in</a>
+                        <div class="or"></div>
+                        <a href="/register/index.html" class="ui button blue">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Hidden Search-->
+    <div class="ui menu huge hidden">
+        <div class="item">
+            <div class="ui transparent input">
+                <input type="text" placeholder="Search...">
+                <button class="ui icon button">
+                    <i class="search icon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /*Menu General*/
+    .header-main {
+        margin-bottom: 15px;
+    }
+    .header-main .header-container {
+        width: 1200px;/*NB-> .wrapper .section {width}*/
+        display: block;
+        margin: 0 auto;
+    }
+    .header-main .ui.menu {
+        margin: 0!important;
+    }
+    .header-main .hide {
+        width: 50%;
+    }
+    
+    /*Hidden Input*/
+    .header-main .hidden {
+        display: none!important;
+        border-top: none!important;
+    }
+    .header-main .hidden .item {
+        width: 100%!important;
+    }
+    
+    @media screen and (max-width: 1200px) {
+        .header-main .header-container {
+            width: 100%;
+        }
+    }
+    @media screen and (max-width: 660px) {
+        .header-main .hide {
+            display: none!important;
+        }
+        .header-main .hidden {
+            display: flex!important;
+            display: -webkit-box!important;
+            display: -ms-flexbox!important;
+        }
+    }
+    @media screen and (max-width: 400px) {
+        .header-main .ui.buttons .button,
+        .header-main .ui.buttons .or {
+            font-size: 1rem;
+        }
+    }
+</style>
