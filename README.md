@@ -1,2 +1,2 @@
-# site
-School project.
+wikiTT by ITT students.
+:)
