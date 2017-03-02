@@ -1,89 +1,77 @@
-<div class="header-main">
-    <div class="header-container">
-        <div class="ui menu huge">
-            <!--Logo-->
-            <a href="/index.html" class="item">
-                <img src="/common/image/icon.png" alt="wikITT"/>
+
+<div class="header-container">
+    <ul class="header">
+        <li><a href="">Informatica</a></li>
+        <li><a href="">Chimica</a></li>
+        <li><a href="">Meccanica</a></li>
+        <li><a href="">Elettrotecnica</a></li>
+        <li class="responsive-icon">
+            <a href="javascript:void(0);" style="font-size: 15px;">
+                <i class="content icon"></i>
             </a>
-            <!--Search-->
-            <div class="item hide">
-                <div class="ui action input">
-                    <input type="text" placeholder="Search...">
-                    <button class="ui icon button">
-                        <i class="search icon"></i>
-                    </button>
-                </div>
-            </div>
-            <!--User & Cart-->
-            <div class="right menu">
-                <div class="item borderless">
-                    <div class="ui buttons large">
-                        <a href="/sign-in/index.html" class="ui button teal">Sign in</a>
-                        <div class="or"></div>
-                        <a href="/register/index.html" class="ui button blue">Register</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Hidden Search-->
-    <div class="ui menu huge hidden">
-        <div class="item">
-            <div class="ui transparent input">
-                <input type="text" placeholder="Search...">
-                <button class="ui icon button">
-                    <i class="search icon"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>
 
 <style>
-    /*Menu General*/
-    .header-main {
-        margin-bottom: 15px;
+    .header-container .header {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #E74C3C;
     }
-    .header-main .header-container {
-        width: 1200px;/*NB-> .wrapper .section {width}*/
-        display: block;
-        margin: 0 auto;
+    .header-container .header li {float: left;}
+    .header-container .header li a {
+        display: inline-block;
+        padding: 14px 16px;
+        text-decoration: none;
+        text-align: center;
+        color: white;
+        background-color: #2980B9;
+        font-size: 17px;
+        transition: 0.3s;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
     }
-    .header-main .ui.menu {
-        margin: 0!important;
-    }
-    .header-main .hide {
-        width: 50%;
-    }
+    .header-container .header li a:hover {background-color: #1ABC9C;}
+    .header-container .header .responsive-icon {display: none;}
     
-    /*Hidden Input*/
-    .header-main .hidden {
-        display: none!important;
-        border-top: none!important;
-    }
-    .header-main .hidden .item {
-        width: 100%!important;
-    }
-    
-    @media screen and (max-width: 1200px) {
-        .header-main .header-container {
-            width: 100%;
+    /*Media Query*/
+    @media screen and (max-width:680px) {
+        .header-container .header li:not(:first-child) {display: none;}
+        .header-container .header li.responsive-icon {
+            display: inline-block;
+            float: right;
         }
     }
-    @media screen and (max-width: 660px) {
-        .header-main .hide {
-            display: none!important;
+    @media screen and (max-width:680px) {
+        .header-container .header.responsive {position: relative;}
+        .header-container .header.responsive li.responsive-icon {
+            position: absolute;
+            top: 0;
+            right: 0;
         }
-        .header-main .hidden {
-            display: flex!important;
-            display: -webkit-box!important;
-            display: -ms-flexbox!important;
+        .header-container .header.responsive li {
+            float: none;
+            display: inline;
         }
-    }
-    @media screen and (max-width: 400px) {
-        .header-main .ui.buttons .button,
-        .header-main .ui.buttons .or {
-            font-size: 1rem;
+        .header-container .header.responsive li a {
+            display: block;
+            text-align: left;
         }
     }
 </style>
+
+<script>
+    $(document).ready(function() {
+        $(".header-container .header li.responsive-icon").on("click", function() {
+            var header = $(".header-container .header");
+            if(!header.hasClass("responsive"))
+                header.addClass("responsive");
+            else
+                header.removeClass("responsive");
+        });
+    });
+</script>

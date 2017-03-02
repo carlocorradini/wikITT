@@ -1,2 +1,0 @@
-# wikITT
-School project.
