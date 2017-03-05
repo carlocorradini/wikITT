@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>wikITT</title>
         <link rel="icon" href="/common/image/icon.ico" type="image/x-icon">
-        <link rel="stylesheet" type="text/css" href="/common/css/general.css">
         
         <link rel="stylesheet" type="text/css" href="/common/css/general.css"/>
         
@@ -18,23 +17,77 @@
         <!--Semantic-UI-->
         <link rel="stylesheet" type="text/css" href="/common/framework/semantic-UI/semantic.min.css"/>
         <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
+        <!--Bootstrap-->
+        <link rel="stylesheet" type="text/css" href="/common/framework/bootstrap.min.css"/>
         <!--END Framweworks-->
+        <style>
+            /*Form*/
+            #search-form {
+                text-align: center;
+            }
+            /*Tab*/
+            
+            /*From & Tab dimension*/
+            #search-form .ui.icon.input.huge,
+            #tab {
+                position: relative;
+                width: 580px;
+                vertical-align: middle;
+                max-width: 100%;
+            }
+            
+            /*Other*/
+            .center {
+                display: block;
+                margin: 0 auto;
+            }
+        </style>
     </head>
     <body>
         <script>
             $(document).ready(function() {
-                $('.arguments.cards .image').dimmer({
-                    on: 'hover'
-                });
+                $('.pointing.menu .item').tab();
             });
         </script>
         <div class="scrollbar normal">
             <div class="wrapper">
                 <!--#include virtual="/common/component/header-main.html" -->
                 <div class="section">
+                    <img class="ui big image center" src="/common/image/icon-large.png" alt="wikITT"/>
+                    
+                    <form id="search-form">
+                        <div class="ui icon input huge">
+                            <input type="text" placeholder="Cerca...">
+                            <i class="circular search link icon"></i>
+                        </div>
+                    </form>
+                    
+                    <div id="tab" class="center">
+                        <div class="ui pointing secondary menu">
+                            <a class="item active" data-tab="subjects">Indirizzi</a>
+                            <a class="item" data-tab="info">Chi siamo?</a>
+                        </div>
+                        <div class="ui active tab segment" data-tab="subjects">
+                            <div class="ui small images">
+                                <img src="ict.png" alt="informatica"/>
+                                <img src="chemistry.png" alt="chimica"/>
+                            </div>
+                            <div class="ui small images" style="display: block; margin: 0 auto;">
+                                <img src="gear.png" alt="meccanica"/>
+                                <img src="plug.png" alt="elettrotecnica"/>
+                            </div>
+                        </div>
+                        <div class="ui tab segment" data-tab="info">
+                            Siamo gli studenti della classe 5A specializzazione informatica dell’Istituto Tecnico Tecnologico “M. Buonarroti – Pozzo”.<br/>
+                            Su proposta dei nostri professori di informatica, abbiamo iniziato questo progetto a metà febbraio 2017. <br/>
+                            Il suo scopo è quello di creare e mettere a disposizione di tutti, entro la fine dell’anno scolastico 2016/2017, un sito web che mette a disposizione dei video didattici, riguardanti in primis le materie informatiche, utili per esempio ai futuri studenti che possiedono dubbi o carenze.<br/>
+                            Dopo aver assistito ad una breve presentazione del progetto, ci siamo divisi in due gruppi: uno specializzato alla produzione dei video e quindi alla parte didattica del progetto mentre l’altro focalizzato alla creazione del sito e alla gestione del database. <br/>
+                            In particolare: il “Gruppo Video” si occupa della scelta degli argomenti, dello sviluppo delle video lezioni e della produzione dei video che saranno poi inviati al “Gruppo Sito Web – Database” che si occupa appunto di creare e aggiornare il sito web, di gestire il database e di tutto quello che riguarda la programmazione.
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!--#include virtual="/common/component/footer-main.html" -->
+            <!--Includere footer -->
         </div>
     </body>
 </html>

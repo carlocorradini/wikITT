@@ -10,8 +10,8 @@ body {
 .wrapper {
     min-height: 100%;
     height: auto;
-    margin: 0 auto -110px;/*NB-> Footer height*/
-    padding: 0 0 110px;/*NB-> Footer height*/
+    margin: 0 auto -0px;/*NB-> Footer height*/
+    padding: 0 0 0px;/*NB-> Footer height*/
     z-index: 0;
 }
 .wrapper .section {
@@ -28,8 +28,8 @@ body {
 }
 footer {
     /*NB-> .wrapper {margin & padding}*/
-    height: 95px;
-    margin-top: 15px;
+    height: 0px;
+    margin-top: 0px;
 }
 /*END Page Structure*/
 
