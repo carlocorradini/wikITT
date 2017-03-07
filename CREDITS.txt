@@ -1,6 +1,6 @@
 INFORMATICA => http://www.flaticon.com/free-icon/laptop_123400#term=laptop&page;=1&position;=3
 TELECOMUNICAZIONI => http://www.flaticon.com/free-icon/radar_124550#term=antenna&page;=1&position;=14
 CHIMICA => http://www.flaticon.com/free-icon/test-tubes_167731#term=chemistry&page;=1&position;=4
-ELETTROTECNICA => http://www.flaticon.com/free-icon/light-bulb_167745#term=bulb&page;=1&position;=13
+ELETTROTECNICA => http://www.flaticon.com/free-icon/chip_141007#term=processor&page;=1&position;=10
 MECCANICA => http://www.flaticon.com/free-icon/engine_290121#term=CAR ENGINE&page;=1&position;=24
 GEOMETRI => http://www.flaticon.com/free-icon/compass_272387#term=compass&page;=1&position;=16
