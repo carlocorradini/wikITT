@@ -1,4 +1,4 @@
-INFORMATICA => http://www.flaticon.com/free-icon/laptop_123400#term=laptop&page;=1&position;=3
+INFORMATICA => http://www.flaticon.com/free-icon/binary_291704#term=code&page;=1&position;=32
 TELECOMUNICAZIONI => http://www.flaticon.com/free-icon/radar_124550#term=antenna&page;=1&position;=14
 CHIMICA => http://www.flaticon.com/free-icon/test-tubes_167731#term=chemistry&page;=1&position;=4
 ELETTROTECNICA => http://www.flaticon.com/free-icon/chip_141007#term=processor&page;=1&position;=10
