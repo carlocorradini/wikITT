@@ -49,14 +49,25 @@
                 display: block;
                 margin: 0 auto;
             }
+            /*Hover effect*/
+            .hvr-grow {
+                display: inline-block;
+                vertical-align: middle;
+                -webkit-transform: perspective(1px) translateZ(0);
+                transform: perspective(1px) translateZ(0);
+                box-shadow: 0 0 1px transparent;
+                -webkit-transition-duration: 0.3s;
+                transition-duration: 0.3s;
+                -webkit-transition-property: transform;
+                transition-property: transform;
+              }
+              .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+              }
         </style>
     </head>
     <body>
-        <script>
-            $(document).ready(function() {
-                $('#tab .item').tab();
-            });
-        </script>
         <div class="scrollbar normal">
             <div class="wrapper">
                 <!--#include virtual="/common/component/header-main.html" -->
@@ -73,7 +84,7 @@
                     <!--Subjects-->
                     <div id="tab" class="center">
                         <div class="ui stackable three column grid">
-                            <div class="column">
+                            <div class="column hvr-grow">
                                 <div class="ui segment">
                                     <a href="/informatica/index.html">
                                         <div class="ui olive ribbon label">Informatica</div>
@@ -81,7 +92,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="column">
+                            <div class="column hvr-grow">
                                 <div class="ui segment">
                                     <a href="/telecomunicazioni/index.html">
                                         <div class="ui green ribbon label">Telecomunicazioni</div>
@@ -89,7 +100,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="column">
+                            <div class="column hvr-grow">
                                 <div class="ui segment">
                                     <a href="/chimica/index.html">
                                         <div class="ui teal ribbon label">Chimica</div>
@@ -100,7 +111,7 @@
                         </div>
 
                         <div class="ui stackable three column grid">
-                            <div class="column">
+                            <div class="column hvr-grow">
                                 <div class="ui segment">
                                     <a href="/elettrotecnica/index.html">
                                         <div class="ui blue ribbon label">Elettrotecnica</div>
@@ -108,7 +119,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="column">
+                            <div class="column hvr-grow">
                                 <div class="ui segment">
                                     <a href="/meccanica/index.html">
                                         <div class="ui yellow ribbon label">Meccanica</div>
@@ -116,7 +127,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="column">
+                            <div class="column hvr-grow">
                                 <div class="ui segment">
                                     <a href="/geometri/index.html">
                                         <div class="ui orange ribbon label">Geometri</div>
