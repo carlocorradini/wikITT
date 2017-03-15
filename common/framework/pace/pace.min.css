@@ -1,14 +1,14 @@
 .pace {
-  -webkit-pointer-events: none;
-  pointer-events: none;
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+    pointer-events: none;
+    -webkit-pointer-events: none;
+    
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 .pace-inactive {
-  display: none;
+    display: none;
 }
 
 .pace .pace-progress {

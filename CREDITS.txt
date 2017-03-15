@@ -1,5 +1,5 @@
-INFORMATICA => http://www.flaticon.com/free-icon/binary_291704#term=code&page;=1&position;=32
+INFORMATICA => http://www.flaticon.com/free-icon/coding_291684#term=coding&page=1&position=31
 CHIMICA => http://www.flaticon.com/free-icon/test-tubes_167731#term=chemistry&page;=1&position;=4
-ELETTROTECNICA => http://www.flaticon.com/free-icon/chip_141007#term=processor&page;=1&position;=10
-MECCANICA => http://www.flaticon.com/free-icon/engine_290121#term=CAR ENGINE&page;=1&position;=24
+ELETTROTECNICA => http://www.flaticon.com/free-icon/light-bulb_167745#term=bulb&page=1&position=12
+MECCANICA => http://www.flaticon.com/free-icon/piston_290110
 COSTRUZIONI => http://www.flaticon.com/free-icon/compass_272387#term=compass&page;=1&position;=16
