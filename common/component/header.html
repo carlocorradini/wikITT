@@ -2,7 +2,7 @@
 <div class="header">
     <div class="header-wrapper">
         <div class="brand">
-            <a href="#">Logo</a>
+            <a href="/index.html"><img src="/common/image/icon-medium.png" alt="wikITT"/></a>
         </div>
         <div class="nav-container">
             <div class="nav-mobile"><a id="nav-toggle" href="#"><span></span></a></div>
@@ -28,9 +28,17 @@
 </div>
 
 <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
+    
     .header {
         height: 70px;
-        background-color: #262626;
+        background-color: #ffffff;
+        border: 1px solid rgba(34,36,38,.15);
+        box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+        font-family: 'Roboto', 'sans-serif';
+        border-radius: .28571429rem;
+        -webkit-border-radius: .28571429rem;
+        -moz-border-radius: .28571429rem;
     }
     .header .header-wrapper {
         max-width: 1000px;
@@ -41,15 +49,12 @@
     .header .brand {
         position: absolute;
         float: left;
-        padding-left: 20px;
-        line-height: 70px;
-        text-transform: uppercase;
-        font-size: 1.4em;
+        padding: 5px 20px;
+        height: 70px;
     }
-    .header .brand a,
-    .header .brand a:visited {
-        color: #ffffff;
-        text-decoration: none;
+    .header .brand img {
+        max-width: 100%;
+        max-height: 100%;
     }
     
     /*Header Container*/
@@ -69,15 +74,57 @@
     .header .nav-container ul li a:visited {
         display: block;
         padding: 0 20px;
-        line-height: 70px;
+        line-height: 68px;
+        font-size: 1.2em;
         text-decoration: none;
-        background: #262626;
-        color: #ffffff;
+        background: #ffffff;
+        color: #262626;
+        transition: 0.3s;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
     }
+    
+    /*Link Hover Effect*/
     .header .nav-container ul li a:hover,
     .header .nav-container ul li a:visited:hover {
-        background: #2581DC;
         color: #ffffff;
+        background-color: #2581DC;
+    }
+    .header .nav-container ul li:nth-child(1) a:hover {
+        background: #2185d0;
+        background: linear-gradient(to bottom right, #2185d0, #59b0f2);
+        background: -webkit-linear-gradient(left top, #2185d0, #59b0f2);
+        background: -moz-linear-gradient(bottom right, #2185d0, #59b0f2);
+        background: -o-linear-gradient(bottom right, #2185d0, #59b0f2);
+    }
+    .header .nav-container ul li:nth-child(2) a:hover {
+        background: #21ba45;
+        background: linear-gradient(to bottom right, #21ba45, #48f271);
+        background: -webkit-linear-gradient(left top, #21ba45, #48f271);
+        background: -moz-linear-gradient(bottom right, #21ba45, #48f271);
+        background: -o-linear-gradient(bottom right, #21ba45, #48f271);
+    }
+    .header .nav-container ul li:nth-child(3) a:hover {
+        background: #db2828;
+        background: linear-gradient(to bottom right, #db2828, #ff6363);
+        background: -webkit-linear-gradient(left top, #db2828, #ff6363);
+        background: -moz-linear-gradient(bottom right, #db2828, #ff6363);
+        background: -o-linear-gradient(bottom right, #db2828, #ff6363);
+    }
+    .header .nav-container ul li:nth-child(4) a:hover {
+        background: #f2711c;
+        background: linear-gradient(to bottom right, #f2711c, #fc934e);
+        background: -webkit-linear-gradient(left top, #f2711c, #fc934e);
+        background: -moz-linear-gradient(bottom right, #f2711c, #fc934e);
+        background: -o-linear-gradient(bottom right, #f2711c, #fc934e);
+    }
+    .header .nav-container ul li:nth-child(5) a:hover {
+        background: #a5673f;
+        background: linear-gradient(to bottom right, #a5673f, #d8956a);
+        background: -webkit-linear-gradient(left top, #a5673f, #d8956a);
+        background: -moz-linear-gradient(bottom right, #a5673f, #d8956a);
+        background: -o-linear-gradient(bottom right, #a5673f, #d8956a);
     }
     
     /*Mobile Navigation*/
@@ -88,7 +135,7 @@
         right: 0;
         height: 70px;
         width: 70px;
-        background: #262626;
+        background: transparent;
     }
     
     @media only screen and (max-width: 799px) {
@@ -96,17 +143,47 @@
         
         .header .nav-container {
             width: 100%;
-            padding: 70px 0 15px;
+            padding-top: 70px;
         }
         .header .nav-container ul { display: none;}
         .header .nav-container ul li { float: none;}
         .header .nav-container ul li a {
             padding: 15px;
             line-height: 20px;
+            border-bottom: 1px solid rgba(34,36,38,.15);
+            border-right: 1px solid rgba(34,36,38,.15);
+            border-left: 1px solid rgba(34,36,38,.15);
+        }
+        .header .nav-container ul li:last-child a {
+            box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+            border-bottom-left-radius: .28571429rem;
+            border-bottom-right-radius: .28571429rem;
+            -webkit-border-bottom-left-radius: .28571429rem;
+            -webkit-border-bottom-right-radius: .28571429rem;
+            -moz-border-bottom-left-radius: .28571429rem;
+            -moz-border-bottom-right-radius: .28571429rem;
         }
     }
     @media screen and (min-width: 800px) {
         .header .nav-list { display: block !important;}
+        .header .nav-container li:before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 1px;
+            background: rgba(34,36,38,.1);
+        }
+        .header .nav-container li:first-child:after {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 1px;
+            background: rgba(34,36,38,.1);
+        }
     }
     
     /*Nav-Toggle*/
@@ -122,12 +199,15 @@
     .header #nav-toggle span:after {
         position: absolute;
         display: block;
-        content: '';
+        content: "";
         cursor: pointer;
         border-radius: 1px;
         width: 35px;
         height: 5px;
-        background: #ffffff;
+        background-color: #1b1c1d;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
         transition: all 300ms ease-in-out;
         -webkit-transition: all 300ms ease-in-out;
         -moz-transition: all 300ms ease-in-out;
