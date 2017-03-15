@@ -19,6 +19,14 @@
         <link rel="stylesheet" type="text/css" href="/common/framework/bootstrap.min.css"/>
         <!--END Framweworks-->
         <style>
+            /*Form & Tab dimension*/
+            #search-form .ui.icon.input,
+            #tab {
+                position: relative;
+                width: 600px;
+                vertical-align: middle;
+                max-width: 100%;
+            }
             /*Form*/
             #search-form {
                 margin-top: 30px;
@@ -33,13 +41,11 @@
                 margin-bottom: -5px;
             }
             
-            /*Form & Tab dimension*/
-            #search-form .ui.icon.input,
-            #tab {
-                position: relative;
-                width: 600px;
-                vertical-align: middle;
-                max-width: 100%;
+            /*Subjects*/
+            @media only screen and (max-width: 767px) {
+                .ui.stackable.grid>.column:not(.row) {
+                    width: 50%!important;
+                }
             }
             
             /*Other*/
@@ -82,51 +88,43 @@
                     <div class="column hvr-grow">
                         <div class="ui segment">
                             <a href="/informatica/index.html">
-                                <div class="ui olive ribbon label">Informatica</div>
+                                <div class="ui blue ribbon label">Informatica</div>
                                 <img class="ui fluid image" src="/common/image/subjects/it.png" alt="informatica"/>
                             </a>
                         </div>
                     </div>
                     <div class="column hvr-grow">
                         <div class="ui segment">
-                            <a href="/telecomunicazioni/index.html">
-                                <div class="ui green ribbon label">Telecomunicazioni</div>
-                                <img class="ui fluid image" src="/common/image/subjects/telecom.png" alt="telecomunicazioni"/>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="column hvr-grow">
-                        <div class="ui segment">
-                            <a href="/chimica/index.html">
-                                <div class="ui teal ribbon label">Chimica</div>
-                                <img class="ui fluid image" src="/common/image/subjects/chemistry.png" alt="chimica"/>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ui stackable three column grid">
-                    <div class="column hvr-grow">
-                        <div class="ui segment">
-                            <a href="/elettrotecnica/index.html">
-                                <div class="ui blue ribbon label">Elettrotecnica</div>
-                                <img class="ui fluid image" src="/common/image/subjects/electrotech.png" alt="elettrotecnica"/>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="column hvr-grow">
-                        <div class="ui segment">
                             <a href="/meccanica/index.html">
-                                <div class="ui yellow ribbon label">Meccanica</div>
+                                <div class="ui green ribbon label">Meccanica</div>
                                 <img class="ui fluid image" src="/common/image/subjects/mechanic.png" alt="meccanica"/>
                             </a>
                         </div>
                     </div>
                     <div class="column hvr-grow">
                         <div class="ui segment">
-                            <a href="/geometri/index.html">
-                                <div class="ui orange ribbon label">Geometri</div>
-                                <img class="ui fluid image" src="/common/image/subjects/geometry.png" alt="geometri"/>
+                            <a href="/chimica/index.html">
+                                <div class="ui red ribbon label">Chimica</div>
+                                <img class="ui fluid image" src="/common/image/subjects/chemistry.png" alt="chimica"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui stackable three column centered grid">
+                    <div class="column hvr-grow">
+                        <div class="ui segment">
+                            <a href="/elettrotecnica/index.html">
+                                <div class="ui orange ribbon label">Elettrotecnica</div>
+                                <img class="ui fluid image" src="/common/image/subjects/electrotech.png" alt="elettrotecnica"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="column hvr-grow">
+                        <div class="ui segment">
+                            <a href="/costruzioni/index.html">
+                                <div class="ui brown ribbon label">Costruzioni</div>
+                                <img class="ui fluid image" src="/common/image/subjects/constructions.png" alt="costruzioni"/>
                             </a>
                         </div>
                     </div>
