@@ -84,42 +84,66 @@
         -moz-transition: 0.3s;
         -o-transition: 0.3s;
     }
-    
+    .header .nav-container li a:before {
+        display: inline-block;
+        content: "";
+        width: 10px;
+        height: 10px;
+        margin-right: 0.25em;
+        border-width: 1px;
+        border-style: solid;
+        border-color: transparent;
+        border-radius: 50px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        transition: 0.3s;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
+    }
     /*Link Hover Effect*/
     .header .nav-container ul li a:hover,
     .header .nav-container ul li a:visited:hover {
         color: #ffffff;
         background-color: #2581DC;
     }
-    .header .nav-container ul li:nth-child(1) a:hover {
+    .header .nav-container li a:hover::before {
+        border-color: #ffffff;
+    }
+    .header .nav-container ul li:nth-child(1) a:hover,
+    .header .nav-container li:nth-child(1) a:before {
         background: #2185d0;
         background: linear-gradient(to bottom right, #2185d0, #59b0f2);
         background: -webkit-linear-gradient(left top, #2185d0, #59b0f2);
         background: -moz-linear-gradient(bottom right, #2185d0, #59b0f2);
         background: -o-linear-gradient(bottom right, #2185d0, #59b0f2);
     }
-    .header .nav-container ul li:nth-child(2) a:hover {
+    .header .nav-container ul li:nth-child(2) a:hover,
+    .header .nav-container li:nth-child(2) a:before {
         background: #21ba45;
         background: linear-gradient(to bottom right, #21ba45, #48f271);
         background: -webkit-linear-gradient(left top, #21ba45, #48f271);
         background: -moz-linear-gradient(bottom right, #21ba45, #48f271);
         background: -o-linear-gradient(bottom right, #21ba45, #48f271);
     }
-    .header .nav-container ul li:nth-child(3) a:hover {
+    .header .nav-container ul li:nth-child(3) a:hover,
+    .header .nav-container li:nth-child(3) a:before {
         background: #db2828;
         background: linear-gradient(to bottom right, #db2828, #ff6363);
         background: -webkit-linear-gradient(left top, #db2828, #ff6363);
         background: -moz-linear-gradient(bottom right, #db2828, #ff6363);
         background: -o-linear-gradient(bottom right, #db2828, #ff6363);
     }
-    .header .nav-container ul li:nth-child(4) a:hover {
+    .header .nav-container ul li:nth-child(4) a:hover,
+    .header .nav-container li:nth-child(4) a:before {
         background: #f2711c;
         background: linear-gradient(to bottom right, #f2711c, #fc934e);
         background: -webkit-linear-gradient(left top, #f2711c, #fc934e);
         background: -moz-linear-gradient(bottom right, #f2711c, #fc934e);
         background: -o-linear-gradient(bottom right, #f2711c, #fc934e);
     }
-    .header .nav-container ul li:nth-child(5) a:hover {
+    .header .nav-container ul li:nth-child(5) a:hover,
+    .header .nav-container li:nth-child(5) a:before {
         background: #a5673f;
         background: linear-gradient(to bottom right, #a5673f, #d8956a);
         background: -webkit-linear-gradient(left top, #a5673f, #d8956a);
