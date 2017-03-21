@@ -171,6 +171,11 @@
     opacity: 1;
 }
 .coming-soon .form .progress-btn .progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
     width: 0%;
     z-index: 1;
     background: #00664a;
@@ -180,33 +185,30 @@
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
 }
-.coming-soon .form .progress-btn.active .progress {
-    opacity: 1;
-    animation: progress-anim 3s ease 0s; /*Duration => JS*/
-    -webkit-animation: progress-anim 3s ease 0s;
-    -moz-animation: progress-anim 3s ease 0s;
-    -o-animation: progress-anim 3s ease 0s;
-}
 .coming-soon .form .progress-btn[data-progress-style='fill-bottom'].active .progress {
     height: 5px;
 }
-.coming-soon .form .progress-btn[data-progress-style='fill-bottom'] .progress {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 0;
-}
 
+.coming-soon .form .progress-btn.active .progress {
+    opacity: 1;
+    animation: progress-anim 1.5s ease-in;
+    -webkit-animation: progress-anim 1.5s ease-in;
+    -moz-animation: progress-anim 1.5s ease-in;
+    -o-animation: progress-anim 1.5s ease-in;
+    /*Fill Mode*/
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+}
 @keyframes progress-anim {
     0%   { width: 0%;}
     5%   { width: 0%;}
     10%  { width: 15%;}
     30%  { width: 40%;}
     50%  { width: 55%;}
-    80%  { width: 100%;}
-    95%  { width: 100%;}
-    100% { width: 0%;}
+    80%  { width: 70%;}
+    100%  { width: 100%;}
 }
 @-webkit-keyframes progress-anim {
     0%   { width: 0%;}
@@ -214,9 +216,8 @@
     10%  { width: 15%;}
     30%  { width: 40%;}
     50%  { width: 55%;}
-    80%  { width: 100%;}
-    95%  { width: 100%;}
-    100% { width: 0%;}
+    80%  { width: 70%;}
+    100%  { width: 100%;}
 }
 @-moz-keyframes progress-anim {
     0%   { width: 0%;}
@@ -224,9 +225,8 @@
     10%  { width: 15%;}
     30%  { width: 40%;}
     50%  { width: 55%;}
-    80%  { width: 100%;}
-    95%  { width: 100%;}
-    100% { width: 0%;}
+    80%  { width: 70%;}
+    100%  { width: 100%;}
 }
 @-o-keyframes progress-anim {
     0%   { width: 0%;}
@@ -234,9 +234,8 @@
     10%  { width: 15%;}
     30%  { width: 40%;}
     50%  { width: 55%;}
-    80%  { width: 100%;}
-    95%  { width: 100%;}
-    100% { width: 0%;}
+    80%  { width: 70%;}
+    100%  { width: 100%;}
 }
 
 /*Success Message*/
