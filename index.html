@@ -31,6 +31,8 @@
             #search-form {
                 margin-top: 20px;
                 text-align: center;
+                position: relative!important;
+                
             }
             /*Tab*/
             #tab {
@@ -71,17 +73,22 @@
                 -ms-transform: scale(1.1);
             }
             #livesearch{
-                position: relative;
-                width: 600px;
-                vertical-align: middle;
+                width: 600px!important;
+                vertical-align: central;
                 max-width: 100%;
-                margin: auto;
-                text-align: left;
-                border : 1px solid rgba(34,36,38,.15)!important;
+                margin: auto!important;
+                text-align: left;             
                 border-radius: .28571429rem;
                 display: none;
                 font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
-                
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
+                z-index: 2;
+                position: absolute;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0;
+                right: 0;
+                opacity: 0.98;
             }
    
         </style>
@@ -108,10 +115,13 @@
               xmlhttp.send();
               
             }
+            /*
+            --- onblur="displayNone()"
             function displayNone(){
                 document.getElementById("livesearch").style.display = "none"; 
                 return;
             }
+            */
             function displayBlock(str){
                 showResult(str);
               
@@ -126,7 +136,7 @@
             <!--Search-bar-->
             <form id="search-form">
                 <div class="ui icon input huge">
-                    <input id="cerca"  type="text" placeholder="Cerca..." onkeyup="showResult(this.value)" onblur="displayNone()" onfocus="displayBlock(this.value);">
+                    <input id="cerca"  type="text" placeholder="Cerca..." onkeyup="showResult(this.value)" onfocus="displayBlock(this.value);">
                     <i class="circular search link icon"></i>
                 </div>
                 <div  id="livesearch"></div>
