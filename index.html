@@ -17,6 +17,10 @@
         <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
         <!--Bootstrap-->
         <link rel="stylesheet" type="text/css" href="/common/framework/bootstrap.min.css"/>
+        <!--Popup-->
+        <link rel="stylesheet" type="text/css" href="/common/framework/dist/mfb.css">
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <script src="/common/framework/dist/mfb.js" type="text/javascript"></script>
         <!--END Framweworks-->
         <style>
             /*Form & Tab dimension*/
@@ -131,6 +135,33 @@
                 </div>
             </div>
         </div>
+        
+        <!--Menu popup-->
+        <ul id="menu" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
+            <li class="mfb-component__wrap">
+                <a href="#" class="mfb-component__button--main">
+                    <i class="mfb-component__main-icon--resting ion-plus-round"></i>
+                    <i class="mfb-component__main-icon--active ion-close-round"></i>
+                </a>
+                <ul class="mfb-component__list">
+                    <li>
+                        <a href="https://github.com/carlocorradini/wikITT" data-mfb-label="Seguici su Github" class="mfb-component__button--child">
+                            <i class="mfb-component__child-icon ion-social-github"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-mfb-label="Seguici su Youtube" class="mfb-component__button--child">
+                            <i class="mfb-component__child-icon ion-social-youtube"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-mfb-label="Seguici su Facebook" class="mfb-component__button--child">
+                            <i class="mfb-component__child-icon ion-social-facebook"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
         <!--#include virtual="/common/component/advise-video.php" -->
         <!--#include virtual="/common/component/footer.html" -->
     </body>
