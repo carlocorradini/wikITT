@@ -36,6 +36,8 @@ $(document).ready(function() {
             //Button Progress
             var btnProgress = $(".coming-soon .form .progress-btn");
             if (!btnProgress.hasClass("active")) {
+                input.prop("disabled", true);
+                btnProgress.find(".btn").text("INVIANDO...");
                 btnProgress.addClass("active");
                 //Time => CSS Animation
                 setTimeout(function() {
