@@ -1,11 +1,11 @@
 
 <?php
     //DB Access
-    $dbAddress = "localhost:3306";
+    $dbAddress = "localhost";
     $dbUsername = "root";
     $dbPassword = "";
     $dbName = "wikitt";
-    
+
     function connect(&$connection) {
         global $dbAddress,$dbUsername,$dbPassword,$dbName;
         $connection = mysqli_connect($dbAddress,$dbUsername,$dbPassword,$dbName);
