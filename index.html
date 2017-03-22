@@ -76,6 +76,56 @@
                 -moz-transform: scale(1.1);
                 -ms-transform: scale(1.1);
             }
+            
+            /*LiveSearch*/
+            #livesearch{
+                width: 600px!important;
+                vertical-align: central;
+                max-width: 100%;
+                margin: auto!important;
+                text-align: left;             
+                border-radius: .28571429rem;
+                display: none;
+                font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
+                z-index: 2;
+                position: absolute;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0;
+                right: 0;
+                opacity: 0.98;
+            }
+            
+            /*Popup*/
+            #popup a {
+                color: #ffffff;
+                opacity: 0.75;
+                filter: alpha(opacity=75);
+                transition: opacity 1s;
+                -webkit-transition: opacity 1s;
+                -moz-transition: opacity  1s;
+                -o-transition: opacity 1s;
+            }
+            #popup a:hover {
+                opacity: 1;
+                filter: alpha(opacity=100);
+            }
+            #popup #social {
+                background-color: #00b5ad;
+            }
+            #popup #facebook {
+                background-color: #3b5998;
+            }
+            #popup #youtube {
+                background-color: #cd201f;
+            }
+            #popup #github {
+                background-color: #24292e;
+            }
+            @media screen and (max-width: 800px) {
+                #popup { display: none;}
+            }
         </style>
         <script>
             function showResult(str) {
@@ -174,8 +224,34 @@
                     </div>
                 </div>
             </div>
-        
+            <!--Menu popup-->
+            <ul id="popup" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
+                <li class="mfb-component__wrap">
+                    <a href="#" class="mfb-component__button--main" id="social">
+                        <i class="mfb-component__main-icon--resting ion-arrow-up-b"></i>
+                        <i class="mfb-component__main-icon--active ion-arrow-down-b"></i>
+                    </a>
+                    <ul class="mfb-component__list">
+                        <li>
+                            <a href="https://github.com/carlocorradini/wikITT" data-mfb-label="Seguici su Github" class="mfb-component__button--child" id="github">
+                                <i class="mfb-component__child-icon ion-social-github"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-mfb-label="Seguici su Youtube" class="mfb-component__button--child" id="youtube">
+                                <i class="mfb-component__child-icon ion-social-youtube"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-mfb-label="Seguici su Facebook" class="mfb-component__button--child" id="facebook">
+                                <i class="mfb-component__child-icon ion-social-facebook"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
             <!--#include virtual="/common/component/advise-video.php" -->
+            <!--#include virtual="/common/component/footer.html" -->
         </div>
     </body>
 </html>
