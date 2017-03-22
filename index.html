@@ -17,6 +17,10 @@
         <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
         <!--Bootstrap-->
         <link rel="stylesheet" type="text/css" href="/common/framework/bootstrap.min.css"/>
+        <!--Popup-->
+        <link rel="stylesheet" type="text/css" href="/common/framework/mfb/mfb.min.css">
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <script src="/common/framework/mfb/mfb.min.js" type="text/javascript"></script>
         <!--END Framweworks-->
         <style>
             /*Form & Tab dimension*/
@@ -31,10 +35,12 @@
             #search-form {
                 margin-top: 20px;
                 text-align: center;
+                position: relative!important;
+                
             }
             /*Tab*/
             #tab {
-                margin-top: 25px;
+                margin-top: 45px;
             }
             #tab .segment img {
                 margin-top: 5px;
@@ -70,68 +76,182 @@
                 -moz-transform: scale(1.1);
                 -ms-transform: scale(1.1);
             }
+            
+            /*LiveSearch*/
+            #livesearch{
+                width: 600px!important;
+                vertical-align: central;
+                max-width: 100%;
+                margin: auto!important;
+                text-align: left;             
+                border-radius: .28571429rem;
+                display: none;
+                font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
+                z-index: 2;
+                position: absolute;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0;
+                right: 0;
+                opacity: 0.98;
+            }
+            
+            /*Popup*/
+            #popup a {
+                color: #ffffff;
+                opacity: 0.75;
+                filter: alpha(opacity=75);
+                transition: opacity 1s;
+                -webkit-transition: opacity 1s;
+                -moz-transition: opacity  1s;
+                -o-transition: opacity 1s;
+            }
+            #popup a:hover {
+                opacity: 1;
+                filter: alpha(opacity=100);
+            }
+            #popup #social {
+                background-color: #00b5ad;
+            }
+            #popup #facebook {
+                background-color: #3b5998;
+            }
+            #popup #youtube {
+                background-color: #cd201f;
+            }
+            #popup #github {
+                background-color: #24292e;
+            }
+            @media screen and (max-width: 800px) {
+                #popup { display: none;}
+            }
         </style>
+        <script>
+            function showResult(str) {
+              if (str.length===0) { 
+                document.getElementById("livesearch").innerHTML="";
+                document.getElementById("livesearch").style.display="none!important";
+                return;
+              }
+              if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+              } else {  // code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+              }
+              xmlhttp.onreadystatechange=function() {
+                if (this.readyState===4 && this.status===200) {
+                  document.getElementById("livesearch").innerHTML=this.responseText;
+                  document.getElementById("livesearch").style.display = "block"; 
+                }
+              }
+              xmlhttp.open("POST","/common/component/livesearch.php?q="+str,true);
+              xmlhttp.send();
+              
+            }
+            /*
+            --- onblur="displayNone()"
+            function displayNone(){
+                document.getElementById("livesearch").style.display = "none"; 
+                return;
+            }
+            */
+            function displayBlock(str){
+                showResult(str);
+              
+            }
+        </script>
     </head>
     <body>
-        <!--#include virtual="/common/component/header.html" -->
-        <!--Logo-->
-        <img class="ui large image center" src="/common/image/icon-large.png" alt="wikITT"/>
-        <!--Search-bar-->
-        <form id="search-form">
-            <div class="ui icon input huge">
-                <input type="text" placeholder="Cerca...">
-                <i class="circular search link icon"></i>
-            </div>
-        </form>
-        <!--Subjects-->
-        <div id="tab" class="center">
-            <div class="ui stackable three column grid">
-                <div class="column hvr-grow">
-                    <div class="ui segment">
-                        <a href="/informatica/index.html">
-                            <div class="ui blue ribbon label">Informatica</div>
-                            <img class="ui fluid image" src="/common/image/subjects/it.png" alt="informatica"/>
-                        </a>
+        <div class="contenuto">
+            <!--#include virtual="/common/component/header.html" -->
+            <!--Logo-->
+            <img class="ui large image center" src="/common/image/icon-large.png" alt="wikITT"/>
+            <!--Search-bar-->
+            <form id="search-form">
+                <div class="ui icon input huge">
+                    <input id="cerca"  type="text" placeholder="Cerca..." autocomplete="off" onkeyup="showResult(this.value)" onfocus="displayBlock(this.value);">
+                    <i class="circular search link icon"></i>
+                </div>
+                <div  id="livesearch"></div>
+            </form>
+            <!--Subjects-->
+            <div id="tab" class="center">
+                <div class="ui stackable three column grid">
+                    <div class="column hvr-grow">
+                        <div class="ui segment">
+                            <a href="/informatica/index.html">
+                                <div class="ui blue ribbon label">Informatica</div>
+                                <img class="ui fluid image" src="/common/image/subjects/it.png" alt="informatica"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="column hvr-grow">
+                        <div class="ui segment">
+                            <a href="/meccanica/index.html">
+                                <div class="ui green ribbon label ">Meccanica</div>
+                                <img class="ui fluid image" src="/common/image/subjects/mechanic.png" alt="meccanica"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="column hvr-grow">
+                        <div class="ui segment">
+                            <a href="/chimica/index.html">
+                                <div class="ui red ribbon label">Chimica</div>
+                                <img class="ui fluid image" src="/common/image/subjects/chemistry.png" alt="chimica"/>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="column hvr-grow">
-                    <div class="ui segment">
-                        <a href="/meccanica/index.html">
-                            <div class="ui green ribbon label">Meccanica</div>
-                            <img class="ui fluid image" src="/common/image/subjects/mechanic.png" alt="meccanica"/>
-                        </a>
-                    </div>
-                </div>
-                <div class="column hvr-grow">
-                    <div class="ui segment">
-                        <a href="/chimica/index.html">
-                            <div class="ui red ribbon label">Chimica</div>
-                            <img class="ui fluid image" src="/common/image/subjects/chemistry.png" alt="chimica"/>
-                        </a>
-                    </div>
-                </div>
-            </div>
 
-            <div class="ui stackable three column centered grid">
-                <div class="column hvr-grow">
-                    <div class="ui segment">
-                        <a href="/elettrotecnica/index.html">
-                            <div class="ui orange ribbon label">Elettrotecnica</div>
-                            <img class="ui fluid image" src="/common/image/subjects/electrotech.png" alt="elettrotecnica"/>
-                        </a>
+                <div class="ui stackable three column centered grid">
+                    <div class="column hvr-grow">
+                        <div class="ui segment">
+                            <a href="/elettrotecnica/index.html">
+                                <div class="ui orange ribbon label">Elettrotecnica</div>
+                                <img class="ui fluid image" src="/common/image/subjects/electrotech.png" alt="elettrotecnica"/>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="column hvr-grow">
-                    <div class="ui segment">
-                        <a href="/costruzioni/index.html">
-                            <div class="ui brown ribbon label">Costruzioni</div>
-                            <img class="ui fluid image" src="/common/image/subjects/constructions.png" alt="costruzioni"/>
-                        </a>
+                    <div class="column hvr-grow">
+                        <div class="ui segment">
+                            <a href="/costruzioni/index.html">
+                                <div class="ui brown ribbon label">Costruzioni</div>
+                                <img class="ui fluid image" src="/common/image/subjects/constructions.png" alt="costruzioni"/>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!--Menu popup-->
+            <ul id="popup" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
+                <li class="mfb-component__wrap">
+                    <a href="#" class="mfb-component__button--main" id="social">
+                        <i class="mfb-component__main-icon--resting ion-arrow-up-b"></i>
+                        <i class="mfb-component__main-icon--active ion-arrow-down-b"></i>
+                    </a>
+                    <ul class="mfb-component__list">
+                        <li>
+                            <a href="https://github.com/carlocorradini/wikITT" data-mfb-label="Seguici su Github" class="mfb-component__button--child" id="github">
+                                <i class="mfb-component__child-icon ion-social-github"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-mfb-label="Seguici su Youtube" class="mfb-component__button--child" id="youtube">
+                                <i class="mfb-component__child-icon ion-social-youtube"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-mfb-label="Seguici su Facebook" class="mfb-component__button--child" id="facebook">
+                                <i class="mfb-component__child-icon ion-social-facebook"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!--#include virtual="/common/component/advise-video.php" -->
+            <!--#include virtual="/common/component/footer.html" -->
         </div>
-        <!--#include virtual="/common/component/advise-video.php" -->
-        <!--#include virtual="/common/component/footer.html" -->
     </body>
 </html>
