@@ -1,9 +1,9 @@
 
 <?php
     //DB Access
-    $dbAddress = "localhost:3306";
+    $dbAddress = "82.61.133.39:3306";
     $dbUsername = "root";
-    $dbPassword = "";
+    $dbPassword = "password";
     $dbName = "wikitt";
     
     function connect(&$connection) {

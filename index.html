@@ -145,7 +145,7 @@
                   document.getElementById("livesearch").innerHTML=this.responseText;
                   document.getElementById("livesearch").style.display = "block"; 
                 }
-              }
+              };
               xmlhttp.open("POST","/common/component/livesearch.php?q="+str,true);
               xmlhttp.send();
               

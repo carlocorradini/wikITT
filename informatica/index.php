@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -54,10 +55,31 @@
             <!--#include virtual="/common/component/header.html" -->
             <div class="video-nav">
                 <div class="ui secondary vertical pointing menu">
+                    <?php
+                        //Require engine PHP page
+                        require '../common/php/engine.php';
+                        //DB usage
+                        $connection = null;
+                        
+                        connect($connection);
+                        
+                        $result = mysqli_query($connection, "SELECT Titolo,VideoID FROM video;");
+                        if ($result == FALSE) { die(mysqli_error($connection));}
+                        
+                        if (mysqli_num_rows($result)) {
+                            while ($row = mysqli_fetch_array($result)) {
+                                ?>
+                                <a class="item" href="index.php?v=<?php echo $row["VideoID"];?>">
+                                    <?php echo $row["Titolo"];?>
+                                </a>
+                                <?php
+                            }
+                        }
+                    ?>
                 </div>
             </div>
             <div class="video-content">
-                <div data-type="youtube" data-video-id="fWuqQkdlC58"></div>
+                <div data-type="youtube" data-video-id="<?php echo filter_input(INPUT_GET, "v")?>"></div>
             </div>
         </div>
         <script>plyr.setup();</script>
