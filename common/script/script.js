@@ -52,6 +52,8 @@ $(document).ready(function() {
                     }
                     else
                         console.error("[NEWSLETTER]: "+data.message);
+                }, error: function (jqXHR,status,error) {
+                    console.error("[NEWSLETTER]: "+error);
                 }
             });
         }
