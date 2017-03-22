@@ -1,11 +1,29 @@
 <html>
 <head>
     <style>
-        footer{
-            margin-top: 10em!important;
+        .bounce {
+            -moz-animation: bounce 2s infinite;
+            -webkit-animation: bounce 2s infinite;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                -moz-transform: translateY(0);
+                -ms-transform: translateY(0);
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+            50% {
+                -moz-transform: translateY(-5px);
+                -ms-transform: translateY(-5px);
+                -webkit-transform: translateY(-5px);
+                transform: translateY(-5px);
+            }
+        }
+        footer{ 
             border-top: 1px solid rgba(34,36,38,.15)!important;
             width: 100%;
-            v-shadow: 10px 10px 5px #888888;
+            margin-top: 50px;
         }
         .font-color{
             color: white!important;
@@ -75,8 +93,17 @@
             margin: 0 auto;
             position: relative;
             margin-top: -20px;
-            z-index: 100;
+            z-index: 1;
             cursor: pointer;
+        }
+        
+        /*sticky footer*/
+        .contenuto{
+            min-height: calc(100vh - 100px)!important;
+          }
+        .footer
+        {
+            height: 50px!important;
         }
     </style> 
     <script>
@@ -89,12 +116,11 @@
             });
             
     </script>
-</head>
-    <body> 
-        <footer class="arrow_box">
-            <img alt="arrow" id="scroll-top" class="arrow" src="/common/image/arrow-up-black.png"/>
+</head> 
+        <footer class="arrow_box footer">
+            <img alt="arrow" id="scroll-top" class="arrow bounce" src="/common/image/arrow-up-black.png"/>
             <div class="responsive " id="scroll-top" >
-                 <img  src="/common/image/icon-medium.png" class="logo" alt="icon"/> 
+                 <img src="/common/image/icon-medium.png" class="logo" alt="icon"/> 
             </div>
             <div class="ui vertical footer segment">
                 <div class="ui center aligned container" >         
@@ -108,5 +134,4 @@
                 </div>
             </div>
         </footer>
-    </body>
 </html>
