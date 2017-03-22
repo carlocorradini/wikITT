@@ -1,0 +1,306 @@
+
+/*Newsletter*/
+.coming-soon .form {
+    max-width: 600px;
+    margin: 40px auto 10px auto;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    padding: 40px;
+    background: rgba(19, 35, 47, 0.9);
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+    -webkit-box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+    -moz-box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+.coming-soon #newsletter-success { display: none;}
+
+/*Title*/
+.coming-soon #newsletter h1 {
+    font-size: 2.5em;
+    line-height: 1.5em;
+    letter-spacing: -0.05em;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    color: #ffffff;
+}
+.coming-soon #newsletter h1:before,
+.coming-soon #newsletter h1:after {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    height: 1px;
+    vertical-align: middle;
+    background: #ffffff;
+}
+.coming-soon #newsletter h1:before {
+    left: -.5em;
+    margin: 0 0 0 -50%;
+}
+.coming-soon #newsletter h1:after {
+    left: .5em;
+    margin: 0 -50% 0 0;
+}
+.coming-soon #newsletter p {
+    color: #ffffff;
+    font-size: 1.4em;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/*Input*/
+.coming-soon .form input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    font-size: 22px;
+    background: none;
+    background-image: none;
+    border: 1px solid #1ab188;
+    color: #ffffff;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    transition: border-color .25s ease, box-shadow .25s ease;
+    -webkit-transition: border-color .25s ease, box-shadow .25s ease;
+    -moz-transition: border-color .25s ease, box-shadow .25s ease;
+    -o-transition: border-color .25s ease, box-shadow .25s ease;
+}
+.coming-soon .form input.error {
+    border: 1px solid #ff0033;
+}
+.coming-soon .form input:focus {
+    outline: 0;
+    border-color: #85b7d9;
+}
+
+/*Label*/
+.coming-soon .form label {
+    position: absolute;
+    left: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    transform: translateY(6px);
+    -webkit-transform: translateY(5px);
+    -moz-transform: translateY(5px);
+    -o-transform: translateY(5px);
+    -ms-transform: translateY(5px);
+    transition: all 0.25s ease;
+    -webkit-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    pointer-events: none;
+    font-size: 22px;
+}
+.coming-soon .form label .req {
+    margin: 2px;
+    color: #1ab188;
+}
+.coming-soon .form label.active {
+    transform: translateY(50px);
+    -webkit-transform: translateY(50px);
+    -moz-transform: translateY(50px);
+    -o-transform: translateY(50px);
+    -ms-transform: translateY(50px);
+    left: 2px;
+    font-size: 14px;
+}
+.coming-soon .form label.active req {
+    opacity: 0;
+}
+.coming-soon .form label.highlight {
+    color: #ffffff;
+}
+
+/*Field wrapper*/
+.coming-soon .form .field-wrap {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+/*Button*/
+.coming-soon .form .progress-btn {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 60px;
+    border: 0;
+    outline: none;
+    border-radius: 0;
+    padding: 15px 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    background: #1ab188;
+    color: #ffffff;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+.coming-soon .form .progress-btn:hover,
+.coming-soon .form .progress-btn:focus {
+    background: #179b77;
+}
+.coming-soon .form .progress-btn:not(.active) {
+    cursor: pointer;
+}
+.coming-soon .form .progress-btn .btn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 60px;
+    text-align: center;
+    z-index: 2;
+    opacity: 1;
+}
+.coming-soon .form .progress-btn .progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    width: 0%;
+    z-index: 1;
+    background: #00664a;
+    opacity: 0;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+.coming-soon .form .progress-btn[data-progress-style='fill-bottom'].active .progress {
+    height: 5px;
+}
+
+.coming-soon .form .progress-btn.active .progress {
+    opacity: 1;
+    animation: progress-anim 1.5s ease-in;
+    -webkit-animation: progress-anim 1.5s ease-in;
+    -moz-animation: progress-anim 1.5s ease-in;
+    -o-animation: progress-anim 1.5s ease-in;
+    /*Fill Mode*/
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+}
+@keyframes progress-anim {
+    0%   { width: 0%;}
+    5%   { width: 0%;}
+    10%  { width: 15%;}
+    30%  { width: 40%;}
+    50%  { width: 55%;}
+    80%  { width: 70%;}
+    100%  { width: 100%;}
+}
+@-webkit-keyframes progress-anim {
+    0%   { width: 0%;}
+    5%   { width: 0%;}
+    10%  { width: 15%;}
+    30%  { width: 40%;}
+    50%  { width: 55%;}
+    80%  { width: 70%;}
+    100%  { width: 100%;}
+}
+@-moz-keyframes progress-anim {
+    0%   { width: 0%;}
+    5%   { width: 0%;}
+    10%  { width: 15%;}
+    30%  { width: 40%;}
+    50%  { width: 55%;}
+    80%  { width: 70%;}
+    100%  { width: 100%;}
+}
+@-o-keyframes progress-anim {
+    0%   { width: 0%;}
+    5%   { width: 0%;}
+    10%  { width: 15%;}
+    30%  { width: 40%;}
+    50%  { width: 55%;}
+    80%  { width: 70%;}
+    100%  { width: 100%;}
+}
+
+/*Success Message*/
+/*Structure*/
+#newsletter-success .notify {
+    display: block;
+    background: #fff;
+    padding: 12px 18px;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px;
+}
+#newsletter-success .notify .alerticon { 
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+/*Typography*/
+#newsletter-success .notify h1 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 2.5em;
+    line-height: 1.5em;
+    letter-spacing: -0.05em;
+    margin-bottom: 20px;
+    padding: .1em 0;
+    color: #444;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    margin-bottom: 6px;
+    color: #678361;
+}
+#newsletter-success .notify h1:before,
+#newsletter-success .notify h1:after {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    height: 1px;
+    vertical-align: middle;
+    background: #cad8a9;
+}
+#newsletter-success .notify h1:before {
+    left: -.5em;
+    margin: 0 0 0 -50%;
+}
+#newsletter-success .notify h1:after {
+    left: .5em;
+    margin: 0 -50% 0 0;
+}
+#newsletter-success .notify h1 > span {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+}
+#newsletter-success .notify p {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+    font-size: 1.4em;
+}
