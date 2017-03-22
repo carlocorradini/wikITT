@@ -1,38 +1,32 @@
 
 <?php
     //DB Access
-    $dbAddress = "localhost";
-    $dbPort = 5432;
-    $dbName = "TODO";
-    $dbUsername = "postgres";
-    $dbPassword = "password";
+    $dbAddress = "localhost:3306";
+    $dbUsername = "root";
+    $dbPassword = "";
+    $dbName = "wikitt";
     
-    //Connection
     function connect(&$connection) {
-        global $dbAddress,$dbPort,$dbName,$dbUsername,$dbPassword;
-        $connectionString = "host=".$dbAddress.
-                            " port=".$dbPort.
-                            " dbName=".$dbName.
-                            " user=".$dbUsername.
-                            " password=".$dbPassword;
-        $connection = pg_connect($connectionString);
+        global $dbAddress,$dbUsername,$dbPassword,$dbName;
+        $connection = mysqli_connect($dbAddress,$dbUsername,$dbPassword,$dbName);
         if(!$connection) {
-            die("Failed to connect to PostgreSQL: ".pg_last_error($connection));
+            mysqli_close();
+            die("Failed to connect to MySQL: " + mysqli_connect_error());
         }
     }
-    
-    //Authentication
+    /*Authentication*/
     function authentication_param($username, $password) {
         global $connection;
         $toRtn = false;
-        $result = pg_query($connection, "SELECT Username,Password FROM TODO WHERE"
-                            ." Username='$username' AND Password='$password'");
-        if(!$result) {
-            die("Error executing query: ".pg_errormessage($connection));
+        $result = mysqli_query($connection, "SELECT Username,Password FROM login WHERE"
+                ." Username='$username' and Password='$password'");
+        if($result === FALSE) {
+            die(mysqli_error());
         }
-        if(pg_num_rows($result) == 1) {
+        if(mysqli_num_rows($result) == 1) {
             $toRtn = true;
         }
+        return $toRtn;
     }
     function authentication_session() {
         $toRtn = false;
@@ -51,3 +45,4 @@
             return $_SESSION["credentials"]["password"];
         }
     }
+    /*END Authentication*/
