@@ -38,7 +38,7 @@ $connection=null;
 connect($connection);
 // Escape user inputs for security
 $term = mysqli_real_escape_string($connection, $_REQUEST['q']);
-$ris = mysqli_query($connection, "SELECT v.titolo as titoloVideo, m.nome as nomeMateria, v.link FROM video v,materia m WHERE v.CodMateria = m.Cod AND v.Titolo LIKE '$term%' LIMIT 3");
+$ris = mysqli_query($connection, "SELECT v.titolo as titoloVideo, m.nome as nomeMateria, v.VideoID as link FROM video v,materia m WHERE v.CodMateria = m.Cod AND v.Titolo LIKE '$term%' LIMIT 3");
 
   
 
@@ -50,7 +50,7 @@ if(mysqli_num_rows($ris) > 0){
             $stringa = ucfirst($row['titoloVideo']);
             $term = ucfirst(strtolower($term));
             $completamento = str_replace($term, "", $stringa);
-            echo "<li><a href=".$row['link'].">".$term."<b>".strtolower($completamento)."</b><i style='font-size: 13px;'> - ".$row['nomeMateria']."</i></a></li>";
+            echo "<li><a href=https://www.youtube.com/watch?v=".$row['link'].">".$term."<b>".strtolower($completamento)."</b><i style='font-size: 13px;'> - ".$row['nomeMateria']."</i></a></li>";
         }
     echo "</ul>";
     // Close result set
