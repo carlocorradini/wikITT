@@ -1,10 +1,10 @@
 
 <?php
     //DB Access
-    $dbAddress = "localhost";
-    $dbUsername = "root";
-    $dbPassword = "";
-    $dbName = "wikitt";
+    $dbAddress = "mysql.stackcp.com:21274";
+    $dbUsername = "perenzoni98";
+    $dbPassword = "1234password";
+    $dbName = "wikitt-355d4a";
 
     function connect(&$connection) {
         global $dbAddress,$dbUsername,$dbPassword,$dbName;

@@ -1,4 +1,6 @@
+<?php
 
+?>
 <style>
     .suggestion li {
       background:white;
@@ -30,13 +32,16 @@
 
 
 </style>
-<?php
-include '../php/engine.php';
-$connection;
+<?php 
+require '../php/engine.php';
+$connection=null;
 connect($connection);
 // Escape user inputs for security
 $term = mysqli_real_escape_string($connection, $_REQUEST['q']);
-$ris = mysqli_query($connection, "SELECT v.titolo as titoloVideo, m.nome nomeMateria, v.link FROM video v,materia m WHERE v.codMateria = m.Cod AND v.titolo LIKE '$term%' LIMIT 3");
+$ris = mysqli_query($connection, "SELECT v.titolo as titoloVideo, m.nome as nomeMateria, v.link FROM video v,materia m WHERE v.CodMateria = m.Cod AND v.Titolo LIKE '$term%' LIMIT 3");
+
+  
+
 if(mysqli_num_rows($ris) > 0){
 
     echo "<ul class='suggestion'>";
