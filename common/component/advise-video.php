@@ -1,18 +1,9 @@
 <?php
-function connessione(){
-    global $connetti;
-    $dbHost = "localhost";
-    $dbName = "wikitt";
-    $dbUser = "root";
-    //$dbPass = "1234";
-    
-    $connetti = mysqli_connect($dbHost, $dbUser);
-    if(!$connetti){
-        die('connessione fallita: '. mysqli_error());
-    }
-    mysqli_select_db( $connetti, $dbName);
+require '../php/engine.php';
 
-}
+$connection=null;
+
+connect($connection);
 /*
 function randomGen($min, $max, $quantity) {
     $numbers = range($min, $max);
@@ -39,12 +30,12 @@ function randomGen($min, $max, $quantity) {
 <div class="ui stackable four column grid" id="contenitore-4"> 
     <?php
         //connessione database
-        connessione();
+        connect($connection);
         //variabili per stampa card 
         $nVideoDB = 0;
         $nVideo = 8; 
-        $risCount = mysqli_query($connetti, "SELECT COUNT(*) AS 'numeroVideo' FROM wikitt.video") or die (mysqli_error($connetti));
-        $risRand = mysqli_query($connetti, "SELECT DISTINCT m.nome as materia, v.titolo as titoloVideo, v.descrizione as descrizioneVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, v.pathMiniatura FROM video v, materia m, autore a, realizza r WHERE v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY RAND() LIMIT 8 ") or die (mysqli_error($connetti));      
+        $risCount = mysqli_query($connection, "SELECT COUNT(*) AS 'numeroVideo' FROM video") or die (mysqli_error($connection));
+        $risRand = mysqli_query($connection, "SELECT DISTINCT m.nome as materia, v.titolo as titoloVideo, v.descrizione as descrizioneVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, v.pathMiniatura FROM video v, materia m, autore a, realizza r WHERE v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY RAND() LIMIT 8 ") or die (mysqli_error($connetti));      
         if(mysqli_num_rows($risRand) > 0){
                 while($row=mysqli_fetch_array($risRand)){       
                 ?>

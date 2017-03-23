@@ -1,20 +1,10 @@
 
 <?php
+require '../php/engine.php';
 
-function connessione(){
-    global $connetti;
-    $dbHost = "localhost";
-    $dbName = "wikitt";
-    $dbUser = "root";
-    //$dbPass = "1234";
-    
-    $connetti = mysqli_connect($dbHost, $dbUser);
-    if(!$connetti){
-        die('connessione fallita: '. mysqli_error());
-    }
-    mysqli_select_db( $connetti, $dbName);
+$connection=null;
 
-}
+connect($connection);
 ?>
 <script>
     function showResult(str) {
@@ -71,10 +61,10 @@ function connessione(){
     
 </style>
 <?php 
-connessione();
+connect($connection);
 // Escape user inputs for security
-$term = mysqli_real_escape_string($connetti, $_REQUEST['q']);
-$ris = mysqli_query($connetti, "SELECT v.titolo as titoloVideo, m.nome nomeMateria, v.link FROM video v,materia m WHERE v.codMateria = m.Cod AND v.titolo LIKE '$term%' LIMIT 3");
+$term = mysqli_real_escape_string($connection, $_REQUEST['q']);
+$ris = mysqli_query($connection, "SELECT v.titolo as titoloVideo, m.nome as nomeMateria, v.link FROM video v,materia m WHERE v.CodMateria = m.Cod AND v.Titolo LIKE '$term%' LIMIT 3");
 if(mysqli_num_rows($ris) > 0){
         
     echo "<ul class='suggestion'>";
