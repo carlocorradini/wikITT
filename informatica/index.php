@@ -40,6 +40,7 @@
             .video-nav {
                 position: absolute;
                 width: 20%;
+                padding-right: 0.5em;
             }
             .video-nav .ui.vertical.menu {
                 width: 100%;
@@ -48,12 +49,18 @@
                 position: absolute;
                 width: 80%;
                 right: 0;
+                padding-left: 0.5em;
             }
             @media screen and (max-width: 1000px) {
                 .video-nav,
                 .video-content {
-                    padding-left: 0.25em;
+                    padding: 0.5em;
+                }
+                .video-nav {
                     padding-right: 0.25em;
+                }
+                .video-content {
+                    padding-left: 0.25em;
                 }
             }
             @media screen and (max-width: 700px) {
@@ -76,13 +83,14 @@
             });
             function search(query) {
                 var items = $(".video-nav").find(".item:not(.item:first)");
+                var showNoFound = false;
+                
                 $(items).each(function(index, item) {
                     var iVal = $(item).text().toUpperCase();
-                    if(iVal.indexOf(query) > -1) {
+                    if(iVal.indexOf(query) > -1)
                         $(item).fadeIn("fast");
-                    } else {
+                    else
                         $(item).fadeOut("fast");
-                    }
                 });
             }
         </script>
