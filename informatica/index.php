@@ -94,24 +94,19 @@
             });
             function search(query) {
                 var items = $(".video-nav").find(".item:not(.item:first)");
-                var showNoFound = false;
-                var ctr = 0;
+                var showNoFound = true;
                 $(items).each(function(index, item) {
                     var iVal = $(item).text().toUpperCase();
                     if (!$(this).is("#msg")) {
                         if(iVal.indexOf(query) > -1) {
-                            ctr++;
+                            showNoFound = false;
                             $(item).fadeIn("fast");
                         } else
                             $(item).fadeOut("fast");
                     }
-                    if (ctr > 0)
-                        showNoFound = false;
-                    else
-                        showNoFound = true;
                 });
                 if (showNoFound) {
-                    $("#msg").fadeIn("fast");
+                    $("#msg").delay(100).fadeIn("fast");
                 } else {
                     $("#msg").hide();
                 }
