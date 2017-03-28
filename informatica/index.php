@@ -31,37 +31,54 @@
         <style>
             .video-nav,
             .video-content {
+                position: relative;
                 padding: 1em;
+                min-height: 1px;
+                float: left;
                 transition: padding 0.5s;
                 -webkit-transition: padding 0.5s;
                 -moz-transition: padding 0.5s;
             }
             
+            /*Video Navigation*/
             .video-nav {
-                position: absolute;
                 width: 20%;
+                right: 80%;
+                padding-right: 0.5em;
             }
             .video-nav .ui.vertical.menu {
                 width: 100%;
             }
+            /*Video Container*/
             .video-content {
-                position: absolute;
                 width: 80%;
-                right: 0;
+                left: 20%;
+                padding-left: 0.5em;
             }
             @media screen and (max-width: 1000px) {
                 .video-nav,
                 .video-content {
-                    padding-left: 0.25em;
+                    padding: 0.5em;
+                }
+                .video-nav {
                     padding-right: 0.25em;
+                }
+                .video-content {
+                    padding-left: 0.25em;
                 }
             }
             @media screen and (max-width: 700px) {
+                .video-nav,
+                .video-content {
+                    padding: 0.25em;
+                }
                 .video-nav {
-                    display: none;
+                    width: 40%;
+                    right: 0;
                 }
                 .video-content {
                     width: 100%;
+                    left: 0;
                 }
             }
         </style>
@@ -76,18 +93,38 @@
             });
             function search(query) {
                 var items = $(".video-nav").find(".item:not(.item:first)");
+                var showNoFound = false;
+                
                 $(items).each(function(index, item) {
                     var iVal = $(item).text().toUpperCase();
-                    if(iVal.indexOf(query) > -1) {
+                    if(iVal.indexOf(query) > -1)
                         $(item).fadeIn("fast");
-                    } else {
+                    else
                         $(item).fadeOut("fast");
-                    }
                 });
             }
         </script>
+        
+        <?php 
+            //Require engine PHP page
+            require '../common/php/engine.php';
+            //Vide ID
+            $vID = filter_input(INPUT_GET, "v");
+        ?>
+        
         <div class="contenuto">
             <!--#include virtual="/common/component/header.html" -->
+            <div class="video-content">
+                <?php 
+                    if(!isset($vID) || $vID === "") {?>
+                        <img src="http://www.progettotorino.it/wp-content/uploads/2016/05/ICT-graphic.jpg" alt="informatica" style="width: 100%; height: 100%;"/>
+                    <?php } else {?>
+                        <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
+                    <?php }
+                    $videoTitle = query("SELECT Titolo FROM video WHERE VideoID='$vID' LIMIT 1");
+                    echo "<h1>".mysqli_fetch_array($videoTitle)["Titolo"]."</h1>";
+                    ?>
+            </div>
             <div class="video-nav">
                 <div class="ui vertical pointing menu">
                     <div class="item">
@@ -96,11 +133,6 @@
                         </div>
                     </div>
                     <?php
-                        //Require engine PHP page
-                        require '../common/php/engine.php';
-                        //Vide ID
-                        $vID = filter_input(INPUT_GET, "v");
-                        
                         $result = query("SELECT Titolo,VideoID FROM video ORDER BY Titolo;");
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_array($result)) {?>
@@ -109,15 +141,9 @@
                                     <?php echo $row["Titolo"];?>
                                 </a>
                             <?php }
-                        }?>
+                        }
+                    ?>
                 </div>
-            </div>
-            <div class="video-content">
-                <?php if(!isset($vID) || $vID === "") {?>
-                <img src="http://www.progettotorino.it/wp-content/uploads/2016/05/ICT-graphic.jpg" alt="informatica" style="width: 100%; height: 100%;"/>
-                <?php } else {?>
-                <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
-                <?php }?>
             </div>
         </div>
         <script>plyr.setup();</script>
