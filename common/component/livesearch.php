@@ -71,26 +71,27 @@ function connessione(){
     
 </style>
 <?php 
-connessione();
-// Escape user inputs for security
-$term = mysqli_real_escape_string($connetti, $_REQUEST['q']);
-$ris = mysqli_query($connetti, "SELECT v.titolo as titoloVideo, m.nome nomeMateria, v.link FROM video v,materia m WHERE v.codMateria = m.Cod AND v.titolo LIKE '$term%' LIMIT 3");
-if(mysqli_num_rows($ris) > 0){
-        
-    echo "<ul class='suggestion'>";
-        while($row = mysqli_fetch_array($ris)){
-            //HTML_ENTITY_DECODE()
-            $stringa = ucfirst($row['titoloVideo']);
-            $term = ucfirst(strtolower($term));
-            $completamento = str_replace($term, "", $stringa);
-            echo "<li><a href=".$row['link'].">".$term."<b>".strtolower($completamento)."</b><i style='font-size: 13px;'> - ".$row['nomeMateria']."</i></a></li>";
-        }
-    echo "</ul>";
-    // Close result set
-    mysqli_free_result($ris);
-    }else{
-        echo "<ul class='suggestion'>";
+    connessione();
+    // Escape user inputs for security
+    $term = mysqli_real_escape_string($connetti, $_REQUEST['q']);
+    $ris = mysqli_query($connetti, "SELECT v.titolo as titoloVideo, m.nome nomeMateria, v.link FROM video v,materia m WHERE v.codMateria = m.Cod AND v.titolo LIKE '$term%' LIMIT 3");
+    if ($ris) {
+        if(mysqli_num_rows($ris) > 0) {
+            echo "<ul class='suggestion'>";
+                while($row = mysqli_fetch_array($ris)){
+                    //HTML_ENTITY_DECODE()
+                    $stringa = ucfirst($row['titoloVideo']);
+                    $term = ucfirst(strtolower($term));
+                    $completamento = str_replace($term, "", $stringa);
+                    echo "<li><a href=".$row['link'].">".$term."<b>".strtolower($completamento)."</b><i style='font-size: 13px;'> - ".$row['nomeMateria']."</i></a></li>";
+                }
+            echo "</ul>";
+            // Close result set
+            mysqli_free_result($ris);
+        } else {
+            echo "<ul class='suggestion'>";
             echo "<li><a>Nessun risultato trovato</a></li>";
-        echo "</ul>";
+            echo "</ul>";
+        }
     }
 ?>
