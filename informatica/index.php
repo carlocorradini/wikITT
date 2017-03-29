@@ -117,7 +117,29 @@
             <div class="video-content">
                 <?php 
                     if(!isset($vID) || $vID === "") {?>
-                        <img src="http://www.progettotorino.it/wp-content/uploads/2016/05/ICT-graphic.jpg" alt="informatica" style="width: 100%; height: 100%;"/>
+                
+                
+                
+                <div class="ui small breadcrumb">
+                    <a class="section" href="../index.html">Home</a>
+                    <div class="divider"> / </div>
+                    <div class="active section">Informatica</div>
+                </div>
+
+                <div class="ui horizontal divider">
+                    Informatica
+                </div>
+                <div class="ui centered">
+                    Benvenuto alla pagina di presentazione di informatica!
+                </div>
+                <div class="ui horizontal divider">
+                    <i class="code icon"></i>
+                </div>
+                
+                
+                
+                
+                
                     <?php } else {?>
                         <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
                     <?php }
