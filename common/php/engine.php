@@ -1,11 +1,14 @@
 
 <?php
     //DB Access
-    $dbAddress = "82.61.133.39:3306";
-    $dbUsername = "root";
-    $dbPassword = "password";
-    $dbName = "wikitt";
+    $dbAddress = "mysql.stackcp.com:21257";
+    $dbUsername = "wikitt-355d4a";
+    $dbPassword = "1234password";
+    $dbName = "wikitt-355d4a";
+    //DB Usage
+    connect($connection);
     
+    /*Connection*/
     function connect(&$connection) {
         global $dbAddress,$dbUsername,$dbPassword,$dbName;
         $connection = mysqli_connect($dbAddress,$dbUsername,$dbPassword,$dbName);
@@ -14,35 +17,16 @@
             die("Failed to connect to MySQL: " + mysqli_connect_error());
         }
     }
-    /*Authentication*/
-    function authentication_param($username, $password) {
+    /*Close Connection*/
+    function connection_close() {
         global $connection;
-        $toRtn = false;
-        $result = mysqli_query($connection, "SELECT Username,Password FROM login WHERE"
-                ." Username='$username' and Password='$password'");
-        if($result === FALSE) {
-            die(mysqli_error());
-        }
-        if(mysqli_num_rows($result) == 1) {
-            $toRtn = true;
-        }
-        return $toRtn;
+        mysqli_close($connection);
     }
-    function authentication_session() {
-        $toRtn = false;
-        if(isset($_SESSION["credentials"])) {
-            $toRtn = authentication_param(getUsername(), getPassword());
-        }
-        return $toRtn;
+    /*Query Execution*/
+    function query($query) {
+        global $connection;
+        $result = mysqli_query($connection, $query);
+        if ($result === FALSE) { die(mysqli_error($connection));}
+        else { return $result;}
     }
-    function getUsername() {
-        if(isset($_SESSION["credentials"])) {
-            return $_SESSION["credentials"]["username"];
-        }
-    }
-    function getPassword() {
-        if(isset($_SESSION["credentials"])) {
-            return $_SESSION["credentials"]["password"];
-        }
-    }
-    /*END Authentication*/
+    
