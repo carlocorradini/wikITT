@@ -145,7 +145,7 @@
                   document.getElementById("livesearch").innerHTML=this.responseText;
                   document.getElementById("livesearch").style.display = "block"; 
                 }
-              }
+              };
               xmlhttp.open("POST","/common/component/livesearch.php?q="+str,true);
               xmlhttp.send();
               
@@ -181,7 +181,7 @@
                 <div class="ui stackable three column grid">
                     <div class="column hvr-grow">
                         <div class="ui segment">
-                            <a href="/informatica/index.html">
+                            <a href="/informatica/index.php">
                                 <div class="ui blue ribbon label">Informatica</div>
                                 <img class="ui fluid image" src="/common/image/subjects/it.png" alt="informatica"/>
                             </a>
