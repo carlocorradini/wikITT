@@ -8,18 +8,17 @@
         "status" => null,
         "message" => null
     );
-    //DB usage
-    $connection = null;
     //Email
     $email = filter_input(INPUT_GET, "email");
     
     if(isset($email)) {
         if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            connect($connection);
-            $result = mysqli_query($connection, "INSERT INTO newsletter(Email) VALUES ('$email');");
-            if ($result === FALSE) { die(mysqli_error($connection));}
-            setResponse(TRUE, "Email inserted correctly!");
-            mysqli_close($connection);
+            $result = query("SELECT Email FROM newsletter WHERE Email='$email' LIMIT 1;");
+            if(mysqli_num_rows($result) === 0) {
+                $result = query("INSERT INTO newsletter(Email) VALUES ('$email');");
+                setResponse(TRUE, "Email inserted correctly!");
+            } else { setResponse(TRUE, "Email Address already registered!");}
+            connection_close();
         } else { setResponse(FALSE, "Email Address in invalid format!");}
     } else { setResponse(FALSE, "Email is not set!");}
     
