@@ -8,7 +8,7 @@
 
     //DB Usage
     connect($connection);
-    
+
     /*Connection*/
     function connect(&$connection) {
         global $dbAddress, $dbUsername, $dbPassword, $dbName;
@@ -30,4 +30,3 @@
         if ($result === FALSE) { die(mysqli_error($connection));}
         else { return $result;}
     }
-    
