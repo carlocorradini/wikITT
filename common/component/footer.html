@@ -1,137 +1,132 @@
-<html>
-<head>
-    <style>
-        .bounce {
-            -moz-animation: bounce 2s infinite;
-            -webkit-animation: bounce 2s infinite;
-            animation: bounce 2s infinite;
+
+<style>
+    .bounce {
+        -moz-animation: bounce 2s infinite;
+        -webkit-animation: bounce 2s infinite;
+        animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+        0%, 100% {
+            -moz-transform: translateY(0);
+            -ms-transform: translateY(0);
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
         }
-        @keyframes bounce {
-            0%, 100% {
-                -moz-transform: translateY(0);
-                -ms-transform: translateY(0);
-                -webkit-transform: translateY(0);
-                transform: translateY(0);
-            }
-            50% {
-                -moz-transform: translateY(-5px);
-                -ms-transform: translateY(-5px);
-                -webkit-transform: translateY(-5px);
-                transform: translateY(-5px);
-            }
+        50% {
+            -moz-transform: translateY(-5px);
+            -ms-transform: translateY(-5px);
+            -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
         }
-        footer{ 
-            border-top: 1px solid rgba(34,36,38,.15)!important;
-            width: 100%;
-            margin-top: 50px;
-        }
-        .font-color{
-            color: white!important;
-            color: black!important;
-        }
+    }
+    footer{ 
+        border-top: 1px solid rgba(34,36,38,.15)!important;
+        width: 100%;
+        margin-top: 50px;
+    }
+    .font-color{
+        color: white!important;
+        color: black!important;
+    }
+    .responsive {
+        width: 20%;
+        margin-left: auto!important;
+        margin-right: auto!important;
+
+    }
+    @media only screen and (max-width: 700px){
         .responsive {
-            width: 20%;
-            margin-left: auto!important;
-            margin-right: auto!important;
-            
+            width: 49.99999%;
+            margin: auto;
         }
-        @media only screen and (max-width: 700px){
-            .responsive {
-                width: 49.99999%;
-                margin: auto;
-            }
+    }
+    @media only screen and (max-width: 500px){
+        .responsive {
+            width: 100%;
+            margin: auto;
         }
-        @media only screen and (max-width: 500px){
-            .responsive {
-                width: 100%;
-                margin: auto;
-            }
-        }
-        .logo{
-           width: 40%;
-           margin-left: auto;
-           margin-right: auto;
-           display: block;
-        }
-        .torna-index{
-            width: 10px!important;
-            margin: auto!important;
-            display: block;
-            margin-bottom: 10px;
-            display: block;
-            position: absolute;
-            left: 50%;  
-        }
-        .arrow_box {
-            position: relative;
-            border-top: 1px solid #cccccc;
-        }
-        .arrow_box:after, .arrow_box:before {
-            bottom: 100%;
-            left: 50%;
-            border: solid transparent;
-            content: " ";
-            height: 0px;
-            width: 0px;
-            position: absolute;
-            pointer-events: none;
-        }
-        .arrow_box:after {
-            border-color: rgba(255, 255, 255, 0);
-            border-bottom-color: #ffffff;
-            border-width: 25px;
-            margin-left: -25px;
-        }
-        .arrow_box:before {
-            border-color: rgba(204, 204, 204, 0);
-            border-bottom-color: #cccccc;
-            border-width: 26px;
-            margin-left: -26px;
-        }
-        .arrow {
-            display: block;
-            margin: 0 auto;
-            position: relative;
-            margin-top: -20px;
-            z-index: 1;
-            cursor: pointer;
-        }
-        
-        /*sticky footer*/
-        .contenuto{
-            min-height: calc(100vh - 100px)!important;
-          }
-        .footer
-        {
-            height: 50px!important;
-        }
-    </style> 
-    <script>
-            $(document).ready(function (){
-                $("#scroll-top").click(function() {
-                    $('html,body').animate({
-                    scrollTop: $(".header").offset().top},
-                    'slow');
-                });
-            });
-            
-    </script>
-</head> 
-        <footer class="arrow_box footer">
-            <img alt="arrow" id="scroll-top" class="arrow bounce" src="/common/image/arrow-up-black.png"/>
-            <div class="responsive " id="scroll-top" >
-                 <img src="/common/image/icon-large.png" class="logo" alt="icon"/> 
+    }
+    .logo{
+       width: 40%;
+       margin-left: auto;
+       margin-right: auto;
+       display: block;
+    }
+    .torna-index{
+        width: 10px!important;
+        margin: auto!important;
+        display: block;
+        margin-bottom: 10px;
+        display: block;
+        position: absolute;
+        left: 50%;  
+    }
+    .arrow_box {
+        position: relative;
+        border-top: 1px solid #cccccc;
+    }
+    .arrow_box:after, .arrow_box:before {
+        bottom: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0px;
+        width: 0px;
+        position: absolute;
+        pointer-events: none;
+    }
+    .arrow_box:after {
+        border-color: rgba(255, 255, 255, 0);
+        border-bottom-color: #ffffff;
+        border-width: 25px;
+        margin-left: -25px;
+    }
+    .arrow_box:before {
+        border-color: rgba(204, 204, 204, 0);
+        border-bottom-color: #cccccc;
+        border-width: 26px;
+        margin-left: -26px;
+    }
+    .arrow {
+        display: block;
+        margin: 0 auto;
+        position: relative;
+        margin-top: -20px;
+        z-index: 1;
+        cursor: pointer;
+    }
+
+    /*sticky footer*/
+    .contenuto{
+        min-height: calc(100vh - 100px)!important;
+     }
+    .footer {
+        height: 50px!important;
+    }
+</style> 
+<script>
+    $(document).ready(function (){
+        $("#scroll-top").click(function() {
+            $('html,body').animate({
+            scrollTop: $(".header").offset().top},
+            'slow');
+        });
+    });
+</script>
+<footer class="arrow_box footer">
+    <img alt="arrow" id="scroll-top" class="arrow bounce" src="/common/image/arrow-up-black.png" alt="Go up"/>
+    <div class="responsive " id="scroll-top" >
+         <img src="/common/image/icon-large.png" class="logo" alt="icon"/> 
+    </div>
+    <div class="ui vertical footer segment">
+        <div class="ui center aligned container" >         
+            <div class="ui horizontal small divided link list">
+                <p class="item font-color">© 2017 wikITT</p> 
+                <a href="/terms-and-conditions/index.html" class="item font-color">Terms and conditions</a>
+                <a href="/about/index.html" class="item font-color">About Us</a>
+                <a href="#" class="item font-color">Sitemap</a>
+                <a href="/supporto/index.html" class="item font-color">Supporto</a>
             </div>
-            <div class="ui vertical footer segment">
-                <div class="ui center aligned container" >         
-                    <div class="ui horizontal small divided link list">
-                        <p class="item font-color">© 2017 wikITT</p> 
-                        <a href="/terms-and-conditions/index.html" class="item font-color">Terms and conditions</a>
-                        <a href="/info/index.html" class="item font-color">About Us</a>
-                        <a href="#" class="item font-color">Sitemap</a>
-                        <a href="#" class="item font-color">Support</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-</html>
+        </div>
+    </div>
+</footer>
