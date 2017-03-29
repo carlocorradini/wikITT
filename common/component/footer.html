@@ -99,24 +99,22 @@
     /*sticky footer*/
     .contenuto{
         min-height: calc(100vh - 100px)!important;
-      }
-    .footer
-    {
+     }
+    .footer {
         height: 50px!important;
     }
 </style> 
 <script>
-        $(document).ready(function (){
-            $("#scroll-top").click(function() {
-                $('html,body').animate({
-                scrollTop: $(".header").offset().top},
-                'slow');
-            });
+    $(document).ready(function (){
+        $("#scroll-top").click(function() {
+            $('html,body').animate({
+            scrollTop: $(".header").offset().top},
+            'slow');
         });
-
+    });
 </script>
 <footer class="arrow_box footer">
-    <img alt="arrow" id="scroll-top" class="arrow bounce" src="/common/image/arrow-up-black.png"/>
+    <img alt="arrow" id="scroll-top" class="arrow bounce" src="/common/image/arrow-up-black.png" alt="Go up"/>
     <div class="responsive " id="scroll-top" >
          <img src="/common/image/icon-large.png" class="logo" alt="icon"/> 
     </div>
