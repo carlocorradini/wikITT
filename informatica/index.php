@@ -90,18 +90,26 @@
                 $(".video-nav input:first-of-type").on("keyup", function() {
                     search($(this).val().toUpperCase());
                 });
+                $("#msg").hide();
             });
             function search(query) {
                 var items = $(".video-nav").find(".item:not(.item:first)");
-                var showNoFound = false;
-                
+                var showNoFound = true;
                 $(items).each(function(index, item) {
                     var iVal = $(item).text().toUpperCase();
-                    if(iVal.indexOf(query) > -1)
-                        $(item).fadeIn("fast");
-                    else
-                        $(item).fadeOut("fast");
+                    if (!$(this).is("#msg")) {
+                        if(iVal.indexOf(query) > -1) {
+                            showNoFound = false;
+                            $(item).fadeIn("fast");
+                        } else
+                            $(item).fadeOut("fast");
+                    }
                 });
+                if (showNoFound) {
+                    $("#msg").delay(100).fadeIn("fast");
+                } else {
+                    $("#msg").hide();
+                }
             }
         </script>
         
@@ -131,6 +139,9 @@
                         <div class="ui input">
                             <input type="text" placeholder="Cerca...">
                         </div>
+                    </div>
+                    <div class="item" id="msg">
+                        Nessun video trovato
                     </div>
                     <?php
                         $result = query("SELECT Titolo,VideoID FROM video ORDER BY Titolo;");
