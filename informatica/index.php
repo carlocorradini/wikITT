@@ -105,11 +105,10 @@
                             $(item).fadeOut("fast");
                     }
                 });
-                if (showNoFound) {
+                if (showNoFound)
                     $("#msg").delay(100).fadeIn("fast");
-                } else {
+                else
                     $("#msg").hide();
-                }
             }
         </script>
         
@@ -136,8 +135,9 @@
             <div class="video-nav">
                 <div class="ui vertical pointing menu">
                     <div class="item">
-                        <div class="ui input">
+                        <div class="ui transparent icon input">
                             <input type="text" placeholder="Cerca...">
+                            <i class="search icon"></i>
                         </div>
                     </div>
                     <div class="item" id="msg">
