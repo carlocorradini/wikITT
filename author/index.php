@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Chiamala come vuoi te</title>
+        <title>Informazioni autore</title>
         <link rel="icon" href="/common/image/icon.ico" type="image/x-icon">
 
         <!--Frameworks-->
