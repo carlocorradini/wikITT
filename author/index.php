@@ -36,6 +36,9 @@
                 display: block;
                 margin: 3% auto;
             }
+            #tab {
+                margin-top: 45px;
+            }
             #card {
                 width: 225px;
                 display: inline-block;
@@ -53,6 +56,13 @@
                 -webkit-transition-duration: 0.75s;
                 transition-duration: 0.75s;
             }
+            .link {
+                text-decoration: none !important;
+            }
+            .center {
+                display: block;
+                margin: 0 2vh 0 2vh;
+            }
         </style>
     </head>
     <body>
@@ -61,7 +71,7 @@
                 $("#contenitore-4").hide();
                 $("#show-hide").one("click", show);
                 $("#show-hide").hover(function() {
-                    $("#show-hide").css("background-color", "#08A12C");
+                    $("#show-hide").css("background-color", "#009924");
                 }, function() {
                     $("#show-hide").css("background-color", "#21BA45");
                 });
@@ -73,7 +83,7 @@
             }
            
             function hide() {
-                change($(this), "Mostra video", "#21BA45", "#FFF", "#08A12C");
+                change($(this), "Mostra video", "#21BA45", "#FFF", "#009924");
                 $(this).one("click", show);
             }
             
@@ -92,88 +102,119 @@
         </script>
         <div class="contenuto">
             <!--#include virtual="/common/component/header.html" -->
-            <?php
-            require '../common/php/engine.php';
-            $connection = null;
-            connect($connection);
-            $authorID = filter_input(INPUT_GET, "aID");
-            $txtQuery = "SELECT A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod";
-            $query = mysqli_query($connection, $txtQuery);
-            $row = mysqli_fetch_array($query);
-            if ($row > 0) {
-                ?>
-                <div class="ui raised card">
-                    <div class="content">
-                        <div class="header"><?php echo $row['Nome'] . " " . $row['Cognome'] ?></div>
-                        <div class="description"><?php echo $row['Classe'] ?></div>
-                        <div class="meta">
-                            <span class="category">Classe</span>
+            <div class="center" id="tab">
+                <div class="ui stackable three column grid">
+                    <?php
+                    require '../common/php/engine.php';
+                    $connection = null;
+                    connect($connection);
+                    $authorID = filter_input(INPUT_GET, "aID");
+                    if (!isset($authorID)) {
+                        $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso FROM autore A";
+                        $query = mysqli_query($connection, $txtQuery);
+                        while ($row = mysqli_fetch_array($query)) { ?>
+                            <a class="ui raised link card" href="/author/index.php?aID=<?php echo $row['ID'] ?>">
+                                <div class="content">
+                                    <div class="header"><?php echo $row['Nome']." ".$row['Cognome'] ?></div>
+                                    <div class="description"><?php echo $row['Classe'] ?></div>
+                                    <div class="meta">
+                                        <span class="category">Classe</span>
+                                    </div>
+                                    <div class="description"><?php echo $row['AnnoS'] ?></div>
+                                    <div class="meta">
+                                        <span class="category">Anno Scolastico</span>
+                                    </div>
+                                </div>
+                            </a>
+                        <?php 
+                        }
+                    } else { 
+                    ?>
+                </div>
+            </div>
+            <div class="center">
+                <?php
+                    $txtQuery = "SELECT A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod";
+                    $query = mysqli_query($connection, $txtQuery);
+                    $row = mysqli_fetch_array($query);
+                    if ($row > 0) {
+                        ?>
+                        <div class="ui raised card">
+                            <div class="content">
+                                <div class="header"><?php echo $row['Nome']." ".$row['Cognome'] ?></div>
+                                <div class="description"><?php echo $row['Classe'] ?></div>
+                                <div class="meta">
+                                    <span class="category">Classe</span>
+                                </div>
+                                <div class="description"><?php echo $row['AnnoS'] ?></div>
+                                <div class="meta">
+                                    <span class="category">Anno Scolastico</span>
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <div class="left floated author">
+                                    <i class="film icon"></i>
+                                    <?php echo $row['NumVideo']." video" ?>
+                                </div>
+                                <div class="right floated author">
+                                    <?php
+                                    switch ($row['Sesso']) {
+                                        case "M":
+                                            ?> <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/matthew.png"> <?php
+                                            break;
+                                        case "F":
+                                            ?> <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/molly.png"> <?php
+                                            break;
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <butotn class="ui fluid toggle button" id="show-hide">Mostra video</button>
+                            </div>
                         </div>
-                        <div class="description"><?php echo $row['AnnoS'] ?></div>
-                        <div class="meta">
-                            <span class="category">Anno Scolastico</span>
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <div class="left floated author">
-                            <i class="film icon"></i>
-                            <?php echo $row['NumVideo']." video" ?>
-                        </div>
-                        <div class="right floated author">
+                        <div class="ui stackable four column grid" id="contenitore-4">
                             <?php
-                            switch ($row['Sesso']) {
-                                case "M":
-                                    ?> <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/matthew.png"> <?php
-                                    break;
-                                case "F":
-                                    ?> <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/molly.png"> <?php
-                                    break;
+                            while ($row) {
+                                switch ($row['Materia']) {
+                                    case 'Informatica':
+                                        $color = 'blue';
+                                        break;
+                                    case 'Meccanica':
+                                        $color = 'green';
+                                        break;
+                                    case 'Elettrotecnica':
+                                        $color = 'orange';
+                                        break;
+                                    case 'Costruzioni':
+                                        $color = 'brown';
+                                        break;
+                                    case 'Chimica':
+                                        $color = 'red';
+                                        break;
+                                }
+                                ?>
+                                <div class="column">
+                                    <div class="ui card <?php echo $color ?>"  id="card">
+                                        <a class="image">
+                                            <div class="ui <?php echo $color ?> ribbon label"><?php echo $row['Materia'] ?></div>
+                                            <img src="<?php echo $row['PathMiniatura'] ?>">
+                                        </a>
+                                        <div class="content">
+                                            <div><h2><a href="#"><?php echo $row['Titolo'] ?></a></h2></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                $row = mysqli_fetch_array($query);
                             }
                             ?>
                         </div>
-                    </div>
-                    <div class="extra content">
-                        <butotn class="ui fluid toggle button" id="show-hide">Mostra video</button>
-                    </div>
-                </div>
-                <div class="ui stackable four column grid" id="contenitore-4">
-                    <?php
-                    while ($row) {
-                        switch ($row['Materia']) {
-                            case 'Informatica':
-                                $color = 'blue';
-                                break;
-                            case 'Meccanica':
-                                $color = 'green';
-                                break;
-                            case 'Elettrotecnica':
-                                $color = 'orange';
-                                break;
-                            case 'Costruzioni':
-                                $color = 'brown';
-                                break;
-                            case 'Chimica':
-                                $color = 'red';
-                                break;
-                        }
-                        ?>
-                        <div class="column">
-                            <div class="ui card <?php echo $color ?>"  id="card">
-                                <a class="image">
-                                    <div class="ui <?php echo $color ?> ribbon label"><?php echo $row['Materia'] ?></div>
-                                    <img src="<?php echo $row['PathMiniatura'] ?>">
-                                </a>
-                                <div class="content">
-                                    <div><h2><a href="#"><?php echo $row['Titolo'] ?></a></h2></div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php
-                        $row = mysqli_fetch_array($query);
+                    <?php 
                     }
-                    ?>
-                </div>
-            <?php } ?>
+                } 
+                ?>
+            </div>
         </div>
     </body>
 </html>
