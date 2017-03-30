@@ -45,11 +45,51 @@
                 width: 1000px;
                 vertical-align: middle;
                 max-width: 100%;
-                margin:auto;
+                margin: auto;
+            }
+            #show-hide {
+                background-color: #21BA45;
+                color: #FFF;
+                -webkit-transition-duration: 0.75s;
+                transition-duration: 0.75s;
             }
         </style>
     </head>
     <body>
+        <script>
+            $(document).ready(function() {
+                $("#contenitore-4").hide();
+                $("#show-hide").one("click", show);
+                $("#show-hide").hover(function() {
+                    $("#show-hide").css("background-color", "#08A12C");
+                }, function() {
+                    $("#show-hide").css("background-color", "#21BA45");
+                });
+            });
+            
+            function show() {
+                change($(this), "Nascondi video", "#E0E1E2", "#000", "#C7C8C9");
+                $(this).one("click", hide);
+            }
+           
+            function hide() {
+                change($(this), "Mostra video", "#21BA45", "#FFF", "#08A12C");
+                $(this).one("click", show);
+            }
+            
+            function change(btn, btnTxt, btnColor, btnTxtColor, btnHoverIn) {
+                var container = $("#contenitore-4");
+                btn.text(btnTxt);
+                btn.css("color", btnTxtColor);
+                btn.css("background-color", btnColor);
+                container.transition("drop");
+                btn.hover(function() {
+                    btn.css("background-color", btnHoverIn);
+                }, function() {
+                    btn.css("background-color", btnColor);
+                });
+            }
+        </script>
         <div class="contenuto">
             <!--#include virtual="/common/component/header.html" -->
             <?php
@@ -77,7 +117,7 @@
                     <div class="extra content">
                         <div class="left floated author">
                             <i class="film icon"></i>
-                            <?php echo $row['NumVideo'] ?>
+                            <?php echo $row['NumVideo']." video" ?>
                         </div>
                         <div class="right floated author">
                             <?php
@@ -91,6 +131,9 @@
                             }
                             ?>
                         </div>
+                    </div>
+                    <div class="extra content">
+                        <butotn class="ui fluid toggle button" id="show-hide">Mostra video</button>
                     </div>
                 </div>
                 <div class="ui stackable four column grid" id="contenitore-4">
