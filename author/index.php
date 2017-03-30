@@ -113,7 +113,7 @@
                         $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso FROM autore A";
                         $query = mysqli_query($connection, $txtQuery);
                         while ($row = mysqli_fetch_array($query)) { ?>
-                            <a class="ui raised link card" href="/author/index.php?aID=<?php echo $row['ID'] ?>">
+                            <a class="ui raised link card grey" href="/author/index.php?aID=<?php echo $row['ID'] ?>">
                                 <div class="content">
                                     <div class="header"><?php echo $row['Nome']." ".$row['Cognome'] ?></div>
                                     <div class="description"><?php echo $row['Classe'] ?></div>
