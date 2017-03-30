@@ -26,8 +26,7 @@ function randomGen($min, $max, $quantity) {
 <div class="ui stackable four column grid" id="contenitore-4">
     <?php
         require '../php/engine.php';
-        $connection=null;
-        connect($connection);
+        $connection = null;
         //connessione database
         connect($connection);
         //variabili per stampa card 
@@ -42,7 +41,6 @@ function randomGen($min, $max, $quantity) {
                     case 'Informatica':
                       $color='blue';
                       break;
-
                     case 'Meccanica':
                       $color='green';
                       break;
@@ -86,5 +84,4 @@ function randomGen($min, $max, $quantity) {
                 }
             }
         ?>
-
 </div>
