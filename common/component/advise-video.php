@@ -73,7 +73,7 @@ function randomGen($min, $max, $quantity) {
                             -->
                         </div>
                             <div class="extra content">
-                                <a href="/author/index.php?author=<?php echo $row['idAutore'];?>">
+                                <a href="/author/index.php?aID=<?php echo $row['idAutore'];?>">
                                     <i class="users icon"></i>
                                     <?php echo $row['nomeAutore']." ".$row['cognomeAutore']?>
                                 </a>
