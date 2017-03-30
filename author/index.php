@@ -109,7 +109,7 @@
                     $connection = null;
                     connect($connection);
                     $authorID = filter_input(INPUT_GET, "aID");
-                    if (!isset($authorID)) {
+                    if (!isset($authorID) || $authorID === "") {
                         $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso FROM autore A";
                         $query = mysqli_query($connection, $txtQuery);
                         while ($row = mysqli_fetch_array($query)) { ?>
