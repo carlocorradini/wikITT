@@ -34,51 +34,103 @@
             }
             .ui.raised.card {
                 display: block;
-                margin: 5% auto;
+                margin: 3% auto;
             }
-            body {
-                background-image: url(/author/wallpaper_author.png);
-                background-position: center center;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-size: cover;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-color: #ffffff;
+            #card {
+                width: 225px;
+                display: inline-block;
+            }
+            #contenitore-4 {
+                margin-top: 100px;
+                width: 1000px;
+                vertical-align: middle;
+                max-width: 100%;
+                margin:auto;
             }
         </style>
     </head>
     <body>
         <div class="contenuto">
             <!--#include virtual="/common/component/header.html" -->
-
-            <div class="ui raised card">
-                <div class="content">
-                    <div class="header">Stefano Perenzoni</div>
-                    <div class="description">5 INA</div>
-                    <div class="meta">
-                        <span class="category">Classe</span>
+            <?php
+            require '../common/php/engine.php';
+            $connection = null;
+            connect($connection);
+            $authorID = filter_input(INPUT_GET, "aID");
+            $txtQuery = "SELECT A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod";
+            $query = mysqli_query($connection, $txtQuery);
+            $row = mysqli_fetch_array($query);
+            if ($row > 0) {
+                ?>
+                <div class="ui raised card">
+                    <div class="content">
+                        <div class="header"><?php echo $row['Nome'] . " " . $row['Cognome'] ?></div>
+                        <div class="description"><?php echo $row['Classe'] ?></div>
+                        <div class="meta">
+                            <span class="category">Classe</span>
+                        </div>
+                        <div class="description"><?php echo $row['AnnoS'] ?></div>
+                        <div class="meta">
+                            <span class="category">Anno Scolastico</span>
+                        </div>
                     </div>
-                    <div class="description">2016/2017</div>
-                    <div class="meta">
-                        <span class="category">Anno Scolastico</span>
-                    </div>
-                    <div class="description">
-                        <p>"Quando un uomo siede un'ora in compagnia di una bella ragazza, sembra sia passato un minuto. Ma fatelo sedere su una stufa per un minuto e gli sembrerà più lungo di qualsiasi ora. Questa è la relatività."<p>
-                        <p>(Albert Einstein)<p>
+                    <div class="extra content">
+                        <div class="left floated author">
+                            <i class="film icon"></i>
+                            <?php echo $row['NumVideo'] ?>
+                        </div>
+                        <div class="right floated author">
+                            <?php
+                            switch ($row['Sesso']) {
+                                case "M":
+                                    ?> <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/matthew.png"> <?php
+                                    break;
+                                case "F":
+                                    ?> <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/molly.png"> <?php
+                                    break;
+                            }
+                            ?>
+                        </div>
                     </div>
                 </div>
-                <div class="extra content">
-                    <div class="left floated author">
-                        <i class="film icon"></i>
-                        7
-                    </div>
-                    <div class="right floated author">
-                        <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/matthew.png">
-                    </div>
+                <div class="ui stackable four column grid" id="contenitore-4">
+                    <?php
+                    while ($row) {
+                        switch ($row['Materia']) {
+                            case 'Informatica':
+                                $color = 'blue';
+                                break;
+                            case 'Meccanica':
+                                $color = 'green';
+                                break;
+                            case 'Elettrotecnica':
+                                $color = 'orange';
+                                break;
+                            case 'Costruzioni':
+                                $color = 'brown';
+                                break;
+                            case 'Chimica':
+                                $color = 'red';
+                                break;
+                        }
+                        ?>
+                        <div class="column">
+                            <div class="ui card <?php echo $color ?>"  id="card">
+                                <a class="image">
+                                    <div class="ui <?php echo $color ?> ribbon label"><?php echo $row['Materia'] ?></div>
+                                    <img src="<?php echo $row['PathMiniatura'] ?>">
+                                </a>
+                                <div class="content">
+                                    <div><h2><a href="#"><?php echo $row['Titolo'] ?></a></h2></div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                        $row = mysqli_fetch_array($query);
+                    }
+                    ?>
                 </div>
-            </div>
+            <?php } ?>
         </div>
     </body>
 </html>
