@@ -170,7 +170,7 @@
                                 </div>
                             </div>
                             <div class="extra content">
-                                <butotn class="ui fluid toggle button" id="show-hide">Mostra video</button>
+                                <button class="ui fluid toggle button" id="show-hide">Mostra video</button>
                             </div>
                         </div>
                         <div class="ui stackable four column grid" id="contenitore-4">
