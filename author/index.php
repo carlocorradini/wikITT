@@ -53,8 +53,8 @@
             #show-hide {
                 background-color: #21BA45;
                 color: #FFF;
-                -webkit-transition-duration: 0.75s;
-                transition-duration: 0.75s;
+                -webkit-transition-duration: 0.5s;
+                transition-duration: 0.5s;
             }
             .link {
                 text-decoration: none !important;
@@ -62,6 +62,10 @@
             .center {
                 display: block;
                 margin: 0 2vh 0 2vh;
+            }
+            #back {
+                -webkit-transition-duration: 0.5s;
+                transition-duration: 0.5s;
             }
         </style>
     </head>
@@ -110,7 +114,7 @@
                     connect($connection);
                     $authorID = filter_input(INPUT_GET, "aID");
                     if (!isset($authorID) || $authorID === "") {
-                        $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso FROM autore A";
+                        $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe FROM autore A ORDER BY A.Cognome, A.Nome, A.ID";
                         $query = mysqli_query($connection, $txtQuery);
                         while ($row = mysqli_fetch_array($query)) { ?>
                             <a class="ui raised link card" href="/author/index.php?aID=<?php echo $row['ID'] ?>">
@@ -119,10 +123,6 @@
                                     <div class="description"><?php echo $row['Classe'] ?></div>
                                     <div class="meta">
                                         <span class="category">Classe</span>
-                                    </div>
-                                    <div class="description"><?php echo $row['AnnoS'] ?></div>
-                                    <div class="meta">
-                                        <span class="category">Anno Scolastico</span>
                                     </div>
                                 </div>
                             </a>
@@ -133,8 +133,12 @@
                 </div>
             </div>
             <div class="center">
+                <a id="back" class="ui labeled icon button inverted blue" href="index.php">
+                    <i class="left arrow icon"></i>
+                    Torna alla lista
+                </a>
                 <?php
-                    $txtQuery = "SELECT A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod";
+                    $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
                     $query = mysqli_query($connection, $txtQuery);
                     $row = mysqli_fetch_array($query);
                     if ($row > 0) {
@@ -149,6 +153,10 @@
                                 <div class="description"><?php echo $row['AnnoS'] ?></div>
                                 <div class="meta">
                                     <span class="category">Anno Scolastico</span>
+                                </div>
+                                <div class="description"><?php echo $row['ID'] ?></div>
+                                <div class="meta">
+                                    <span class="category">ID Autore</span>
                                 </div>
                             </div>
                             <div class="extra content">
