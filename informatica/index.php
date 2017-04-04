@@ -36,6 +36,7 @@
             .font.elettrotecnica { color: #f2711c!important;}
             .font.costruzioni { color: #a5673f!important;}
             
+            /*General*/
             .video-nav,
             .video-content {
                 position: relative;
@@ -45,6 +46,11 @@
                 transition: padding 0.5s;
                 -webkit-transition: padding 0.5s;
                 -moz-transition: padding 0.5s;
+            }
+            
+            #video {
+                padding: 0 10%;
+                background-color: rgba(0,0,0,0.9);
             }
             
             /*Video Navigation*/
@@ -88,6 +94,9 @@
                 .video-content {
                     width: 100%;
                     left: 0;
+                }
+                #video {
+                    padding: 0;
                 }
             }
             
@@ -141,7 +150,7 @@
             }
             function setSameSize() {
                 $(".video-nav .ui.vertical.menu").css({
-                    "height": $(".plyr").height()
+                    "height": $("#video, #noVideo").height()
                 });
             }
         </script>
@@ -160,9 +169,11 @@
                     $videoTitle = query("SELECT Titolo FROM video WHERE VideoID='$vID' LIMIT 1");
                 
                     if(!isset($vID) || $vID === "" || mysqli_num_rows($videoTitle) == 0) {?>
-                        <img src="http://www.progettotorino.it/wp-content/uploads/2016/05/ICT-graphic.jpg" alt="informatica" style="width: 100%; height: 100%;"/>
+                        <div id="noVideo"><img src="http://www.progettotorino.it/wp-content/uploads/2016/05/ICT-graphic.jpg" alt="informatica" style="width: 100%; height: 100%;"/></div>
                     <?php } else {?>
-                        <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
+                        <div id="video">
+                            <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
+                        </div>
                         <h1><?php echo mysqli_fetch_array($videoTitle)["Titolo"];?></h1>
                     <?php }
                 ?>
