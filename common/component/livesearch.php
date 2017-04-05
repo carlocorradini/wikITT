@@ -46,6 +46,7 @@
                 $completamento = str_replace($term, "", $stringa);
                 echo "<li><a href=https://www.youtube.com/watch?v=".$row['link'].">".$term."<b>".strtolower($completamento)."</b><i style='font-size: 13px;'> - ".$row['nomeMateria']."</i></a></li>";
                 */
+                
                 echo "<li><a href=https://www.youtube.com/watch?v=".$row['link'].">".$row['titoloVideo']."<i style='font-size: 13px;'> - ".$row['nomeMateria']."</i></a></li>";
                 
             }
