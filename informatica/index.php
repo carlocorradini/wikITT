@@ -48,6 +48,7 @@
             .font.elettrotecnica { color: #f2711c!important;}
             .font.costruzioni { color: #a5673f!important;}
             
+            /*General*/
             .video-nav,
             .video-content {
                 position: relative;
@@ -59,8 +60,31 @@
                 -moz-transition: padding 0.5s;
             }
             
+            #video {
+                padding: 0 10%;
+                background-color: rgba(0,0,0,0.9);
+                transition: padding 0.5s linear;
+                -webkit-transition: padding 0.5s linear;
+                -moz-transition: padding 0.5s linear;
+            }
+            #video-description {
+                width: 100%;
+                min-height: 100px;
+                margin-top: 1em;
+                padding: 1em;
+                border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            }
+            
             /*Video Navigation*/
             .video-nav {
+                position: absolute;
+                bottom: 0;
+                top: 70px;
                 width: 20%;
                 right: 80%;
                 padding-right: 0.5em;
@@ -78,28 +102,32 @@
             }
             @media screen and (max-width: 1000px) {
                 .video-nav,
-                .video-content {
-                    padding: 0.5em;
-                }
-                .video-nav {
-                    padding-right: 0.25em;
-                }
-                .video-content {
-                    padding-left: 0.25em;
-                }
+                .video-content { padding: 0.5em;}
+                .video-nav { padding-right: 0.25em;}
+                .video-content { padding-left: 0.25em;}
+                #video { padding: 0;}
             }
             @media screen and (max-width: 700px) {
                 .video-nav,
-                .video-content {
-                    padding: 0.25em;
-                }
+                .video-content { padding: 0.25em;}
                 .video-nav {
+                    position: relative;
                     width: 40%;
                     right: 0;
+                    bottom: auto;
+                    top: auto;
                 }
                 .video-content {
                     width: 100%;
                     left: 0;
+                }
+                #video { padding: 0;}
+                #video-description {
+                    position: absolute;
+                    width: 60%;
+                    left: 40%;
+                    margin-top: 0.5em;
+                    padding: 0.5em;
                 }
             }
             
@@ -127,10 +155,6 @@
                 $(".video-nav input:first-of-type").on("keyup", function() {
                     search($(this).val().toUpperCase());
                 });
-                setSameSize();
-            });
-            $(window).resize(function() {
-                setSameSize();
             });
             
             function search(query) {
@@ -151,11 +175,6 @@
                 else
                     $("#msg").hide();
             }
-            function setSameSize() {
-                $(".video-nav .ui.vertical.menu").css({
-                    "height": $(".plyr").height()
-                });
-            }
         </script>
         
         <?php 
@@ -169,13 +188,33 @@
             <!--#include virtual="/common/component/header.html" -->
             <div class="video-content">
                 <?php
-                    $videoTitle = query("SELECT Titolo FROM video WHERE VideoID='$vID' LIMIT 1");
+                    $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1");
                 
-                    if(!isset($vID) || $vID === "" || mysqli_num_rows($videoTitle) == 0) {?>
-                        <img src="http://www.progettotorino.it/wp-content/uploads/2016/05/ICT-graphic.jpg" alt="informatica" style="width: 100%; height: 100%;"/>
+                    if(!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {?>
+                        <div id="noVideo"><img src="http://www.progettotorino.it/wp-content/uploads/2016/05/ICT-graphic.jpg" alt="informatica" style="width: 100%; height: 100%;"/></div>
                     <?php } else {?>
-                        <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
-                        <h1><?php echo mysqli_fetch_array($videoTitle)["Titolo"];?></h1>
+                        <div id="video">
+                            <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
+                        </div>
+                        <div id="video-description">
+                            <?php $vInfo = mysqli_fetch_array($videoInfo)?>
+                            <div class="ui blue label" style="float: right;">
+                                <i class="calendar icon"></i>
+                                <?php echo $vInfo["DataPub"]?>
+                            </div>
+                            <h1 style="margin: 0;"><?php echo $vInfo["Titolo"];?></h1>
+                            <p><?php echo $vInfo["Descrizione"];?></p>
+                            <a class="ui yellow image label" href="/author/index.php?aID=1">
+                                <img src="https://semantic-ui.com/images/avatar/small/christian.jpg" alt="autore"/>
+                                Carlo Corradini
+                                <div class="detail">4ELC</div>
+                            </a>
+                            <a class="ui blue image label" href="/author/index.php?aID=2>
+                                <img src="https://semantic-ui.com/images/avatar/small/joe.jpg" alt="autore"/>
+                                Stefano Perenzoni
+                                <div class="detail">5INA</div>
+                            </a>
+                        </div>
                     <?php }
                 ?>
             </div>
@@ -191,9 +230,9 @@
                         Nessun video trovato
                     </div>
                     <?php
-                        $result = query("SELECT Titolo,VideoID FROM video ORDER BY Titolo;");
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_array($result)) {
+                        $videos = query("SELECT Titolo,VideoID FROM video ORDER BY Titolo;");
+                        if (mysqli_num_rows($videos) > 0) {
+                            while ($row = mysqli_fetch_array($videos)) {
                                 if($row["VideoID"] === $vID) { ?>
                                     <a class="font informatica active item" href="index.php?v=<?php echo $row["VideoID"];?>" style="font-weight: bold;">
                                         <i class="fire icon"></i>
