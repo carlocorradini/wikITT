@@ -35,7 +35,7 @@
     connect($connection);
     // Escape user inputs for security
     $term = mysqli_real_escape_string($connection, $_REQUEST['q']);
-    $ris = mysqli_query($connection, "SELECT v.titolo as titoloVideo, m.nome as nomeMateria, v.VideoID as link, LOCATE('$term', v.Titolo) as score FROM video v,materia m WHERE v.CodMateria = m.Cod AND v.Titolo LIKE '$term%' ORDER BY score LIMIT 3 ");
+    $ris = mysqli_query($connection, "SELECT v.titolo as titoloVideo, m.nome as nomeMateria, v.VideoID as link, LOCATE('$term', v.Titolo) as score FROM video v,materia m WHERE v.CodMateria = m.Cod AND v.Titolo LIKE '%$term%' ORDER BY score LIMIT 3 ");
     if(mysqli_num_rows($ris) > 0) {
         echo "<ul class='suggestion'>";
             while($row = mysqli_fetch_array($ris)){
