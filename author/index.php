@@ -34,7 +34,10 @@
             }
             .ui.raised.card {
                 display: block;
-                margin: 3% auto;
+                margin: 5% auto;
+                padding-left: 1vh;
+                padding-right: 1vh;
+                padding-top: 1vh;
             }
             #tab {
                 margin-top: 45px;
@@ -45,7 +48,7 @@
             }
             #contenitore-4 {
                 margin-top: 100px;
-                width: 1000px;
+                width: 150vh;
                 vertical-align: middle;
                 max-width: 100%;
                 margin: auto;
@@ -181,42 +184,43 @@
                                 <button class="ui fluid toggle button" id="show-hide">Mostra video</button>
                             </div>
                         </div>
-                        <div class="ui stackable four column grid" id="contenitore-4">
+                        <div class="ui stackable three column grid" id="contenitore-4">
                             <?php
-                            while ($row) {
+                            $authorID = filter_input(INPUT_GET, "aID");
+                            $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura,V.Descrizione , M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
+                            $query = mysqli_query($connection, $txtQuery);
+                            while ($row = mysqli_fetch_array($query)) {
                                 switch ($row['Materia']) {
                                     case 'Informatica':
-                                        $color = 'blue';
+                                        $color='blue';
                                         break;
                                     case 'Meccanica':
-                                        $color = 'green';
+                                        $color='green';
                                         break;
                                     case 'Elettrotecnica':
-                                        $color = 'orange';
+                                        $color='orange';
                                         break;
                                     case 'Costruzioni':
-                                        $color = 'brown';
+                                        $color='brown';
                                         break;
                                     case 'Chimica':
-                                        $color = 'red';
+                                        $color='red';
                                         break;
                                 }
                                 ?>
-                                <div class="column">
-                                    <div class="ui card <?php echo $color ?>"  id="card">
-                                        <a class="image">
-                                            <div class="ui <?php echo $color ?> ribbon label"><?php echo $row['Materia'] ?></div>
-                                            <img src="<?php echo $row['PathMiniatura'] ?>">
-                                        </a>
-                                        <div class="content">
-                                            <div><h2><a href="#"><?php echo $row['Titolo'] ?></a></h2></div>
-                                        </div>
+                                <div class="ui raised link card prova <?php echo $color?>">
+                                    <a class="image">
+                                        <div class="ui <?php echo $color?> ribbon label"><?php echo $row['Materia']?></div>
+
+                                        <img src="http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg">
+                                        <!--<img src="<?php echo $row['pathMiniatura']?>">-->
+                                    </a>
+                                    <div class="content">
+                                        <div class="header"><?php echo $row['Titolo'] ?></div>
+                                        <div class="description"><?php echo $row['Descrizione'] ?></div>
                                     </div>
                                 </div>
-                                <?php
-                                $row = mysqli_fetch_array($query);
-                            }
-                            ?>
+                            <?php } ?>
                         </div>
                     <?php 
                     }
