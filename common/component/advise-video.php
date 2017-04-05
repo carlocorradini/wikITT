@@ -26,15 +26,14 @@ function randomGen($min, $max, $quantity) {
 <div class="ui stackable four column grid" id="contenitore-4">
     <?php
         require '../php/engine.php';
-        $connection=null;
-        connect($connection);
+        $connection = null;
         //connessione database
         connect($connection);
         //variabili per stampa card 
         $nVideoDB = 0;
         $nVideo = 8; 
         $risCount = mysqli_query($connection, "SELECT COUNT(*) AS 'numeroVideo' FROM video") or die (mysqli_error($connection));
-        $risRand = mysqli_query($connection, "SELECT DISTINCT m.nomeIndirizzo as materia, v.titolo as titoloVideo, v.descrizione as descrizioneVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, v.pathMiniatura FROM video v, materia m, autore a, realizza r WHERE v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY RAND() LIMIT 8 ") or die (mysqli_error($connetti));      
+        $risRand = mysqli_query($connection, "SELECT DISTINCT m.nomeIndirizzo as materia, v.titolo as titoloVideo, v.descrizione as descrizioneVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, v.pathMiniatura, a.id as idAutore FROM video v, materia m, autore a, realizza r WHERE v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY RAND() LIMIT 8 ") or die (mysqli_error($connetti));      
 
         if(mysqli_num_rows($risRand) > 0){
                 while($row=mysqli_fetch_array($risRand)){
@@ -42,7 +41,6 @@ function randomGen($min, $max, $quantity) {
                     case 'Informatica':
                       $color='blue';
                       break;
-
                     case 'Meccanica':
                       $color='green';
                       break;
@@ -75,7 +73,7 @@ function randomGen($min, $max, $quantity) {
                             -->
                         </div>
                             <div class="extra content">
-                                <a>
+                                <a href="/author/index.php?aID=<?php echo $row['idAutore'];?>">
                                     <i class="users icon"></i>
                                     <?php echo $row['nomeAutore']." ".$row['cognomeAutore']?>
                                 </a>
@@ -86,5 +84,4 @@ function randomGen($min, $max, $quantity) {
                 }
             }
         ?>
-
 </div>
