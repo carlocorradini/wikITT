@@ -112,31 +112,98 @@
             $vID = filter_input(INPUT_GET, "v");
         ?>
         
+        <!--#include virtual="/common/component/header.html"-->
+        
+        
         <div class="contenuto">
-            <!--#include virtual="/common/component/header.html" -->
+            
             <div class="video-content">
                 <?php 
                     if(!isset($vID) || $vID === "") {?>
                 
                 
-                
-                <div class="ui small breadcrumb">
-                    <a class="section" href="../index.html">Home</a>
-                    <div class="divider"> / </div>
-                    <div class="active section">Informatica</div>
-                </div>
+                    <div class="ui small breadcrumb" id="breadcrumInfo">
+                        <a class="section" href="/index.html">Home</a>
+                        <div class="divider"> / </div>
+                        <div class="active section">Informatica</div>
+                    </div>
 
-                <div class="ui horizontal divider">
-                    Informatica
-                </div>
-                <div class="ui centered">
-                    Benvenuto alla pagina di presentazione di informatica!
-                </div>
-                <div class="ui horizontal divider">
-                    <i class="code icon"></i>
-                </div>
                 
+                    <div class="ui horizontal divider">
+                        <h1>Informatica</h1>
+                    </div>
                 
+                    <div class="ui raised segment">
+                        <a class="ui red ribbon label">Presentazione</a>
+                        <p><br>
+                        « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
+                        (Edsger Wybe Dijkstra)
+                        <br><br>
+                        La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.
+                        Contrariamente a ciò che si pensa non si tratta però di una cosa solo per “smanettoni” ma bensì è una vera e propria scienza aperta a tutti coloro appassionati di logica e di tecnologia.
+                        Con questi video avrai la possibilità di approfondire alcuni degli infiniti argomenti che compongono questa materia risolvendo i tuoi dubbi o semplicemente incuriosendoti verso questo vasto ed interessante mondo.
+                        </p>
+                    </div>
+               
+                
+                    <div class="ui horizontal divider">
+                        <i class="code icon"></i>
+                    </div>
+                
+                    <div class="ui three column grid">
+                        
+                        <div class="column">
+                        <div class="ui raised segment">
+                            <a class="ui green ribbon label">Database</a>
+                            <div class="ui ordered list">                               
+                                <a class="item">Progettazione</a>
+                                <a class="item">MySql</a>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        <div class="column">
+                            <div class="ui raised segment">
+                            <a class="ui green ribbon label">Argomenti</a>
+                            <div class="ui ordered list">
+                                <div class="item">
+                                    <a>Database</a>
+                                    <div class="list">
+                                        <a class="item">Progettazione</a>
+                                        <a class="item">MySql</a>
+                                    </div>
+                                </div>
+                                <a class="item">Php</a>
+                                <a class="item">Html</a>
+                                <a class="item">CSS</a>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        <div class="column">
+                            <div class="ui raised segment">
+                            <a class="ui green ribbon label">Argomenti</a>
+                            <div class="ui ordered list">
+                                <div class="item">
+                                    <a>Database</a>
+                                    <div class="list">
+                                        <a class="item">Progettazione</a>
+                                        <a class="item">MySql</a>
+                                    </div>
+                                </div>
+                                <a class="item">Php</a>
+                                <a class="item">Html</a>
+                                <a class="item">CSS</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                
+                    <div class="ui horizontal divider">
+                        <i class="code icon"></i>
+                    </div>
+                
+                    
                 
                 
                 
@@ -169,5 +236,6 @@
             </div>
         </div>
         <script>plyr.setup();</script>
+        <!--#include virtual="/common/component/footer.html" -->
     </body>
 </html>
