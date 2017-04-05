@@ -29,6 +29,18 @@
         <link rel="stylesheet" type="text/css" href="/common/style/style.css"/>
         <script src="/common/script/script.js" type="text/javascript"></script>
         <style>
+            /*Pere*/
+            .header .nav-container ul li:nth-child(1) a,
+            .header .nav-container ul li:nth-child(1) a:before {
+                background: #2185d0;
+                background: linear-gradient(to bottom right, #2185d0, #59b0f2);
+                background: -webkit-linear-gradient(left top, #2185d0, #59b0f2);
+                background: -moz-linear-gradient(bottom right, #2185d0, #59b0f2);
+                background: -o-linear-gradient(bottom right, #2185d0, #59b0f2);
+                color: #ffffff!important;
+                border-color: #ffffff;
+            }
+            
             /*Materia Colore*/
             .font.informatica { color: #2185d0!important;}
             .font.meccanica { color: #21ba45!important;}
