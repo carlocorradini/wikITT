@@ -29,7 +29,7 @@
         <link rel="stylesheet" type="text/css" href="/common/style/style.css"/>
         <script src="/common/script/script.js" type="text/javascript"></script>
         <style>
-            /*Pere*/
+            /*Active*/
             .header .nav-container ul li:nth-child(1) a,
             .header .nav-container ul li:nth-child(1) a:before {
                 background: #2185d0;
@@ -49,7 +49,7 @@
             .font.costruzioni { color: #a5673f!important;}
             
             /*General*/
-            .video-nav,
+            #video-navigation,
             .video-content {
                 position: relative;
                 padding: 1em;
@@ -59,7 +59,6 @@
                 -webkit-transition: padding 0.5s;
                 -moz-transition: padding 0.5s;
             }
-            
             #video {
                 padding: 0 10%;
                 background-color: rgba(0,0,0,0.9);
@@ -79,9 +78,15 @@
                 -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
                 -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
             }
+            #btnShowVideoNavigation {
+                display: block;
+                width: 98%;
+                margin: 0 auto;
+                margin-top: 0.25em;
+            }
             
             /*Video Navigation*/
-            .video-nav {
+            #video-navigation {
                 position: absolute;
                 bottom: 0;
                 top: 70px;
@@ -89,7 +94,8 @@
                 right: 80%;
                 padding-right: 0.5em;
             }
-            .video-nav .ui.vertical.menu {
+            #video-navigation .ui.vertical.menu {
+                position: relative;
                 width: 100%;
                 height: 100%;
                 overflow-y: auto;
@@ -101,33 +107,52 @@
                 padding-left: 0.5em;
             }
             @media screen and (max-width: 1000px) {
-                .video-nav,
+                #video-navigation,
                 .video-content { padding: 0.5em;}
-                .video-nav { padding-right: 0.25em;}
+                #video-navigation { padding-right: 0.25em;}
                 .video-content { padding-left: 0.25em;}
                 #video { padding: 0;}
             }
             @media screen and (max-width: 700px) {
-                .video-nav,
+                #video-navigation,
                 .video-content { padding: 0.25em;}
-                .video-nav {
-                    position: relative;
-                    width: 40%;
-                    right: 0;
-                    bottom: auto;
-                    top: auto;
-                }
                 .video-content {
                     width: 100%;
                     left: 0;
                 }
+                
+                #video-navigation {
+                    position: relative;
+                    width: 40%;
+                    height: 400px;
+                    right: 0;
+                    bottom: auto;
+                    top: auto;
+                }
                 #video { padding: 0;}
                 #video-description {
                     position: absolute;
-                    width: 60%;
+                    width: 59.5%;
                     left: 40%;
                     margin-top: 0.5em;
                     padding: 0.5em;
+                }
+            }
+            /*XS Devices*/
+            @media screen and (max-width: 500px) {
+                #video-navigation {
+                    position: fixed;
+                    display: none;
+                    width: 100%;
+                    height: 100%;
+                    padding: 0;
+                    top: 0;
+                    z-index: 100;
+                }
+                #video-description {
+                    position: relative;
+                    width: 100%;
+                    left: 0;
                 }
             }
             
@@ -152,13 +177,17 @@
         <script>
             $(document).ready(function() {
                 //Handle Search
-                $(".video-nav input:first-of-type").on("keyup", function() {
+                $("#video-navigation input:first-of-type").on("keyup", function() {
                     search($(this).val().toUpperCase());
+                });
+                //Handle Video Navigation on XS Devices
+                $("#btnShowVideoNavigation").on("click", function() {
+                    $("#video-navigation").transition("fly right");
                 });
             });
             
             function search(query) {
-                var items = $(".video-nav").find(".item:not(.item:first)");
+                var items = $("#video-navigation").find(".item:not(.item:first)");
                 var showNoFound = true;
                 $(items).each(function(index, item) {
                     var iVal = $(item).text().toUpperCase();
@@ -184,8 +213,17 @@
             $vID = filter_input(INPUT_GET, "v");
         ?>
         
-        <div class="contenuto">
+        <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
+            
+            <button class="ui blue labeled icon button" id="btnShowVideoNavigation">
+                <i class="video icon"></i>
+                Visualizza elenco video
+            </button>
+            <button style="width: 50px; height: 50px; position: fixed; background-color: red; z-index: 101; bottom: 0;right: 0;">
+                dhjdj
+            </button>
+            
             <div class="video-content">
                 <?php
                     $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1");
@@ -198,7 +236,7 @@
                         </div>
                         <div id="video-description">
                             <?php $vInfo = mysqli_fetch_array($videoInfo)?>
-                            <div class="ui blue label" style="float: right;">
+                            <div class="ui label" style="float: right;">
                                 <i class="calendar icon"></i>
                                 <?php echo $vInfo["DataPub"]?>
                             </div>
@@ -209,7 +247,7 @@
                                 Carlo Corradini
                                 <div class="detail">4ELC</div>
                             </a>
-                            <a class="ui blue image label" href="/author/index.php?aID=2>
+                            <a class="ui blue image label" href="/author/index.php?aID=2">
                                 <img src="https://semantic-ui.com/images/avatar/small/joe.jpg" alt="autore"/>
                                 Stefano Perenzoni
                                 <div class="detail">5INA</div>
@@ -218,7 +256,7 @@
                     <?php }
                 ?>
             </div>
-            <div class="video-nav">
+            <div id="video-navigation">
                 <div class="scrollbar informatica ui vertical menu">
                     <div class="item">
                         <div class="ui transparent icon input">
