@@ -49,6 +49,7 @@
             .font.costruzioni { color: #a5673f!important;}
             
             /*General*/
+            /*Video & Navigation*/
             #video-navigation,
             .video-content {
                 position: relative;
@@ -78,12 +79,6 @@
                 -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
                 -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
             }
-            #btnShowVideoNavigation {
-                display: block;
-                width: 98%;
-                margin: 0 auto;
-                margin-top: 0.25em;
-            }
             
             /*Video Navigation*/
             #video-navigation {
@@ -100,6 +95,61 @@
                 height: 100%;
                 overflow-y: auto;
             }
+            /*XS Responsive*/
+            #btnShowVideoNavigation,
+            #video-navigation .close { display: none;}
+            #btnShowVideoNavigation {
+                width: 99%;
+                margin: 0 auto;
+                margin-top: 0.25em;
+            }
+            #video-navigation .close {
+                position: fixed;
+                bottom: 3px;
+                right: 8px;
+                width: 50px;
+                height: 50px;
+                z-index: 101;
+                vertical-align: middle;
+                background-color: #ffffff;
+                border: 1px solid #db2828;
+                outline: 0;
+                border-radius: 50px;
+                -webkit-border-radius: 50px;
+                -moz-border-radius: 50px;
+            }
+            #video-navigation .close span {
+                position: relative;
+                width: 32px;
+                height: 32px;
+                right: 16px;
+                bottom: 16px;
+            }
+            #video-navigation .close span:before,
+            #video-navigation .close span:after {
+                position: absolute;
+                left: 15px;
+                content: '';
+                height: 33px;
+                width: 2px;
+                background-color: #db2828;
+            }
+            #video-navigation .close span:before { transform: rotate(45deg);}
+            #video-navigation .close span:after { transform: rotate(-45deg);}
+            /*Hover effect*/
+            #video-navigation .close,
+            #video-navigation .close span:before,
+            #video-navigation .close span:after {
+                transition: background-color ease-in-out 0.2s;
+                -webkit-transition: background-color ease-in-out 0.2s;
+                -moz-transition: background-color ease-in-out 0.2s;
+                -o-transition: background-color ease-in-out 0.2s;
+            }
+            
+            #video-navigation .close:hover {background-color: #db2828;}
+            #video-navigation .close:hover span:before,
+            #video-navigation .close:hover span:after { background-color: #ffffff;}
+            
             /*Video Container*/
             .video-content {
                 width: 80%;
@@ -109,26 +159,30 @@
             @media screen and (max-width: 1000px) {
                 #video-navigation,
                 .video-content { padding: 0.5em;}
-                #video-navigation { padding-right: 0.25em;}
+                #video-navigation { 
+                    padding-right: 0.25em;
+                    padding-bottom: 1em;
+                }
                 .video-content { padding-left: 0.25em;}
                 #video { padding: 0;}
             }
             @media screen and (max-width: 700px) {
                 #video-navigation,
                 .video-content { padding: 0.25em;}
+                
+                #video-navigation {
+                    position: relative;
+                    width: 40%;
+                    height: 415px;
+                    right: 0;
+                    bottom: auto;
+                    top: auto;
+                }
                 .video-content {
                     width: 100%;
                     left: 0;
                 }
                 
-                #video-navigation {
-                    position: relative;
-                    width: 40%;
-                    height: 400px;
-                    right: 0;
-                    bottom: auto;
-                    top: auto;
-                }
                 #video { padding: 0;}
                 #video-description {
                     position: absolute;
@@ -154,6 +208,8 @@
                     width: 100%;
                     left: 0;
                 }
+                #btnShowVideoNavigation,
+                #video-navigation.transition .close { display: block;}
             }
             
             /*Scrollbar*/
@@ -171,6 +227,36 @@
             .scrollbar.chimica::-webkit-scrollbar-thumb{ background-color: #db2828;}
             .scrollbar.elettrotecnica::-webkit-scrollbar-thumb{ background-color: #f2711c;}
             .scrollbar.costruzioni::-webkit-scrollbar-thumb{ background-color: #a5673f;}
+        
+            
+            #btnShowVideoNavigation {
+                background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+                background-size: 1800% 1800%;
+                -webkit-animation: rainbow 18s ease infinite;
+                -z-animation: rainbow 18s ease infinite;
+                -o-animation: rainbow 18s ease infinite;
+                  animation: rainbow 18s ease infinite;
+            }
+            @-webkit-keyframes rainbow {
+                0%{background-position:0% 82%}
+                50%{background-position:100% 19%}
+                100%{background-position:0% 82%}
+            }
+            @-moz-keyframes rainbow {
+                0%{background-position:0% 82%}
+                50%{background-position:100% 19%}
+                100%{background-position:0% 82%}
+            }
+            @-o-keyframes rainbow {
+                0%{background-position:0% 82%}
+                50%{background-position:100% 19%}
+                100%{background-position:0% 82%}
+            }
+            @keyframes rainbow { 
+                0%{background-position:0% 82%}
+                50%{background-position:100% 19%}
+                100%{background-position:0% 82%}
+            }
         </style>
     </head>
     <body>
@@ -181,8 +267,9 @@
                     search($(this).val().toUpperCase());
                 });
                 //Handle Video Navigation on XS Devices
-                $("#btnShowVideoNavigation").on("click", function() {
-                    $("#video-navigation").transition("fly right");
+                //Open & Close
+                $("#btnShowVideoNavigation, #video-navigation .close").on("click", function() {
+                    $("#video-navigation").transition("drop");
                 });
             });
             
@@ -219,9 +306,6 @@
             <button class="ui blue labeled icon button" id="btnShowVideoNavigation">
                 <i class="video icon"></i>
                 Visualizza elenco video
-            </button>
-            <button style="width: 50px; height: 50px; position: fixed; background-color: red; z-index: 101; bottom: 0;right: 0;">
-                dhjdj
             </button>
             
             <div class="video-content">
@@ -285,6 +369,9 @@
                         }
                     ?>
                 </div>
+                <button class="close">
+                    <span></span>
+                </button>
             </div>
         </div>
         <script>plyr.setup();</script>
