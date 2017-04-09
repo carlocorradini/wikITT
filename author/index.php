@@ -34,17 +34,16 @@
             }
             .ui.raised.card {
                 display: block;
-                margin: 5% auto;
-                padding-left: 1vh;
-                padding-right: 1vh;
-                padding-top: 1vh;
+                margin: 2vh auto;
+            }
+            .ui.raised.link.fluid.card {
+                max-width: 35vh;
+            }
+            .ui.raised.link.stackable.fluid.card {
+                max-width: 30vh;
             }
             #tab {
                 margin-top: 45px;
-            }
-            #card {
-                width: 225px;
-                display: inline-block;
             }
             #contenitore-4 {
                 margin-top: 100px;
@@ -110,7 +109,7 @@
         <div class="contenuto">
             <!--#include virtual="/common/component/header.html" -->
             <div class="center" id="tab">
-                <div class="ui stackable three column grid">
+                <div class="ui stackable four column grid">
                     <?php
                     require '../common/php/engine.php';
                     $connection = null;
@@ -120,7 +119,8 @@
                         $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe FROM autore A ORDER BY A.Cognome, A.Nome, A.ID";
                         $query = mysqli_query($connection, $txtQuery);
                         while ($row = mysqli_fetch_array($query)) { ?>
-                            <a class="ui raised link card" href="/author/index.php?aID=<?php echo $row['ID'] ?>">
+                        <div class="column">
+                            <a class="ui raised link fluid card" href="/author/index.php?aID=<?php echo $row['ID'] ?>">
                                 <div class="content">
                                     <div class="header"><?php echo $row['Nome']." ".$row['Cognome'] ?></div>
                                     <div class="description"><?php echo $row['Classe'] ?></div>
@@ -129,6 +129,7 @@
                                     </div>
                                 </div>
                             </a>
+                        </div>
                         <?php 
                         }
                     } else { 
@@ -184,10 +185,10 @@
                                 <button class="ui fluid toggle button" id="show-hide">Mostra video</button>
                             </div>
                         </div>
-                        <div class="ui stackable three column grid" id="contenitore-4">
+                        <div class="ui stackable four column grid" id="contenitore-4">
                             <?php
                             $authorID = filter_input(INPUT_GET, "aID");
-                            $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura,V.Descrizione , M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
+                            $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
                             $query = mysqli_query($connection, $txtQuery);
                             while ($row = mysqli_fetch_array($query)) {
                                 switch ($row['Materia']) {
@@ -208,17 +209,17 @@
                                         break;
                                 }
                                 ?>
-                                <div class="ui raised link card prova <?php echo $color?>">
-                                    <a class="image">
-                                        <div class="ui <?php echo $color?> ribbon label"><?php echo $row['Materia']?></div>
-
-                                        <img src="http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg">
-                                        <!--<img src="<?php echo $row['pathMiniatura']?>">-->
+                                <div class="column">
+                                    <a class="ui raised link stackable fluid card <?php echo $color ?>" href="../<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
+                                        <div class="image">
+                                            <div class="ui <?php echo $color?> ribbon label"><?php echo $row['Materia']?></div>
+                                            <img src="<?php echo "http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg"/*$row['pathMiniatura']*/ ?>">
+                                        </div>
+                                        <div class="content">
+                                            <div class="header"><?php echo $row['Titolo'] ?></div>
+                                            <div class="description"><?php echo $row['Descrizione'] ?></div>
+                                        </div>
                                     </a>
-                                    <div class="content">
-                                        <div class="header"><?php echo $row['Titolo'] ?></div>
-                                        <div class="description"><?php echo $row['Descrizione'] ?></div>
-                                    </div>
                                 </div>
                             <?php } ?>
                         </div>
