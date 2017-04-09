@@ -193,19 +193,19 @@
                             while ($row = mysqli_fetch_array($query)) {
                                 switch ($row['Materia']) {
                                     case 'Informatica':
-                                        $color='blue';
+                                        $color = 'blue';
                                         break;
                                     case 'Meccanica':
-                                        $color='green';
+                                        $color = 'green';
                                         break;
                                     case 'Elettrotecnica':
-                                        $color='orange';
+                                        $color = 'orange';
                                         break;
                                     case 'Costruzioni':
-                                        $color='brown';
+                                        $color = 'brown';
                                         break;
                                     case 'Chimica':
-                                        $color='red';
+                                        $color = 'red';
                                         break;
                                 }
                                 ?>
