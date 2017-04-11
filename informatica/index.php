@@ -87,6 +87,8 @@
                 top: 70px;
                 width: 20%;
                 right: 80%;
+                visibility: visible;
+                display: block!important;
                 padding-right: 0.5em;
             }
             #video-navigation .ui.vertical.menu {
@@ -109,7 +111,6 @@
                 right: 8px;
                 width: 50px;
                 height: 50px;
-                z-index: 101;
                 vertical-align: middle;
                 background-color: #ffffff;
                 border: 1px solid #db2828;
@@ -124,6 +125,10 @@
                 height: 32px;
                 right: 16px;
                 bottom: 16px;
+            }
+            @-moz-document url-prefix() {
+                #video-navigation .close { right: 20px;}
+                #video-navigation .close span { bottom: 3px;}
             }
             #video-navigation .close span:before,
             #video-navigation .close span:after {
@@ -196,7 +201,7 @@
             @media screen and (max-width: 500px) {
                 #video-navigation {
                     position: fixed;
-                    display: none;
+                    display: none!important;
                     width: 100%;
                     height: 100%;
                     padding: 0;
@@ -209,7 +214,7 @@
                     left: 0;
                 }
                 #btnShowVideoNavigation,
-                #video-navigation.transition .close { display: block;}
+                #video-navigation.transition.visible .close { display: block;}
             }
             
             /*Scrollbar*/
@@ -230,7 +235,8 @@
         
             
             #btnShowVideoNavigation {
-                background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+                /*background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);*/
+                background: linear-gradient(#2185d0, #21ba45, #db2828, #f2711c, #a5673f);
                 background-size: 1800% 1800%;
                 -webkit-animation: rainbow 18s ease infinite;
                 -z-animation: rainbow 18s ease infinite;
