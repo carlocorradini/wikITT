@@ -67,7 +67,7 @@
                 -webkit-transition: padding 0.5s linear;
                 -moz-transition: padding 0.5s linear;
             }
-            #video-description {
+            .card {
                 width: 100%;
                 min-height: 100px;
                 margin-top: 1em;
@@ -79,6 +79,7 @@
                 -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
                 -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
             }
+            .card .ui.image.label { margin: 0.25em;}
             
             /*Video Navigation*/
             #video-navigation {
@@ -189,7 +190,7 @@
                 }
                 
                 #video { padding: 0;}
-                #video-description {
+                .card {
                     position: absolute;
                     width: 59.5%;
                     left: 40%;
@@ -208,16 +209,18 @@
                     top: 0;
                     z-index: 100;
                 }
-                #video-description {
+                .card {
                     position: relative;
                     width: 100%;
                     left: 0;
                 }
                 #btnShowVideoNavigation,
                 #video-navigation.transition.visible .close { display: block;}
+                body ~ #video-navigation.transparent.visible { overflow: hidden;}
             }
             
             /*Scrollbar*/
+            .scrollbar.hidden { overflow: hidden; display: block!important;}
             .scrollbar::-webkit-scrollbar-track{
                 background-color: #F5F5F5;
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -235,13 +238,12 @@
         
             
             #btnShowVideoNavigation {
-                /*background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);*/
-                background: linear-gradient(#2185d0, #21ba45, #db2828, #f2711c, #a5673f);
+                background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2185d0, #dd00f3, #dd00f3);
                 background-size: 1800% 1800%;
                 -webkit-animation: rainbow 18s ease infinite;
-                -z-animation: rainbow 18s ease infinite;
+                -moz-animation: rainbow 18s ease infinite;
                 -o-animation: rainbow 18s ease infinite;
-                  animation: rainbow 18s ease infinite;
+                animation: rainbow 18s ease infinite;
             }
             @-webkit-keyframes rainbow {
                 0%{background-position:0% 82%}
@@ -258,7 +260,7 @@
                 50%{background-position:100% 19%}
                 100%{background-position:0% 82%}
             }
-            @keyframes rainbow { 
+            @keyframes rainbow {
                 0%{background-position:0% 82%}
                 50%{background-position:100% 19%}
                 100%{background-position:0% 82%}
@@ -275,7 +277,12 @@
                 //Handle Video Navigation on XS Devices
                 //Open & Close
                 $("#btnShowVideoNavigation, #video-navigation .close").on("click", function() {
+                    $("body").toggleClass("scrollbar hidden");
                     $("#video-navigation").transition("drop");
+                });
+                //Handle dimmer on download
+                $('.special.cards .image').dimmer({
+                    on: 'hover'
                 });
             });
             
@@ -299,13 +306,6 @@
             }
         </script>
         
-        <?php 
-            //Require engine PHP page
-            require '../common/php/engine.php';
-            //Vide ID
-            $vID = filter_input(INPUT_GET, "v");
-        ?>
-        
         <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
             
@@ -316,15 +316,25 @@
             
             <div class="video-content">
                 <?php
-                    $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1");
-                
+                    //Require engine PHP page
+                    require '../common/php/engine.php';
+                    //Vide ID
+                    $vID = filter_input(INPUT_GET, "v");
+                    
+                    //Query
+                    $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
+                    
                     if(!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {?>
                         <div id="noVideo"><img src="http://www.progettotorino.it/wp-content/uploads/2016/05/ICT-graphic.jpg" alt="informatica" style="width: 100%; height: 100%;"/></div>
-                    <?php } else {?>
+                    <?php } else {
+                        //Execute queries
+                        $creatorInfo = query("SELECT A.* FROM video V,realizza R,autore A WHERE V.Cod=R.CodVideo AND R.IDAutore=A.ID AND V.VideoID='$vID';");?>
+                        
                         <div id="video">
                             <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
                         </div>
-                        <div id="video-description">
+                        <div class="card">
+                            <!--Video Info-->
                             <?php $vInfo = mysqli_fetch_array($videoInfo)?>
                             <div class="ui label" style="float: right;">
                                 <i class="calendar icon"></i>
@@ -332,19 +342,20 @@
                             </div>
                             <h1 style="margin: 0;"><?php echo $vInfo["Titolo"];?></h1>
                             <p><?php echo $vInfo["Descrizione"];?></p>
-                            <a class="ui yellow image label" href="/author/index.php?aID=1">
-                                <img src="https://semantic-ui.com/images/avatar/small/christian.jpg" alt="autore"/>
-                                Carlo Corradini
-                                <div class="detail">4ELC</div>
-                            </a>
-                            <a class="ui blue image label" href="/author/index.php?aID=2">
-                                <img src="https://semantic-ui.com/images/avatar/small/joe.jpg" alt="autore"/>
-                                Stefano Perenzoni
-                                <div class="detail">5INA</div>
-                            </a>
+                            
+                            <!--Creators Info-->
+                            <?php while ($row = mysqli_fetch_array($creatorInfo)) {?>
+                                <a href="/author/index.php?aID=<?php echo $row["ID"];?>" class="ui image label <?php echo $row["Color"];?>">
+                                    <img src="<?php echo $row["PathMiniatura"];?>" alt="autore"/>
+                                    <?php echo $row["Nome"]."&nbsp;".$row["Cognome"];?>
+                                    <div class="detail"><?php echo $row["Classe"];?></div>
+                                </a>
+                            <?php }?>
                         </div>
-                    <?php }
-                ?>
+                        <div class="card">
+                            <h1>Download</h1>
+                        </div>
+                    <?php }?>
             </div>
             <div id="video-navigation">
                 <div class="scrollbar informatica ui vertical menu">

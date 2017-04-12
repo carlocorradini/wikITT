@@ -3,3 +3,5 @@ CHIMICA => http://www.flaticon.com/free-icon/test-tubes_167731#term=chemistry&pa
 ELETTROTECNICA => http://www.flaticon.com/free-icon/light-bulb_167745#term=bulb&page=1&position=12
 MECCANICA => http://www.flaticon.com/free-icon/piston_290110
 COSTRUZIONI => http://www.flaticon.com/free-icon/compass_272387#term=compass&page;=1&position;=16
+
+PDF -> http://www.flaticon.com/free-icon/pdf_136522#term=pdf&page=1&position=1
