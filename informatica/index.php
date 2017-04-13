@@ -49,7 +49,6 @@
             .font.costruzioni { color: #a5673f!important;}
             
             /*General*/
-            /*Video & Navigation*/
             #video-navigation,
             .video-content {
                 position: relative;
@@ -68,6 +67,7 @@
                 -moz-transition: padding 0.5s linear;
             }
             .card {
+                position: relative;
                 width: 100%;
                 min-height: 100px;
                 margin-top: 1em;
@@ -79,7 +79,13 @@
                 -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
                 -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
             }
-            .card .ui.image.label { margin: 0.25em;}
+            .card .ui.image.label { margin-top: 0.2em;}
+            #msgNoFound {
+                display: none;
+                font-weight: bold;
+                font-style: italic;
+                font-size: 1.1em;
+            }
             
             /*Video Navigation*/
             #video-navigation {
@@ -97,6 +103,7 @@
                 width: 100%;
                 height: 100%;
                 overflow-y: auto;
+                overflow-x: hidden;
             }
             /*XS Responsive*/
             #btnShowVideoNavigation,
@@ -173,9 +180,9 @@
                 #video { padding: 0;}
             }
             @media screen and (max-width: 700px) {
+                /*Parent Container*/
                 #video-navigation,
                 .video-content { padding: 0.25em;}
-                
                 #video-navigation {
                     position: relative;
                     width: 40%;
@@ -189,11 +196,14 @@
                     left: 0;
                 }
                 
-                #video { padding: 0;}
-                .card {
+                /*Video Description & Card*/
+                #video-descrition {
                     position: absolute;
-                    width: 59.5%;
+                    width: 60%;
                     left: 40%;
+                    padding-right: 0.25em;
+                }
+                .card {
                     margin-top: 0.5em;
                     padding: 0.5em;
                 }
@@ -209,14 +219,14 @@
                     top: 0;
                     z-index: 100;
                 }
-                .card {
+                #video-descrition {
                     position: relative;
                     width: 100%;
                     left: 0;
+                    padding: 0;
                 }
                 #btnShowVideoNavigation,
                 #video-navigation.transition.visible .close { display: block;}
-                body ~ #video-navigation.transparent.visible { overflow: hidden;}
             }
             
             /*Scrollbar*/
@@ -228,6 +238,7 @@
             }
             .scrollbar::-webkit-scrollbar{
                 width: 6px;
+                height: 6px;
                 background-color: #F5F5F5;
             }
             .scrollbar.informatica::-webkit-scrollbar-thumb{ background-color: #2185d0;}
@@ -280,10 +291,6 @@
                     $("body").toggleClass("scrollbar hidden");
                     $("#video-navigation").transition("drop");
                 });
-                //Handle dimmer on download
-                $('.special.cards .image').dimmer({
-                    on: 'hover'
-                });
             });
             
             function search(query) {
@@ -291,7 +298,7 @@
                 var showNoFound = true;
                 $(items).each(function(index, item) {
                     var iVal = $(item).text().toUpperCase();
-                    if (!$(this).is("#msg")) {
+                    if (!$(this).is("#msgNoFound")) {
                         if(iVal.indexOf(query) > -1) {
                             showNoFound = false;
                             $(item).fadeIn("fast");
@@ -300,9 +307,9 @@
                     }
                 });
                 if (showNoFound)
-                    $("#msg").delay(100).fadeIn("fast");
+                    $("#msgNoFound").delay(100).fadeIn("fast");
                 else
-                    $("#msg").hide();
+                    $("#msgNoFound").hide();
             }
         </script>
         
@@ -333,27 +340,43 @@
                         <div id="video">
                             <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
                         </div>
-                        <div class="card">
-                            <!--Video Info-->
-                            <?php $vInfo = mysqli_fetch_array($videoInfo)?>
-                            <div class="ui label" style="float: right;">
-                                <i class="calendar icon"></i>
-                                <?php echo $vInfo["DataPub"]?>
+                        <div id="video-descrition">
+                            <div class="card">
+                                <!--Video Info-->
+                                <?php $vInfo = mysqli_fetch_array($videoInfo)?>
+                                <div class="ui label" style="float: right;">
+                                    <i class="calendar icon"></i>
+                                    <?php echo $vInfo["DataPub"]?>
+                                </div>
+                                <h1 style="margin: 0;"><?php echo $vInfo["Titolo"];?></h1>
+                                <p><?php echo $vInfo["Descrizione"];?></p>
+
+                                <!--Creator Info-->
+                                <?php if (mysqli_num_rows($creatorInfo) > 0) {
+                                    while ($row = mysqli_fetch_array($creatorInfo)) {?>
+                                        <a href="/author/index.php?aID=<?php echo $row["ID"];?>" class="ui image label <?php echo $row["Color"];?>">
+                                            <img src="<?php echo $row["PathMiniatura"];?>" alt="autore"/>
+                                            <?php echo $row["Nome"]."&nbsp;".$row["Cognome"];?>
+                                            <div class="detail"><?php echo $row["Classe"];?></div>
+                                        </a>
+                                <?php }} else {?>
+                                    <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
+                                <?php }?>
                             </div>
-                            <h1 style="margin: 0;"><?php echo $vInfo["Titolo"];?></h1>
-                            <p><?php echo $vInfo["Descrizione"];?></p>
-                            
-                            <!--Creators Info-->
-                            <?php while ($row = mysqli_fetch_array($creatorInfo)) {?>
-                                <a href="/author/index.php?aID=<?php echo $row["ID"];?>" class="ui image label <?php echo $row["Color"];?>">
-                                    <img src="<?php echo $row["PathMiniatura"];?>" alt="autore"/>
-                                    <?php echo $row["Nome"]."&nbsp;".$row["Cognome"];?>
-                                    <div class="detail"><?php echo $row["Classe"];?></div>
-                                </a>
-                            <?php }?>
-                        </div>
-                        <div class="card">
-                            <h1>Download</h1>
+                            <div class="card">
+                                <h1>Materiale</h1>
+                                <?php $attachment = query("SELECT M.PathMateriale,M.Tipo FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
+                                    if (mysqli_num_rows($attachment) > 0) {?>
+                                        <!--Inserire HTML quando è presente del materiale da scaricare-->
+                                    <?php } else {?>
+                                        <div class="ui icon message">
+                                            <i class="info icon"></i>
+                                            <div class="content">
+                                                <p>Nessun materiale disponibile</p>
+                                            </div>
+                                        </div>
+                                <?php } ?>
+                            </div>
                         </div>
                     <?php }?>
             </div>
@@ -365,8 +388,8 @@
                             <i class="search icon"></i>
                         </div>
                     </div>
-                    <div class="item" id="msg" style="display: none;">
-                        Nessun video trovato
+                    <div class="item" id="msgNoFound">
+                        <i class="rocket icon"></i>Nessun video trovato
                     </div>
                     <?php
                         $videos = query("SELECT Titolo,VideoID FROM video ORDER BY Titolo;");
