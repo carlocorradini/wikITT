@@ -110,9 +110,41 @@
             #video-navigation .close { display: none;}
             #btnShowVideoNavigation {
                 width: 99%;
-                margin: 0 auto;
-                margin-top: 0.25em;
+                margin: 0.25em auto 0 auto;
+                background: -webkit-linear-gradient(124deg, #f2711c, #db2828, #eaae00, #e3e81d, #b5cc18, #00b5ad, #2185d0, #e61a8d, #e61a8d);
+                background: -moz-linear-gradient(124deg, #f2711c, #db2828, #eaae00, #e3e81d, #b5cc18, #00b5ad, #2185d0, #e61a8d, #e61a8d);
+                background: -o-linear-gradient(124deg, #f2711c, #db2828, #eaae00, #e3e81d, #b5cc18, #00b5ad, #2185d0, #e61a8d, #e61a8d);
+                background: linear-gradient(124deg, #f2711c, #db2828, #eaae00, #e3e81d, #b5cc18, #00b5ad, #2185d0, #e61a8d, #e61a8d);
+                -webkit-background-size: 1800% 1800%;
+                -moz-background-size: 1800% 1800%;
+                -o-background-size: 1800% 1800%;
+                background-size: 1800% 1800%;
+                -webkit-animation: rainbow 18s ease infinite;
+                -moz-animation: rainbow 18s ease infinite;
+                -o-animation: rainbow 18s ease infinite;
+                animation: rainbow 18s ease infinite;
             }
+            @-webkit-keyframes rainbow {
+                0%{background-position:0% 82%}
+                50%{background-position:100% 19%}
+                100%{background-position:0% 82%}
+            }
+            @-moz-keyframes rainbow {
+                0%{background-position:0% 82%}
+                50%{background-position:100% 19%}
+                100%{background-position:0% 82%}
+            }
+            @-o-keyframes rainbow {
+                0%{background-position:0% 82%}
+                50%{background-position:100% 19%}
+                100%{background-position:0% 82%}
+            }
+            @keyframes rainbow {
+                0%{background-position:0% 82%}
+                50%{background-position:100% 19%}
+                100%{background-position:0% 82%}
+            }
+            
             #video-navigation .close {
                 position: fixed;
                 bottom: 3px;
@@ -169,6 +201,290 @@
                 left: 20%;
                 padding-left: 0.5em;
             }
+            
+            /*Attachment*/
+            .attachment {
+                position: relative;
+                display: inline-block;
+                max-width: 138px;
+                height: auto;
+                background: none;
+                border: 0;
+                padding: 10px 5px 5px 5px;
+                vertical-align: text-top;
+                text-decoration: initial;
+                -webkit-transition: color 0.25s;
+                -moz-transition: color 0.25s;
+                -o-transition: color 0.25s;
+                transition: color 0.25s;
+            }
+            .attachment:not(:last-child) {
+                margin-right: 5px;
+            }
+            .attachment:before,
+            .attachment:after {
+                position: absolute;
+                width: 0;
+                height: 0;
+                box-sizing: inherit;
+                content: "";
+                pointer-events: none;
+                border: 2px solid transparent;
+            }
+            .attachment::before {
+                top: 0;
+                left: 0;
+            }
+            .attachment::after {
+                bottom: 0;
+                right: 0;
+            }
+            .attachment:hover::before,
+            .attachment:hover::after {
+                width: 100%;
+                height: 100%;
+            }
+            .attachment:hover::before {
+                border-top-color: #00b5ad;
+                border-right-color: #00b5ad;
+                -webkit-transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
+                -moz-transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
+                -o-transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
+                transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
+            }
+            .attachment:hover::after {
+                border-bottom-color: #00b5ad;
+                border-left-color: #00b5ad;
+                -webkit-transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+                -moz-transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+                -o-transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+                transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+            }
+
+            /*Attachment Image*/
+            .attachment .image {
+                width: 128px;
+                height: 128px;
+                background-size: 128px auto;
+            }
+
+            /*Attachment Divider*/
+            .attachment .divider {
+                height: 0;
+                border: 0;
+                border-top: 1px solid #8c8b8b;
+                text-align: center;
+                margin: 9px 0;
+            }
+            .attachment .divider:after {
+                position: relative;
+                content: '§';
+                display: inline-block;
+                top: -11px;
+                background: transparent;
+                color: #8c8b8b;
+                font-size: 15px;
+            }
+
+            /*Attachment Description*/
+            .attachment .desc {
+                text-align: center;
+                color: #000000;
+                font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+                font-weight: bold;
+            }
+            .attachment:hover .desc { color: #2185d0;}
+
+            /*Attachment File Type*/
+            /*AI*/
+            .attachment.ai {
+                -webkit-box-shadow: inset 0 0 0 2px #ffc14f;
+                -moz-box-shadow: inset 0 0 0 2px #ffc14f;
+                box-shadow: inset 0 0 0 2px #ffc14f;
+            }
+            .attachment.ai .image { background-image: url("/common/image/file_extension/ai.png");}
+            /*AVI*/
+            .attachment.avi {
+                -webkit-box-shadow: inset 0 0 0 2px #d75e72;
+                -moz-box-shadow: inset 0 0 0 2px #d75e72;
+                box-shadow: inset 0 0 0 2px #d75e72;
+            }
+            .attachment.avi .image { background-image: url("/common/image/file_extension/avi.png");}
+            /*CSS*/
+            .attachment.css {
+                -webkit-box-shadow: inset 0 0 0 2px #0096e6;
+                -moz-box-shadow: inset 0 0 0 2px #0096e6;
+                box-shadow: inset 0 0 0 2px #0096e6;
+            }
+            .attachment.css .image { background-image: url("/common/image/file_extension/css.png");}
+            /*CSV*/
+            .attachment.csv {
+                -webkit-box-shadow: inset 0 0 0 2px #f36fa0;
+                -moz-box-shadow: inset 0 0 0 2px #f36fa0;
+                box-shadow: inset 0 0 0 2px #f36fa0;
+            }
+            .attachment.csv .image { background-image: url("/common/image/file_extension/csv.png");}
+            /*CSV*/
+            .attachment.dbf {
+                -webkit-box-shadow: inset 0 0 0 2px #e96360;
+                -moz-box-shadow: inset 0 0 0 2px #e96360;
+                box-shadow: inset 0 0 0 2px #e96360;
+            }
+            .attachment.dbf .image { background-image: url("/common/image/file_extension/dbf.png");}
+            /*DOC*/
+            .attachment.doc {
+                -webkit-box-shadow: inset 0 0 0 2px #0096e6;
+                -moz-box-shadow: inset 0 0 0 2px #0096e6;
+                box-shadow: inset 0 0 0 2px #0096e6;
+            }
+            .attachment.doc .image { background-image: url("/common/image/file_extension/doc.png");}
+            /*DWG*/
+            .attachment.dwg {
+                -webkit-box-shadow: inset 0 0 0 2px #8697cb;
+                -moz-box-shadow: inset 0 0 0 2px #8697cb;
+                box-shadow: inset 0 0 0 2px #8697cb;
+            }
+            .attachment.dwg .image { background-image: url("/common/image/file_extension/dwg.png");}
+            /*EXE*/
+            .attachment.exe {
+                -webkit-box-shadow: inset 0 0 0 2px #9777a8;
+                -moz-box-shadow: inset 0 0 0 2px #9777a8;
+                box-shadow: inset 0 0 0 2px #9777a8;
+            }
+            .attachment.exe .image { background-image: url("/common/image/file_extension/exe.png");}
+            /*FILE*/
+            .attachment.file {
+                -webkit-box-shadow: inset 0 0 0 2px #556080;
+                -moz-box-shadow: inset 0 0 0 2px #556080;
+                box-shadow: inset 0 0 0 2px #556080;
+            }
+            .attachment.file .image { background-image: url("/common/image/file_extension/file.png");}
+            /*FLA*/
+            .attachment.fla {
+                -webkit-box-shadow: inset 0 0 0 2px #ce3c3b;
+                -moz-box-shadow: inset 0 0 0 2px #ce3c3b;
+                box-shadow: inset 0 0 0 2px #ce3c3b;
+            }
+            .attachment.fla .image { background-image: url("/common/image/file_extension/fla.png");}
+            /*HTML*/
+            .attachment.html {
+                -webkit-box-shadow: inset 0 0 0 2px #ec6630;
+                -moz-box-shadow: inset 0 0 0 2px #ec6630;
+                box-shadow: inset 0 0 0 2px #ec6630;
+            }
+            .attachment.html .image { background-image: url("/common/image/file_extension/html.png");}
+            /*ISO*/
+            .attachment.iso {
+                -webkit-box-shadow: inset 0 0 0 2px #71c285;
+                -moz-box-shadow: inset 0 0 0 2px #71c285;
+                box-shadow: inset 0 0 0 2px #71c285;
+            }
+            .attachment.iso .image { background-image: url("/common/image/file_extension/iso.png");}
+            /*JAVASCRIPT*/
+            .attachment.javascript {
+                -webkit-box-shadow: inset 0 0 0 2px #eeaf4b;
+                -moz-box-shadow: inset 0 0 0 2px #eeaf4b;
+                box-shadow: inset 0 0 0 2px #eeaf4b;
+            }
+            .attachment.javascript .image { background-image: url("/common/image/file_extension/javascript.png");}
+            /*JPG*/
+            .attachment.jpg {
+                -webkit-box-shadow: inset 0 0 0 2px #14a085;
+                -moz-box-shadow: inset 0 0 0 2px #14a085;
+                box-shadow: inset 0 0 0 2px #14a085;
+            }
+            .attachment.jpg .image { background-image: url("/common/image/file_extension/jpg.png");}
+            /*JSON*/
+            .attachment.json {
+                -webkit-box-shadow: inset 0 0 0 2px #9777a8;
+                -moz-box-shadow: inset 0 0 0 2px #9777a8;
+                box-shadow: inset 0 0 0 2px #9777a8;
+            }
+            .attachment.json .image { background-image: url("/common/image/file_extension/json.png");}
+            /*MP3*/
+            .attachment.mp3 {
+                -webkit-box-shadow: inset 0 0 0 2px #7d6599;
+                -moz-box-shadow: inset 0 0 0 2px #7d6599;
+                box-shadow: inset 0 0 0 2px #7d6599;
+            }
+            .attachment.mp3 .image { background-image: url("/common/image/file_extension/mp3.png");}
+            /*MP4*/
+            .attachment.mp4 {
+                -webkit-box-shadow: inset 0 0 0 2px #ff5364;
+                -moz-box-shadow: inset 0 0 0 2px #ff5364;
+                box-shadow: inset 0 0 0 2px #ff5364;
+            }
+            .attachment.mp4 .image { background-image: url("/common/image/file_extension/mp4.png");}
+            /*PDF*/
+            .attachment.pdf {
+                -webkit-box-shadow: inset 0 0 0 2px #cc4b4c;
+                -moz-box-shadow: inset 0 0 0 2px #cc4b4c;
+                box-shadow: inset 0 0 0 2px #cc4b4c;
+            }
+            .attachment.pdf .image { background-image: url("/common/image/file_extension/pdf.png");}
+            /*PNG*/
+            .attachment.png {
+                -webkit-box-shadow: inset 0 0 0 2px #659c35;
+                -moz-box-shadow: inset 0 0 0 2px #659c35;
+                box-shadow: inset 0 0 0 2px #659c35;
+            }
+            .attachment.png .image { background-image: url("/common/image/file_extension/png.png");}
+            /*PPT*/
+            .attachment.ppt {
+                -webkit-box-shadow: inset 0 0 0 2px #f6712e;
+                -moz-box-shadow: inset 0 0 0 2px #f6712e;
+                box-shadow: inset 0 0 0 2px #f6712e;
+            }
+            .attachment.ppt .image { background-image: url("/common/image/file_extension/ppt.png");}
+            /*PSD*/
+            .attachment.psd {
+                -webkit-box-shadow: inset 0 0 0 2px #5889c4;
+                -moz-box-shadow: inset 0 0 0 2px #5889c4;
+                box-shadow: inset 0 0 0 2px #5889c4;
+            }
+            .attachment.psd .image { background-image: url("/common/image/file_extension/psd.png");}
+            /*RTF*/
+            .attachment.rtf {
+                -webkit-box-shadow: inset 0 0 0 2px #90bae1;
+                -moz-box-shadow: inset 0 0 0 2px #90bae1;
+                box-shadow: inset 0 0 0 2px #90bae1;
+            }
+            .attachment.rtf .image { background-image: url("/common/image/file_extension/rtf.png");}
+            /*SVG*/
+            .attachment.svg {
+                -webkit-box-shadow: inset 0 0 0 2px #e57e25;
+                -moz-box-shadow: inset 0 0 0 2px #e57e25;
+                box-shadow: inset 0 0 0 2px #e57e25;
+            }
+            .attachment.svg .image { background-image: url("/common/image/file_extension/svg.png");}
+            /*TXT*/
+            .attachment.txt {
+                -webkit-box-shadow: inset 0 0 0 2px #95a5a5;
+                -moz-box-shadow: inset 0 0 0 2px #95a5a5;
+                box-shadow: inset 0 0 0 2px #95a5a5;
+            }
+            .attachment.txt .image { background-image: url("/common/image/file_extension/txt.png");}
+            /*XLS*/
+            .attachment.xls {
+                -webkit-box-shadow: inset 0 0 0 2px #91cda0;
+                -moz-box-shadow: inset 0 0 0 2px #91cda0;
+                box-shadow: inset 0 0 0 2px #91cda0;
+            }
+            .attachment.xls .image { background-image: url("/common/image/file_extension/xls.png");}
+            /*XML*/
+            .attachment.xml {
+                -webkit-box-shadow: inset 0 0 0 2px #f29c1f;
+                -moz-box-shadow: inset 0 0 0 2px #f29c1f;
+                box-shadow: inset 0 0 0 2px #f29c1f;
+            }
+            .attachment.xml .image { background-image: url("/common/image/file_extension/xml.png");}
+            /*ZIP*/
+            .attachment.zip {
+                -webkit-box-shadow: inset 0 0 0 2px #556080;
+                -moz-box-shadow: inset 0 0 0 2px #556080;
+                box-shadow: inset 0 0 0 2px #556080;
+            }
+            .attachment.zip .image { background-image: url("/common/image/file_extension/zip.png");}
             @media screen and (max-width: 1000px) {
                 #video-navigation,
                 .video-content { padding: 0.5em;}
@@ -246,36 +562,6 @@
             .scrollbar.chimica::-webkit-scrollbar-thumb{ background-color: #db2828;}
             .scrollbar.elettrotecnica::-webkit-scrollbar-thumb{ background-color: #f2711c;}
             .scrollbar.costruzioni::-webkit-scrollbar-thumb{ background-color: #a5673f;}
-        
-            
-            #btnShowVideoNavigation {
-                background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2185d0, #dd00f3, #dd00f3);
-                background-size: 1800% 1800%;
-                -webkit-animation: rainbow 18s ease infinite;
-                -moz-animation: rainbow 18s ease infinite;
-                -o-animation: rainbow 18s ease infinite;
-                animation: rainbow 18s ease infinite;
-            }
-            @-webkit-keyframes rainbow {
-                0%{background-position:0% 82%}
-                50%{background-position:100% 19%}
-                100%{background-position:0% 82%}
-            }
-            @-moz-keyframes rainbow {
-                0%{background-position:0% 82%}
-                50%{background-position:100% 19%}
-                100%{background-position:0% 82%}
-            }
-            @-o-keyframes rainbow {
-                0%{background-position:0% 82%}
-                50%{background-position:100% 19%}
-                100%{background-position:0% 82%}
-            }
-            @keyframes rainbow {
-                0%{background-position:0% 82%}
-                50%{background-position:100% 19%}
-                100%{background-position:0% 82%}
-            }
         </style>
     </head>
     <body>
@@ -290,6 +576,13 @@
                 $("#btnShowVideoNavigation, #video-navigation .close").on("click", function() {
                     $("body").toggleClass("scrollbar hidden");
                     $("#video-navigation").transition("drop");
+                });
+                //Habdle Popup onHover attachment
+                $(".attachment").popup({
+                    content: "Download",
+                    transition: "vertical flip",
+                    position: "top center",
+                    variation: "inverted"
                 });
             });
             
@@ -365,10 +658,15 @@
                             </div>
                             <div class="card">
                                 <h1>Materiale</h1>
-                                <?php $attachment = query("SELECT M.PathMateriale,M.Tipo FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
-                                    if (mysqli_num_rows($attachment) > 0) {?>
-                                        <!--Inserire HTML quando è presente del materiale da scaricare-->
-                                    <?php } else {?>
+                                <?php $attachments = query("SELECT M.Tipo,M.PathMateriale,M.Descrizione FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
+                                    if (mysqli_num_rows($attachments) > 0) {
+                                        while ($row = mysqli_fetch_array($attachments)) {?>
+                                            <a class="attachment <?php echo $row["Tipo"];?>" href="<?php echo $row["PathMateriale"];?>" target="_blank" download>
+                                                <div class="image"></div>
+                                                <hr class="divider">
+                                                <div class="desc"><?php echo $row["Descrizione"];?></div>
+                                            </a>
+                                    <?php }} else {?>
                                         <div class="ui icon message">
                                             <i class="info icon"></i>
                                             <div class="content">
