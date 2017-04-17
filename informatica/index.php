@@ -47,6 +47,23 @@
             .font.chimica { color: #db2828!important;}
             .font.elettrotecnica { color: #f2711c!important;}
             .font.costruzioni { color: #a5673f!important;}
+            /*Scrollbar*/
+            .scrollbar.hidden { overflow: hidden; display: block!important;}
+            .scrollbar::-webkit-scrollbar-track{
+                background-color: #F5F5F5;
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+                -moz-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            }
+            .scrollbar::-webkit-scrollbar{
+                width: 6px;
+                height: 6px;
+                background-color: #F5F5F5;
+            }
+            .scrollbar.informatica::-webkit-scrollbar-thumb{ background-color: #2185d0;}
+            .scrollbar.meccanica::-webkit-scrollbar-thumb{ background-color: #21ba45;}
+            .scrollbar.chimica::-webkit-scrollbar-thumb{ background-color: #db2828;}
+            .scrollbar.elettrotecnica::-webkit-scrollbar-thumb{ background-color: #f2711c;}
+            .scrollbar.costruzioni::-webkit-scrollbar-thumb{ background-color: #a5673f;}
             
             /*General*/
             #video-navigation,
@@ -210,68 +227,61 @@
                 height: auto;
                 background: none;
                 border: 0;
-                padding: 10px 5px 5px 5px;
-                vertical-align: text-top;
                 text-decoration: initial;
-                -webkit-transition: color 0.25s;
-                -moz-transition: color 0.25s;
-                -o-transition: color 0.25s;
-                transition: color 0.25s;
+                vertical-align: text-top;
+                padding: 10px 5px 5px 5px;
+                -webkit-box-shadow: inset 0 0 0 2px #00b5ad;
+                -moz-box-shadow: inset 0 0 0 2px #00b5ad;
+                box-shadow: inset 0 0 0 2px #00b5ad;
             }
-            .attachment:not(:last-child) {
-                margin-right: 5px;
-            }
-            .attachment:before,
-            .attachment:after {
-                position: absolute;
-                width: 0;
-                height: 0;
-                box-sizing: inherit;
-                content: "";
-                pointer-events: none;
-                border: 2px solid transparent;
-            }
-            .attachment::before {
-                top: 0;
-                left: 0;
-            }
+            .attachment:not(:last-child) { margin-right: 5px;}
+            
+            .attachment::before,
             .attachment::after {
-                bottom: 0;
-                right: 0;
+                position: absolute;
+                display: block;
+                content: '';
+                width: 80%;
+                height: 2px;
+                top: 0;
+                background: #f9f9f9;
+                -webkit-transition: width 0.2s ease-in-out;
+                -moz-transition: width 0.2s ease-in-out;
+                -o-transition: width 0.2s ease-in-out;
+                -ms-transition: width 0.2s ease-in-out;
+                transition: width 0.2s ease-in-out;
+            }
+            .attachment::before { right: 2px;}
+            .attachment::after {
+                top: calc(100% - 2px);
+                left: 2px;
             }
             .attachment:hover::before,
-            .attachment:hover::after {
-                width: 100%;
-                height: 100%;
-            }
-            .attachment:hover::before {
-                border-top-color: #00b5ad;
-                border-right-color: #00b5ad;
-                -webkit-transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
-                -moz-transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
-                -o-transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
-                transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
-            }
-            .attachment:hover::after {
-                border-bottom-color: #00b5ad;
-                border-left-color: #00b5ad;
-                -webkit-transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
-                -moz-transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
-                -o-transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
-                transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
-            }
+            .attachment:hover::after,
+            .attachment:active::before,
+            .attachment:active::after { width: 0;}
 
             /*Attachment Image*/
             .attachment .image {
                 width: 128px;
                 height: 128px;
+                background-image: url("/common/image/file_extension/file.png");
+                -webkit-background-size: 128px auto;
+                -moz-background-size: 128px auto;
+                -o-background-size: 128px auto;
                 background-size: 128px auto;
+                -webkit-transition: background-image 0.5s ease-in-out;
+                -moz-transition: background-image 0.5s ease-in-out;
+                -o-transition: background-image 0.5s ease-in-out;
+                -ms-transition: background-image 0.5s ease-in-out;
+                transition: background-image 0.5s ease-in-out;
             }
+            .attachment:hover .image { background-image: url("/common/image/download.png")!important;}
 
             /*Attachment Divider*/
             .attachment .divider {
                 height: 0;
-                border: 0;
+                border: none;
                 border-top: 1px solid #8c8b8b;
                 text-align: center;
                 margin: 9px 0;
@@ -294,7 +304,7 @@
                 font-weight: bold;
             }
             .attachment:hover .desc { color: #2185d0;}
-
+            
             /*Attachment File Type*/
             /*AI*/
             .attachment.ai {
@@ -310,6 +320,27 @@
                 box-shadow: inset 0 0 0 2px #d75e72;
             }
             .attachment.avi .image { background-image: url("/common/image/file_extension/avi.png");}
+            /*C*/
+            .attachment.c {
+                -webkit-box-shadow: inset 0 0 0 2px #aabacc;
+                -moz-box-shadow: inset 0 0 0 2px #aabacc;
+                box-shadow: inset 0 0 0 2px #aabacc;
+            }
+            .attachment.c .image { background-image: url("/common/image/file_extension/c.png");}
+            /*CPP*/
+            .attachment.cpp {
+                -webkit-box-shadow: inset 0 0 0 2px #004383;
+                -moz-box-shadow: inset 0 0 0 2px #004383;
+                box-shadow: inset 0 0 0 2px #004383;
+            }
+            .attachment.cpp .image { background-image: url("/common/image/file_extension/cpp.png");}
+            /*CS*/
+            .attachment.cs {
+                -webkit-box-shadow: inset 0 0 0 2px #681b7b;
+                -moz-box-shadow: inset 0 0 0 2px #681b7b;
+                box-shadow: inset 0 0 0 2px #681b7b;
+            }
+            .attachment.cs .image { background-image: url("/common/image/file_extension/cs.png");}
             /*CSS*/
             .attachment.css {
                 -webkit-box-shadow: inset 0 0 0 2px #0096e6;
@@ -380,6 +411,13 @@
                 box-shadow: inset 0 0 0 2px #71c285;
             }
             .attachment.iso .image { background-image: url("/common/image/file_extension/iso.png");}
+            /*JAVA*/
+            .attachment.java {
+                -webkit-box-shadow: inset 0 0 0 2px #f89820;
+                -moz-box-shadow: inset 0 0 0 2px #f89820;
+                box-shadow: inset 0 0 0 2px #f89820;
+            }
+            .attachment.java .image { background-image: url("/common/image/file_extension/java.png");}
             /*JAVASCRIPT*/
             .attachment.javascript {
                 -webkit-box-shadow: inset 0 0 0 2px #eeaf4b;
@@ -422,6 +460,13 @@
                 box-shadow: inset 0 0 0 2px #cc4b4c;
             }
             .attachment.pdf .image { background-image: url("/common/image/file_extension/pdf.png");}
+            /*PHP*/
+            .attachment.php {
+                -webkit-box-shadow: inset 0 0 0 2px #5d65b5;
+                -moz-box-shadow: inset 0 0 0 2px #5d65b5;
+                box-shadow: inset 0 0 0 2px #5d65b5;
+            }
+            .attachment.php .image { background-image: url("/common/image/file_extension/php.png");}
             /*PNG*/
             .attachment.png {
                 -webkit-box-shadow: inset 0 0 0 2px #659c35;
@@ -443,6 +488,13 @@
                 box-shadow: inset 0 0 0 2px #5889c4;
             }
             .attachment.psd .image { background-image: url("/common/image/file_extension/psd.png");}
+            /*RB*/
+            .attachment.rb {
+                -webkit-box-shadow: inset 0 0 0 2px #ee4444;
+                -moz-box-shadow: inset 0 0 0 2px #ee4444;
+                box-shadow: inset 0 0 0 2px #ee4444;
+            }
+            .attachment.rb .image { background-image: url("/common/image/file_extension/rb.png");}
             /*RTF*/
             .attachment.rtf {
                 -webkit-box-shadow: inset 0 0 0 2px #90bae1;
@@ -485,6 +537,8 @@
                 box-shadow: inset 0 0 0 2px #556080;
             }
             .attachment.zip .image { background-image: url("/common/image/file_extension/zip.png");}
+
+            /*---Media Query---*/
             @media screen and (max-width: 1000px) {
                 #video-navigation,
                 .video-content { padding: 0.5em;}
@@ -543,25 +597,18 @@
                 }
                 #btnShowVideoNavigation,
                 #video-navigation.transition.visible .close { display: block;}
+                
+                /*Attachment*/
+                .attachment { max-width: 106px;}
+                .attachment .image {
+                    width: 96px;
+                    height: 96px;
+                    -webkit-background-size: 96px auto;
+                    -moz-background-size: 96px auto;
+                    -o-background-size: 96px auto;
+                    background-size: 96px auto;
+                }
             }
-            
-            /*Scrollbar*/
-            .scrollbar.hidden { overflow: hidden; display: block!important;}
-            .scrollbar::-webkit-scrollbar-track{
-                background-color: #F5F5F5;
-                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-                -moz-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-            }
-            .scrollbar::-webkit-scrollbar{
-                width: 6px;
-                height: 6px;
-                background-color: #F5F5F5;
-            }
-            .scrollbar.informatica::-webkit-scrollbar-thumb{ background-color: #2185d0;}
-            .scrollbar.meccanica::-webkit-scrollbar-thumb{ background-color: #21ba45;}
-            .scrollbar.chimica::-webkit-scrollbar-thumb{ background-color: #db2828;}
-            .scrollbar.elettrotecnica::-webkit-scrollbar-thumb{ background-color: #f2711c;}
-            .scrollbar.costruzioni::-webkit-scrollbar-thumb{ background-color: #a5673f;}
         </style>
     </head>
     <body>
@@ -576,13 +623,6 @@
                 $("#btnShowVideoNavigation, #video-navigation .close").on("click", function() {
                     $("body").toggleClass("scrollbar hidden");
                     $("#video-navigation").transition("drop");
-                });
-                //Habdle Popup onHover attachment
-                $(".attachment").popup({
-                    content: "Download",
-                    transition: "vertical flip",
-                    position: "top center",
-                    variation: "inverted"
                 });
             });
             
@@ -661,7 +701,9 @@
                                 <?php $attachments = query("SELECT M.Tipo,M.PathMateriale,M.Descrizione FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
                                     if (mysqli_num_rows($attachments) > 0) {
                                         while ($row = mysqli_fetch_array($attachments)) {?>
-                                            <a class="attachment <?php echo $row["Tipo"];?>" href="<?php echo $row["PathMateriale"];?>" target="_blank" download>
+                                            <a class="attachment <?php echo $row["Tipo"];?>"
+                                               href="<?php echo $row["PathMateriale"];?>"
+                                               target="_blank" download>
                                                 <div class="image"></div>
                                                 <hr class="divider">
                                                 <div class="desc"><?php echo $row["Descrizione"];?></div>

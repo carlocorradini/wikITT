@@ -31,3 +31,11 @@ RTF => http://www.flaticon.com/free-icon/rtf_136539
 FLA => http://www.flaticon.com/free-icon/fla_136547
 DWG => http://www.flaticon.com/free-icon/dwg_136542
 FILE => http://www.flaticon.com/free-icon/file_136549
+JAVA => http://www.iconhot.com/icon/file-icons-vs-2/java-6.html
+CS => https://www.consulenteweb.it/corso-c-sharp-avanzato/
+CPP => http://www.unixstickers.com/stickers/coding_stickers/c-plus-plus-programming-language-shaped-sticker
+C => http://www.unixstickers.com/stickers/coding_stickers/c-logo-programming-language-sticker
+PHP => https://commons.wikimedia.org/wiki/File:Application-x-php.svg
+RB => http://perfectial.com/ruby/
+
+DOWNLOAD => http://www.flaticon.com/free-icon/file_138601#term=download&page=1&position=14
