@@ -16,18 +16,12 @@
         <!--Semantic-UI-->
         <link rel="stylesheet" type="text/css" href="/common/framework/semantic-UI/semantic.min.css"/>
         <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
-        <!--Bootstrap-->
-        <link rel="stylesheet" type="text/css" href="/common/framework/bootstrap.min.css"/>
-        
         
         <!--Plyr-->
         <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/2.0.7/plyr.css"/>
         <script src="https://cdn.plyr.io/2.0.7/plyr.js" type="text/javascript"></script>
         <!--END Framweworks-->
         
-        <!--Custom-->
-        <link rel="stylesheet" type="text/css" href="/common/style/style.css"/>
-        <script src="/common/script/script.js" type="text/javascript"></script>
         <style>
             /*Active*/
             .header .nav-container ul li:nth-child(1) a,
@@ -96,6 +90,8 @@
                 -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
                 -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
             }
+            #feedback { margin: 0 0 0.5em 0;}
+            #video-views { float: right;}
             .card .ui.image.label { margin-top: 0.2em;}
             #msgNoFound {
                 display: none;
@@ -577,6 +573,9 @@
                     margin-top: 0.5em;
                     padding: 0.5em;
                 }
+                
+                /*Feedback*/
+                #feedback #video-views { float: none;}
             }
             /*XS Devices*/
             @media screen and (max-width: 500px) {
@@ -598,6 +597,11 @@
                 #btnShowVideoNavigation,
                 #video-navigation.transition.visible .close { display: block;}
                 
+                /*Feedback*/
+                #feedback .button { font-size: .78571429rem;}
+                /*Creators*/
+                #creators a.ui.image.label { font-size: .85714286rem}
+                #creators a.ui.image.label .detail { display: none;}
                 /*Attachment*/
                 .attachment { max-width: 106px;}
                 .attachment .image {
@@ -682,19 +686,49 @@
                                     <?php echo $vInfo["DataPub"]?>
                                 </div>
                                 <h1 style="margin: 0;"><?php echo $vInfo["Titolo"];?></h1>
-                                <p><?php echo $vInfo["Descrizione"];?></p>
-
-                                <!--Creator Info-->
-                                <?php if (mysqli_num_rows($creatorInfo) > 0) {
-                                    while ($row = mysqli_fetch_array($creatorInfo)) {?>
-                                        <a href="/author/index.php?aID=<?php echo $row["ID"];?>" class="ui image label <?php echo $row["Color"];?>">
-                                            <img src="<?php echo $row["PathMiniatura"];?>" alt="autore"/>
-                                            <?php echo $row["Nome"]."&nbsp;".$row["Cognome"];?>
-                                            <div class="detail"><?php echo $row["Classe"];?></div>
+                                <p style="margin: 0 0 0.5em 0;"><?php echo $vInfo["Descrizione"];?></p>
+                                
+                                <!--Like & Dislike-->
+                                <div id="feedback">
+                                    <div class="ui labeled button" id="like" tabindex="0">
+                                        <div class="ui basic green button small">
+                                            <i class="thumbs up icon"></i>
+                                            Like
+                                        </div>
+                                        <a class="ui green left pointing label">
+                                            0
                                         </a>
-                                <?php }} else {?>
-                                    <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
-                                <?php }?>
+                                    </div>
+                                    <div class="ui labeled button" id="dislike" tabindex="0">
+                                        <div class="ui basic red button small">
+                                            <i class="thumbs down icon"></i>
+                                            Dislike
+                                        </div>
+                                        <a class="ui red left pointing label">
+                                            0
+                                        </a>
+                                    </div>
+                                    <div class="ui teal tag label large" id="video-views">
+                                        <span>0</span> Visualizzazioni
+                                    </div>
+                                    <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em;">
+                                        <div class="bar" style="min-width: 0%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <!--Creator Info-->
+                                <div id="creators">
+                                    <?php if (mysqli_num_rows($creatorInfo) > 0) {
+                                        while ($row = mysqli_fetch_array($creatorInfo)) {?>
+                                            <a href="/author/index.php?aID=<?php echo $row["ID"];?>" class="ui medium image label <?php echo $row["Color"];?>">
+                                                <img src="<?php echo $row["PathMiniatura"];?>" alt="autore"/>
+                                                <?php echo $row["Nome"]."&nbsp;".$row["Cognome"];?>
+                                                <div class="detail"><?php echo $row["Classe"];?></div>
+                                            </a>
+                                    <?php }} else {?>
+                                        <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
+                                    <?php }?>
+                                </div>
                             </div>
                             <div class="card">
                                 <h1>Materiale</h1>
