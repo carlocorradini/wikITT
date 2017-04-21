@@ -303,3 +303,7 @@
     white-space: normal;
     font-size: 1.4em;
 }
+
+#breadcrumInfo{
+    width: 100% !important; 
+}
