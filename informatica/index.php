@@ -687,13 +687,25 @@
                     $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
                     
                     if(!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {?>
+                        <style>
+                            .video-content { padding: 1em;}
+                            @media screen and (max-width: 1000px) {
+                                .video-content { padding-top: 0.5em;}
+                            }
+                            @media screen and (max-width: 700px) {
+                                .video-content .ui.raised.segment { margin: 1em;}
+                                #video-navigation { width: 100%;}
+                            }
+                            @media screen and (max-width: 700px) {
+                                .video-content .ui.raised.segment { margin: 0.25em;}
+                            }
+                        </style>
                         <div class="ui small breadcrumb" id="breadcrumInfo">
                             <a class="section" href="/index.html">Home</a>
                             <div class="divider"> / </div>
                             <div class="active section">Informatica</div>
                         </div>
 
-                
                         <div class="ui horizontal divider">
                             <h1>Informatica</h1>
                         </div>
@@ -715,8 +727,7 @@
                             <i class="code icon"></i>
                         </div>
 
-                        <div class="ui three column grid">
-
+                        <div class="ui three column stackable grid">
                             <div class="column">
                             <div class="ui raised segment">
                                 <a class="ui green ribbon label">Database</a>
@@ -729,20 +740,20 @@
 
                             <div class="column">
                                 <div class="ui raised segment">
-                                <a class="ui green ribbon label">Argomenti</a>
-                                <div class="ui ordered list">
-                                    <div class="item">
-                                        <a>Database</a>
-                                        <div class="list">
-                                            <a class="item">Progettazione</a>
-                                            <a class="item">MySql</a>
+                                    <a class="ui green ribbon label">Argomenti</a>
+                                    <div class="ui ordered list">
+                                        <div class="item">
+                                            <a>Database</a>
+                                            <div class="list">
+                                                <a class="item">Progettazione</a>
+                                                <a class="item">MySql</a>
+                                            </div>
                                         </div>
+                                        <a class="item">Php</a>
+                                        <a class="item">Html</a>
+                                        <a class="item">CSS</a>
                                     </div>
-                                    <a class="item">Php</a>
-                                    <a class="item">Html</a>
-                                    <a class="item">CSS</a>
                                 </div>
-                            </div>
                             </div>
 
                             <div class="column">
