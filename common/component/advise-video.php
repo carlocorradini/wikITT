@@ -1,13 +1,3 @@
-<?php
-
-/*
-function randomGen($min, $max, $quantity) {
-    $numbers = range($min, $max);
-    shuffle($numbers);
-    return array_slice($numbers, 0, $quantity);
-}
-*/
-?>
 
 <style>
     .card{
@@ -21,8 +11,8 @@ function randomGen($min, $max, $quantity) {
         max-width: 100%;
         margin:auto;
     }
-
 </style>
+
 <div class="ui stackable four column grid" id="contenitore-4">
     <?php
         require '../php/engine.php';
@@ -55,31 +45,29 @@ function randomGen($min, $max, $quantity) {
                       break;
                   }
                 ?>
-                    <div class="column">
-                        <div class="ui card <?php echo $color?>">
-
-                            <a class="image">
-                                <div class="ui <?php echo $color?> ribbon label"><?php echo $row['materia']?></div>
-
-                                <img src="http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg">
-                                <!--<img src="<?php echo $row['pathMiniatura']?>">-->
-                            </a>
-                        <div class="content">
-                            <div><h2><a href="#"><?php echo $row['titoloVideo']?></a></h2></div>
-                            <!--
-                            <div class="description">
-                                <?php echo $row['descrizioneVideo']?>
-                            </div>
-                            -->
+                <div class="column">
+                    <div class="ui card <?php echo $color?>">
+                        <a class="image">
+                            <div class="ui <?php echo $color?> ribbon label"><?php echo $row['materia']?></div>
+                            <img src="http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg">
+                            <!--<img src="<?php echo $row['pathMiniatura']?>">-->
+                        </a>
+                    <div class="content">
+                        <div><h2><a href="#"><?php echo $row['titoloVideo']?></a></h2></div>
+                        <!--
+                        <div class="description">
+                            <?php echo $row['descrizioneVideo']?>
                         </div>
-                            <div class="extra content">
-                                <a href="/author/index.php?aID=<?php echo $row['idAutore'];?>">
-                                    <i class="users icon"></i>
-                                    <?php echo $row['nomeAutore']." ".$row['cognomeAutore']?>
-                                </a>
-                            </div>
+                        -->
+                    </div>
+                        <div class="extra content">
+                            <a href="/author/index.php?a=<?php echo $row['idAutore'];?>">
+                                <i class="users icon"></i>
+                                <?php echo $row['nomeAutore']." ".$row['cognomeAutore']?>
+                            </a>
                         </div>
                     </div>
+                </div>
                 <?php
                 }
             }
