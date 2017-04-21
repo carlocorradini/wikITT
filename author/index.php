@@ -51,6 +51,7 @@
                 vertical-align: middle;
                 max-width: 100%;
                 margin: auto;
+                display: none;
             }
             #show-hide {
                 background-color: #21BA45;
@@ -74,7 +75,6 @@
     <body>
         <script>
             $(document).ready(function() {
-                $("#contenitore-4").hide();
                 $("#show-hide").one("click", show);
                 $("#show-hide").hover(function() {
                     $("#show-hide").css("background-color", "#009924");
@@ -114,7 +114,7 @@
                     require '../common/php/engine.php';
                     $connection = null;
                     connect($connection);
-                    $authorID = filter_input(INPUT_GET, "aID");
+                    $authorID = filter_input(INPUT_GET, "a");
                     if (!isset($authorID) || $authorID === "") {
                         $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe FROM autore A ORDER BY A.Cognome, A.Nome, A.ID";
                         $query = mysqli_query($connection, $txtQuery);
@@ -187,7 +187,7 @@
                         </div>
                         <div class="ui stackable four column grid" id="contenitore-4">
                             <?php
-                            $authorID = filter_input(INPUT_GET, "aID");
+                            $authorID = filter_input(INPUT_GET, "a");
                             $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
                             $query = mysqli_query($connection, $txtQuery);
                             while ($row = mysqli_fetch_array($query)) {

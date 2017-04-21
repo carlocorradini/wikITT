@@ -25,16 +25,13 @@
         margin-left: 12px;
 
     }
-
-
-
 </style>
-<?php 
+<?php
     require '../php/engine.php';
     $connection = null;
     connect($connection);
     // Escape user inputs for security
-    $term = mysqli_real_escape_string($connection, $_REQUEST['q']);
+    $term = mysqli_real_escape_string($connection, filter_input(INPUT_GET, "q"));
     $ris = mysqli_query($connection, "SELECT v.titolo as titoloVideo, m.nome as nomeMateria, v.VideoID as link, LOCATE('$term', v.Titolo) as score FROM video v,materia m WHERE v.CodMateria = m.Cod AND v.Titolo LIKE '%$term%' ORDER BY score LIMIT 3 ");
     if(mysqli_num_rows($ris) > 0) {
         echo "<ul class='suggestion'>";
@@ -48,7 +45,6 @@
                 */
                 
                 echo "<li><a href=https://www.youtube.com/watch?v=".$row['link'].">".$row['titoloVideo']."<i style='font-size: 13px;'> - ".$row['nomeMateria']."</i></a></li>";
-                
             }
         echo "</ul>";
         // Close result set
@@ -57,5 +53,4 @@
         <ul class='suggestion'>
             <li><a>Nessun risultato trovato</a></li>
         </ul>
-    <?php }
-?>
+<?php } 

@@ -1,35 +1,4 @@
 
-<div class="header">
-    <div class="header-wrapper">
-        <div class="brand">
-            <a href="/index.html"><img src="/common/image/icon-medium.png" alt="wikITT"/></a>
-        </div>
-        <div class="nav-container">
-            <div class="nav-mobile"><a id="nav-toggle" href="#"><span></span></a></div>
-            <ul class="nav-list">
-                <li>
-                    <a href="/informatica/index.php">Informatica</a>
-                </li>
-                <li>
-                    <a href="/meccanica/index.html">Meccanica</a>
-                </li>
-                <li>
-                    <a href="/chimica/index.html">Chimica</a>
-                </li>
-                <li>
-                    <a href="/elettrotecnica/index.html">Elettrotecnica</a>
-                </li>
-                <li>
-                    <a href="/costruzioni/index.html">Costruzioni</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<script>
-    var materia = "<?php echo "
-</script>
-
 <style>
     @import url('https://fonts.googleapis.com/css?family=Roboto');
     
@@ -43,7 +12,6 @@
         -webkit-border-radius: .28571429rem;
         -moz-border-radius: .28571429rem;
     }
-    
     .header .header-wrapper {
         max-width: 1000px;
         margin: 0 auto;
@@ -265,6 +233,7 @@
         -ms-transform: rotate(-45deg);
     }
 </style>
+
 <script>
     $(document).ready(function() {
         // Toggle open and close nav styles on click
@@ -275,7 +244,33 @@
         $('.header #nav-toggle').on('click', function() {
             this.classList.toggle('active');
         });
-        
     });
 </script>
 
+<div class="header">
+    <div class="header-wrapper">
+        <div class="brand">
+            <a href="/index.html"><img src="/common/image/icon-medium.png" alt="wikITT"/></a>
+        </div>
+        <div class="nav-container">
+            <div class="nav-mobile"><a id="nav-toggle" href="#"><span></span></a></div>
+            <ul class="nav-list">
+                <li>
+                    <a href="/informatica/index.php">Informatica</a>
+                </li>
+                <li>
+                    <a href="/meccanica/index.html">Meccanica</a>
+                </li>
+                <li>
+                    <a href="/chimica/index.html">Chimica</a>
+                </li>
+                <li>
+                    <a href="/elettrotecnica/index.html">Elettrotecnica</a>
+                </li>
+                <li>
+                    <a href="/costruzioni/index.html">Costruzioni</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

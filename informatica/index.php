@@ -828,7 +828,7 @@
                                 <div id="creators">
                                     <?php if (mysqli_num_rows($creatorInfo) > 0) {
                                         while ($row = mysqli_fetch_array($creatorInfo)) {?>
-                                            <a href="/author/index.php?aID=<?php echo $row["ID"];?>" class="ui medium image label <?php echo $row["Color"];?>">
+                                            <a href="/author/index.php?a=<?php echo $row["ID"];?>" class="ui medium image label <?php echo $row["Color"];?>">
                                                 <img src="<?php echo $row["PathMiniatura"];?>" alt="autore"/>
                                                 <?php echo $row["Nome"]."&nbsp;".$row["Cognome"];?>
                                                 <div class="detail"><?php echo $row["Classe"];?></div>
