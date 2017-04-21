@@ -5,13 +5,14 @@
     $dbUsername = "wikitt-355d4a";
     $dbPassword = "1234password";
     $dbName = "wikitt-355d4a";
+
     //DB Usage
     connect($connection);
-    
+
     /*Connection*/
     function connect(&$connection) {
-        global $dbAddress,$dbUsername,$dbPassword,$dbName;
-        $connection = mysqli_connect($dbAddress,$dbUsername,$dbPassword,$dbName);
+        global $dbAddress, $dbUsername, $dbPassword, $dbName;
+        $connection = mysqli_connect($dbAddress, $dbUsername, $dbPassword, $dbName);
         if(!$connection) {
             mysqli_close();
             die("Failed to connect to MySQL: " + mysqli_connect_error());
@@ -29,4 +30,3 @@
         if ($result === FALSE) { die(mysqli_error($connection));}
         else { return $result;}
     }
-    
