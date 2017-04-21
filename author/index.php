@@ -120,7 +120,7 @@
                         $query = mysqli_query($connection, $txtQuery);
                         while ($row = mysqli_fetch_array($query)) { ?>
                         <div class="column">
-                            <a class="ui raised link fluid card" href="/author/index.php?aID=<?php echo $row['ID'] ?>">
+                            <a class="ui raised link fluid card" href="/author/index.php?a=<?php echo $row['ID'] ?>">
                                 <div class="content">
                                     <div class="header"><?php echo $row['Nome']." ".$row['Cognome'] ?></div>
                                     <div class="description"><?php echo $row['Classe'] ?></div>
