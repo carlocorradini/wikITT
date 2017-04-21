@@ -575,7 +575,41 @@
                 }
                 
                 /*Feedback*/
-                #feedback #video-views { float: none;}
+                /*Feedback*/
+                #feedback .button,
+                #feedback #video-views { font-size: .78571429rem;}
+                #feedback #like span,
+                #feedback #dislike span { display: none;}
+                #feedback #like .ui.button .icon,
+                #feedback #dislike .ui.button .icon {
+                    opacity: 0.9;
+                    margin: 0;
+                    vertical-align: top;
+                    height: .85714286em;
+                }
+                #feedback #like .ui.button,
+                #feedback #dislike .ui.button {
+                    padding: .78571429em .78571429em .78571429em;
+                    -webkit-border-top-right-radius: 0;
+                    -moz-border-top-right-radius: 0;
+                    border-top-right-radius: 0;
+                    -webkit-border-bottom-right-radius: 0;
+                    -moz-border-bottom-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+                /*Creators*/
+                #creators a.ui.image.label { font-size: .85714286rem}
+                #creators a.ui.image.label .detail { display: none;}
+                /*Attachment*/
+                .attachment { max-width: 106px;}
+                .attachment .image {
+                    width: 96px;
+                    height: 96px;
+                    -webkit-background-size: 96px auto;
+                    -moz-background-size: 96px auto;
+                    -o-background-size: 96px auto;
+                    background-size: 96px auto;
+                }
             }
             /*XS Devices*/
             @media screen and (max-width: 500px) {
@@ -596,22 +630,6 @@
                 }
                 #btnShowVideoNavigation,
                 #video-navigation.transition.visible .close { display: block;}
-                
-                /*Feedback*/
-                #feedback .button { font-size: .78571429rem;}
-                /*Creators*/
-                #creators a.ui.image.label { font-size: .85714286rem}
-                #creators a.ui.image.label .detail { display: none;}
-                /*Attachment*/
-                .attachment { max-width: 106px;}
-                .attachment .image {
-                    width: 96px;
-                    height: 96px;
-                    -webkit-background-size: 96px auto;
-                    -moz-background-size: 96px auto;
-                    -o-background-size: 96px auto;
-                    background-size: 96px auto;
-                }
             }
         </style>
     </head>
@@ -693,7 +711,7 @@
                                     <div class="ui labeled button" id="like" tabindex="0">
                                         <div class="ui basic green button small">
                                             <i class="thumbs up icon"></i>
-                                            Like
+                                            <span>Like</span>
                                         </div>
                                         <a class="ui green left pointing label">
                                             0
@@ -702,7 +720,7 @@
                                     <div class="ui labeled button" id="dislike" tabindex="0">
                                         <div class="ui basic red button small">
                                             <i class="thumbs down icon"></i>
-                                            Dislike
+                                            <span>Dislike</span>
                                         </div>
                                         <a class="ui red left pointing label">
                                             0
