@@ -34,21 +34,24 @@
             }
             .ui.raised.card {
                 display: block;
-                margin: 3% auto;
+                margin: 2vh auto;
+            }
+            .ui.raised.link.fluid.card {
+                max-width: 35vh;
+            }
+            .ui.raised.link.stackable.fluid.card {
+                max-width: 30vh;
             }
             #tab {
                 margin-top: 45px;
             }
-            #card {
-                width: 225px;
-                display: inline-block;
-            }
             #contenitore-4 {
                 margin-top: 100px;
-                width: 1000px;
+                width: 150vh;
                 vertical-align: middle;
                 max-width: 100%;
                 margin: auto;
+                display: none;
             }
             #show-hide {
                 background-color: #21BA45;
@@ -72,7 +75,6 @@
     <body>
         <script>
             $(document).ready(function() {
-                $("#contenitore-4").hide();
                 $("#show-hide").one("click", show);
                 $("#show-hide").hover(function() {
                     $("#show-hide").css("background-color", "#009924");
@@ -107,17 +109,18 @@
         <div class="contenuto">
             <!--#include virtual="/common/component/header.html" -->
             <div class="center" id="tab">
-                <div class="ui stackable three column grid">
+                <div class="ui stackable four column grid">
                     <?php
                     require '../common/php/engine.php';
                     $connection = null;
                     connect($connection);
-                    $authorID = filter_input(INPUT_GET, "aID");
+                    $authorID = filter_input(INPUT_GET, "a");
                     if (!isset($authorID) || $authorID === "") {
                         $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe FROM autore A ORDER BY A.Cognome, A.Nome, A.ID";
                         $query = mysqli_query($connection, $txtQuery);
                         while ($row = mysqli_fetch_array($query)) { ?>
-                            <a class="ui raised link card" href="/author/index.php?aID=<?php echo $row['ID'] ?>">
+                        <div class="column">
+                            <a class="ui raised link fluid card" href="/author/index.php?aID=<?php echo $row['ID'] ?>">
                                 <div class="content">
                                     <div class="header"><?php echo $row['Nome']." ".$row['Cognome'] ?></div>
                                     <div class="description"><?php echo $row['Classe'] ?></div>
@@ -126,6 +129,7 @@
                                     </div>
                                 </div>
                             </a>
+                        </div>
                         <?php 
                         }
                     } else { 
@@ -183,7 +187,10 @@
                         </div>
                         <div class="ui stackable four column grid" id="contenitore-4">
                             <?php
-                            while ($row) {
+                            $authorID = filter_input(INPUT_GET, "a");
+                            $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
+                            $query = mysqli_query($connection, $txtQuery);
+                            while ($row = mysqli_fetch_array($query)) {
                                 switch ($row['Materia']) {
                                     case 'Informatica':
                                         $color = 'blue';
@@ -203,20 +210,18 @@
                                 }
                                 ?>
                                 <div class="column">
-                                    <div class="ui card <?php echo $color ?>"  id="card">
-                                        <a class="image">
-                                            <div class="ui <?php echo $color ?> ribbon label"><?php echo $row['Materia'] ?></div>
-                                            <img src="<?php echo $row['PathMiniatura'] ?>">
-                                        </a>
-                                        <div class="content">
-                                            <div><h2><a href="#"><?php echo $row['Titolo'] ?></a></h2></div>
+                                    <a class="ui raised link stackable fluid card <?php echo $color ?>" href="../<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
+                                        <div class="image">
+                                            <div class="ui <?php echo $color?> ribbon label"><?php echo $row['Materia']?></div>
+                                            <img src="<?php echo "http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg"/*$row['pathMiniatura']*/ ?>">
                                         </div>
-                                    </div>
+                                        <div class="content">
+                                            <div class="header"><?php echo $row['Titolo'] ?></div>
+                                            <div class="description"><?php echo $row['Descrizione'] ?></div>
+                                        </div>
+                                    </a>
                                 </div>
-                                <?php
-                                $row = mysqli_fetch_array($query);
-                            }
-                            ?>
+                            <?php } ?>
                         </div>
                     <?php 
                     }

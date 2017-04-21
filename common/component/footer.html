@@ -1,9 +1,52 @@
 
 <style>
     .bounce {
-        -moz-animation: bounce 2s infinite;
         -webkit-animation: bounce 2s infinite;
+        -moz-animation: bounce 2s infinite;
+        -o-animation: bounce 2s infinite;
         animation: bounce 2s infinite;
+    }
+    @-webkit-keyframes bounce {
+        0%, 100% {
+            -moz-transform: translateY(0);
+            -ms-transform: translateY(0);
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+        50% {
+            -moz-transform: translateY(-5px);
+            -ms-transform: translateY(-5px);
+            -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+        }
+    }
+    @-moz-keyframes bounce {
+        0%, 100% {
+            -moz-transform: translateY(0);
+            -ms-transform: translateY(0);
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+        50% {
+            -moz-transform: translateY(-5px);
+            -ms-transform: translateY(-5px);
+            -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+        }
+    }
+    @-o-keyframes bounce {
+        0%, 100% {
+            -moz-transform: translateY(0);
+            -ms-transform: translateY(0);
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+        50% {
+            -moz-transform: translateY(-5px);
+            -ms-transform: translateY(-5px);
+            -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+        }
     }
     @keyframes bounce {
         0%, 100% {
@@ -108,18 +151,18 @@
     
 </style> 
 <script>
-    $(document).ready(function (){
-        $("#scroll-top").click(function() {
+    $(document).ready(function () {
+        $("#scroll-top").on("click", function() {
             $('html,body').animate({
-            scrollTop: $(".header").offset().top},
-            'slow');
+                scrollTop: $(".header").offset().top
+            },'slow');
         });
     });
 </script>
 <footer class="arrow_box footer">
-    <img alt="arrow" id="scroll-top" class="arrow bounce" src="/common/image/arrow-up-black.png" alt="Go up"/>
-    <div class="responsive " id="scroll-top" >
-         <img src="/common/image/icon-large.png" class="logo" alt="icon"/> 
+    <img id="scroll-top" class="arrow bounce" src="/common/image/arrow-up-black.png" alt="Go up"/>
+    <div class="responsive">
+        <img src="/common/image/icon-large.png" class="logo" alt="icon"/>
     </div>
     <div class="ui vertical footer segment">
         <div class="ui center aligned container" >         
