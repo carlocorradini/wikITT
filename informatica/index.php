@@ -686,6 +686,21 @@
                     //Query
                     $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
                     
+                    
+                    //Function StampaVisual
+                    function stampaStat($VideoID){
+                        
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_URL, 'https://www.googleapis.com/youtube/v3/videos?part=statistics&id='.$VideoID.'&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA');
+                        $result = curl_exec($ch);
+                        curl_close($ch);
+
+                        $obj = json_decode($result);
+                        return $obj;
+                    }
+                    
                     if(!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {?>
                         <style>
                             .video-content { padding: 1em;}
@@ -804,7 +819,7 @@
                                             <span>Like</span>
                                         </div>
                                         <a class="ui green left pointing label">
-                                            0
+                                            <?php echo stampaStat($vID)->items[0]->statistics->likeCount; ?>
                                         </a>
                                     </div>
                                     <div class="ui labeled button" id="dislike" tabindex="0">
@@ -813,11 +828,11 @@
                                             <span>Dislike</span>
                                         </div>
                                         <a class="ui red left pointing label">
-                                            0
+                                            <?php echo stampaStat($vID)->items[0]->statistics->dislikeCount; ?>
                                         </a>
                                     </div>
                                     <div class="ui teal tag label large" id="video-views">
-                                        <span>0</span> Visualizzazioni
+                                        <span><?php echo number_format(stampaStat($vID)->items[0]->statistics->viewCount, 0, ',', '.'); ?></span> Visualizzazioni
                                     </div>
                                     <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em;">
                                         <div class="bar" style="min-width: 0%;"></div>
