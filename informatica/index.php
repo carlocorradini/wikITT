@@ -697,10 +697,16 @@
                 });
             }
             
+            
+            
+            
         function handleAuthClick() {
             if (GoogleAuth.isSignedIn.get()) {
               // User is authorized and has clicked 'Sign out' button.
-              GoogleAuth.signOut();
+              alert("Qui fai la query");
+              //https://developers.google.com/apis-explorer/#search/rate/m/youtube/v3/youtube.videos.rate?id=RjUlmco7v2M&rating=like&_h=1&
+              
+              //POST https://www.googleapis.com/youtube/v3/videos/rate?id=RjUlmco7v2M&rating=like&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA
             } else {
               // User is not signed in. Start Google auth flow.
               GoogleAuth.signIn();
