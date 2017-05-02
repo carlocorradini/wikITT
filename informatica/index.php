@@ -634,6 +634,7 @@
         </style>
     </head>
     <body>
+        
         <script>
             $(document).ready(function() {
                 //Handle Search
@@ -666,8 +667,73 @@
                 else
                     $("#msgNoFound").hide();
             }
+            
+            var GoogleAuth;
+            var SCOPE = 'https://www.googleapis.com/auth/youtube.force-ssl';
+            function handleClientLoad() {
+                gapi.load('client:auth2', initClient);
+            }
+
+            function initClient() {
+                var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest';
+                gapi.client.init({
+                    'apiKey': 'AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA',
+                    'discoveryDocs': ['https://people.googleapis.com/$discovery/rest'],
+                    'clientId': '1093951573337-n44tvp7mtb48d5ehei7e0sfak31mrh68.apps.googleusercontent.com',
+                    'scope': SCOPE
+                }).then(function () {
+                    
+                GoogleAuth = gapi.auth2.getAuthInstance();
+                GoogleAuth.isSignedIn.listen(updateSigninStatus);
+
+                var user = GoogleAuth.currentUser.get();
+                //setSigninStatus();
+                $('#like').on("click", function() {
+                  handleAuthClick();
+                }); 
+                $('#revoke-access-button').click(function() {
+                  revokeAccess();
+                }); 
+                });
+            }
+            
+        function handleAuthClick() {
+            if (GoogleAuth.isSignedIn.get()) {
+              // User is authorized and has clicked 'Sign out' button.
+              GoogleAuth.signOut();
+            } else {
+              // User is not signed in. Start Google auth flow.
+              GoogleAuth.signIn();
+            }
+          }
+
+          function revokeAccess() {
+            GoogleAuth.disconnect();
+          }
+         /*
+          function setSigninStatus(isSignedIn) {
+            var user = GoogleAuth.currentUser.get();
+            var isAuthorized = user.hasGrantedScopes(SCOPE);
+            if (isAuthorized) {
+              $('#sign-in-or-out-button').html('Sign out');
+              $('#revoke-access-button').css('display', 'inline-block');
+              $('#auth-status').html('You are currently signed in and have granted ' +
+                  'access to this app.');
+            } else {
+              $('#sign-in-or-out-button').html('Sign In/Authorize');
+              $('#revoke-access-button').css('display', 'none');
+              $('#auth-status').html('You have not authorized this app or you are ' +
+                  'signed out.');
+            }
+          }*/
+
+          function updateSigninStatus(isSignedIn) {
+            setSigninStatus();
+          }
         </script>
-        
+        <script async defer src="https://apis.google.com/js/api.js" 
+                onload="this.onload=function(){};handleClientLoad()">
+        </script>
         <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
             
