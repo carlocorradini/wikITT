@@ -690,8 +690,14 @@
                 user = GoogleAuth.currentUser.get();
                 //setSigninStatus();
                 $('#like').on("click", function() {
-                  handleAuthClick();
+                  handleAuthClick("like");
                 }); 
+                
+                 $('#dislike').on("click", function() {
+                  handleAuthClick("dislike");
+                });
+                
+                
                 $('#revoke-access-button').click(function() {
                   revokeAccess();
                 }); 
@@ -700,7 +706,7 @@
             
             
             
-        function handleAuthClick() {
+        function handleAuthClick(rating) {
             if (GoogleAuth.isSignedIn.get()) {
               // User is authorized and has clicked 'Sign out' button.
               alert("Qui fai la query");
@@ -711,8 +717,8 @@
                 'method': 'POST',
                 'path': 'https://www.googleapis.com/youtube/v3/videos/rate',
                 'params': {
-                    'id':"i5svYq7HZ1Y",
-                    'rating':"like",
+                    'id':"<?php echo  filter_input(INPUT_GET, "v");?>",
+                    'rating':rating,
                     'key':"AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA"}
               });
               
