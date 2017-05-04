@@ -669,6 +669,7 @@
             }
             
             var GoogleAuth;
+            var user;
             var SCOPE = 'https://www.googleapis.com/auth/youtube.force-ssl';
             function handleClientLoad() {
                 gapi.load('client:auth2', initClient);
@@ -686,7 +687,7 @@
                 GoogleAuth = gapi.auth2.getAuthInstance();
                 GoogleAuth.isSignedIn.listen(updateSigninStatus);
 
-                var user = GoogleAuth.currentUser.get();
+                user = GoogleAuth.currentUser.get();
                 //setSigninStatus();
                 $('#like').on("click", function() {
                   handleAuthClick();
@@ -699,14 +700,26 @@
             
             
             
-            
         function handleAuthClick() {
             if (GoogleAuth.isSignedIn.get()) {
               // User is authorized and has clicked 'Sign out' button.
               alert("Qui fai la query");
-              //https://developers.google.com/apis-explorer/#search/rate/m/youtube/v3/youtube.videos.rate?id=RjUlmco7v2M&rating=like&_h=1&
-              
+              //https://developers.google.com/apis-explorer/#search/rate/m/youtube/v3/youtube.videos.rate?id=RjUlmco7v2M&rating=like&_h=1&            
               //POST https://www.googleapis.com/youtube/v3/videos/rate?id=RjUlmco7v2M&rating=like&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA
+
+              var request = gapi.client.request({
+                'method': 'POST',
+                'path': 'https://www.googleapis.com/youtube/v3/videos/rate',
+                'params': {
+                    'id':"i5svYq7HZ1Y",
+                    'rating':"like",
+                    'key':"AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA"}
+              });
+              
+              request.execute(function(response){
+                  console.log(response);              
+              });
+              alert("Fatta");
             } else {
               // User is not signed in. Start Google auth flow.
               GoogleAuth.signIn();
