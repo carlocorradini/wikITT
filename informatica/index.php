@@ -780,7 +780,6 @@
                     
                     //Function StampaVisual
                     function stampaStat($VideoID){
-                        
                         $ch = curl_init();
                         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -790,6 +789,11 @@
 
                         $obj = json_decode($result);
                         return $obj;
+                    }
+                    function stampaPercentuale($num1, $num2) {
+                        
+                        $sum = $num1+$num2;
+                        echo ($num1*100)/$sum;
                     }
                     
                     if(!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {?>
@@ -925,8 +929,9 @@
                                     <div class="ui teal tag label large" id="video-views">
                                         <span><?php echo number_format(stampaStat($vID)->items[0]->statistics->viewCount, 0, ',', '.'); ?></span> Visualizzazioni
                                     </div>
-                                    <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em;">
-                                        <div class="bar" style="min-width: 0%;"></div>
+                                    <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em; background-color: #db2828;">
+                                        <?php //echo stampaPercentuale(stampaStat($vID)->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>
+                                        <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale(stampaStat($vID)->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%;"></div>
                                     </div>
                                 </div>
                                 
