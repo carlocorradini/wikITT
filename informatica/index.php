@@ -930,7 +930,6 @@
                                         <span><?php echo number_format(stampaStat($vID)->items[0]->statistics->viewCount, 0, ',', '.'); ?></span> Visualizzazioni
                                     </div>
                                     <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em; background-color: #db2828;">
-                                        <?php //echo stampaPercentuale(stampaStat($vID)->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>
                                         <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale(stampaStat($vID)->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%;"></div>
                                     </div>
                                 </div>
