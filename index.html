@@ -132,60 +132,82 @@
                 #popup { display: none;}
             }
             
-            /*livesearch/suggestions */
-            .suggestion li {
-                background:white;
-                list-style: none;
-                padding:7px;
-                transition:background 0.2s;
-                display:flex;
-                justify-content:space-between;
-            }
-            li:hover {
-              background:  #f1f1f1;
-            }
-            .suggestion {
+            /*Livesearch */
+            #livesearch .suggestion {
                 margin: 0;
                 padding: 0;
             }
-            .suggestion li a{
+            #livesearch .suggestion li {
+                background-color: #ffffff;
+                list-style: none;
+                padding: 7px;
+                transition:background 0.2s;
+                display: flex;
+                justify-content: space-between;
+            }
+            #livesearch .suggestion li:hover { background-color:  #f1f1f1;}
+            #livesearch .suggestion li a {
                 text-decoration: none;
                 color: black;
                 width: 100%;
                 cursor: default;
                 margin-left: 12px;
-
             }
         </style>
     </head>
     <body>
         <script>
             function showResult(str) {
-              if (str.length===0) { 
-                document.getElementById("livesearch").innerHTML="";
-                document.getElementById("livesearch").style.display="none!important";
-                return;
-              }
-              if (window.XMLHttpRequest) {
-                // code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp=new XMLHttpRequest();
-              } else {  // code for IE6, IE5
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-              }
-              xmlhttp.onreadystatechange=function() {
-                if (this.readyState===4 && this.status===200) {
-                    createSuggestion(this.response);
-                    /*document.getElementById("livesearch").innerHTML=this.responseText;
-                    document.getElementById("livesearch").style.display = "block";*/
+                var liveSearch = document.getElementById("livesearch");
+                $(liveSearch).empty();
+                
+                if (str.length === 0) { 
+                    liveSearch.innerHTML="";
+                    liveSearch.style.display="none!important";
+                    return;
                 }
-              };
-              xmlhttp.open("POST","/common/component/livesearch.php?q="+str,true);
-              xmlhttp.send();
+                if (window.XMLHttpRequest) {
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                        $(liveSearch).empty();
+                        createSuggestion(JSON.parse(this.response));
+                    }
+                };
+                xmlhttp.open("POST","/common/php/livesearch.php?q="+str,true);
+                xmlhttp.send();
             }
             
             function createSuggestion(data){
-                for(var i=0; i<data.length; i++) {
+                var liveSearch = document.getElementById("livesearch");
+                var ul = document.createElement("ul");
+                ul.setAttribute("class", "suggestion");
+                
+                if(data.length > 0) {
+                    for(var i=0; i<data.length; i++) {
+                        var li = document.createElement("li");
+                        var a = document.createElement("a");
+                        a.setAttribute("href", "https://www.youtube.com/watch?v="+data[i].vId);
+                        a.innerHTML = "<b>"+data[i].titolo+"</b>";
+                        var span = document.createElement("span");
+                        span.innerHTML = " - <i>"+data[i].materia+"</i>";
+                        a.appendChild(span);
+                        li.appendChild(a);
+                        ul.appendChild(li);
+                    }
+                } else {
+                    var li = document.createElement("li");
+                    li.style.fontWeight = "bold";
+                    li.innerHTML = "Nessun video trovato";
+                    var i = document.createElement("i");
+                    i.setAttribute("class", "rocket icon");
+                    li.appendChild(i);
+                    ul.appendChild(li);
                 }
+                liveSearch.appendChild(ul);
             }
         </script>
         <div class="wrapper">
@@ -198,7 +220,7 @@
                     <input id="cerca"  type="text" placeholder="Cerca..." autocomplete="off" onkeyup="showResult(this.value)" onfocus="showResult(this.value);">
                     <i class="circular search link icon"></i>
                 </div>
-                <div id="livesearch"></div>
+                <div id="livesearch" style="display: block;"></div>
             </form>
             <!--Subjects-->
             <div id="tab" class="center">
