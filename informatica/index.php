@@ -22,6 +22,13 @@
         <script src="https://cdn.plyr.io/2.0.7/plyr.js" type="text/javascript"></script>
         <!--END Framweworks-->
         
+        
+        
+        
+        <meta name="google-signin-client_id" content="1093951573337-n44tvp7mtb48d5ehei7e0sfak31mrh68.apps.googleusercontent.com">
+        
+        
+        
         <style>
             /*Active*/
             .header .nav-container ul li:nth-child(1) a,
@@ -622,6 +629,7 @@
                     top: 0;
                     z-index: 100;
                 }
+                #video-views span:first-child { display: none}
                 #video-descrition {
                     position: relative;
                     width: 100%;
@@ -817,11 +825,25 @@
                                         </a>
                                     </div>
                                     <div class="ui teal tag label large" id="video-views">
-                                        <span>0</span> Visualizzazioni
+                                        0 Visual<span>izzazioni</span>
                                     </div>
                                     <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em;">
                                         <div class="bar" style="min-width: 0%;"></div>
                                     </div>
+                                </div>
+                                
+                                <script src="https://apis.google.com/js/platform.js" async defer></script>
+                                <style>
+                                    #authentication {
+                                        position: fixed;
+                                        z-index: 1;
+                                        right: 0;
+                                        top: 500px;
+                                    }
+                                </style>
+                                
+                                <div id="authentication">
+                                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                                 </div>
                                 
                                 <!--Creator Info-->
