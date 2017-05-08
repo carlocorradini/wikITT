@@ -66,9 +66,9 @@
                 display: block;
                 margin: 0 2vh 0 2vh;
             }
-            #back {
-                -webkit-transition-duration: 0.5s;
-                transition-duration: 0.5s;
+            .slow {
+                -webkit-transition-duration: 0.5s!important;
+                transition-duration: 0.5s!important;
             }
         </style>
     </head>
@@ -106,18 +106,16 @@
                 });
             }
         </script>
-        <div class="contenuto">
+        <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
             <div class="center" id="tab">
                 <div class="ui stackable four column grid">
                     <?php
                     require '../common/php/engine.php';
-                    $connection = null;
-                    connect($connection);
                     $authorID = filter_input(INPUT_GET, "a");
+                    
                     if (!isset($authorID) || $authorID === "") {
-                        $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe FROM autore A ORDER BY A.Cognome, A.Nome, A.ID";
-                        $query = mysqli_query($connection, $txtQuery);
+                        $query = query("SELECT A.ID, A.Nome, A.Cognome, A.Classe FROM autore A ORDER BY A.Cognome, A.Nome, A.ID");
                         while ($row = mysqli_fetch_array($query)) { ?>
                         <div class="column">
                             <a class="ui raised link fluid card" href="/author/index.php?a=<?php echo $row['ID'] ?>">
@@ -137,13 +135,18 @@
                 </div>
             </div>
             <div class="center">
-                <a id="back" class="ui labeled icon button inverted blue" href="index.php">
-                    <i class="left arrow icon"></i>
-                    Torna alla lista
+                <a class="ui labeled icon button inverted blue slow" href="index.php">
+                    <i class="user icon"></i>
+                    Visualizza autori
                 </a>
+                <?php if(isset($_SERVER['HTTP_REFERER'])) {?>
+                    <a class="ui labeled icon button inverted violet slow" href="<?php echo $_SERVER["HTTP_REFERER"];?>">
+                        <i class="left arrow icon"></i>
+                        Torna
+                    </a>
                 <?php
-                    $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
-                    $query = mysqli_query($connection, $txtQuery);
+                }
+                    $query = query("SELECT A.*, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod");
                     $row = mysqli_fetch_array($query);
                     if ($row > 0) {
                         ?>
@@ -169,16 +172,7 @@
                                     <?php echo $row['NumVideo']." video" ?>
                                 </div>
                                 <div class="right floated author">
-                                    <?php
-                                    switch ($row['Sesso']) {
-                                        case "M":
-                                            ?> <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/matthew.png"> <?php
-                                            break;
-                                        case "F":
-                                            ?> <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/molly.png"> <?php
-                                            break;
-                                    }
-                                    ?>
+                                    <img class="ui avatar image" src="/common/image/profile/<?php echo $row['Miniatura'];?>.jpg" alt="autore"/>
                                 </div>
                             </div>
                             <div class="extra content">
@@ -187,9 +181,7 @@
                         </div>
                         <div class="ui stackable four column grid" id="contenitore-4">
                             <?php
-                            $authorID = filter_input(INPUT_GET, "a");
-                            $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
-                            $query = mysqli_query($connection, $txtQuery);
+                            $query = query("SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod");
                             while ($row = mysqli_fetch_array($query)) {
                                 switch ($row['Materia']) {
                                     case 'Informatica':
@@ -210,7 +202,7 @@
                                 }
                                 ?>
                                 <div class="column">
-                                    <a class="ui raised link stackable fluid card <?php echo $color ?>" href="../<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
+                                    <a class="ui raised link stackable fluid card <?php echo $color ?>" href="/<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'];?>">
                                         <div class="image">
                                             <div class="ui <?php echo $color?> ribbon label"><?php echo $row['Materia']?></div>
                                             <img src="<?php echo "http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg"/*$row['pathMiniatura']*/ ?>">

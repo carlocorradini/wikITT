@@ -1,17 +1,16 @@
 
 <?php
     //DB Access
-    /*$dbAddress = "mysql.stackcp.com:21257";
+    $dbAddress = "mysql.stackcp.com:21257";
     $dbUsername = "wikitt-355d4a";
     $dbPassword = "1234password";
-    $dbName = "wikitt-355d4a";*/
-    $dbAddress = "localhost:3306";
-    $dbUsername = "root";
-    $dbPassword = "";
-    $dbName = "wikitt";
-
+    $dbName = "wikitt-355d4a";
     //DB Usage
     connect($connection);
+    //Set encoding UTF-8 -> Italian
+    query("SET character_set_results=utf8");
+    mb_language("uni");
+    mb_internal_encoding("UTF-8");
 
     /*Connection*/
     function connect(&$connection) {

@@ -66,7 +66,7 @@
 
             /*General*/
             #video-navigation,
-            .video-content {
+            #video-content {
                 position: relative;
                 padding: 1em;
                 min-height: 1px;
@@ -75,8 +75,16 @@
                 -webkit-transition: padding 0.5s;
                 -moz-transition: padding 0.5s;
             }
+            
+            /*Video Container*/
+            #video-content {
+                width: 80%;
+                left: 20%;
+                padding-left: 0.5em;
+            }
+            
             #video {
-                padding: 0 10%;
+                padding: 0 7.5%;
                 background-color: rgba(0,0,0,0.9);
                 transition: padding 0.5s linear;
                 -webkit-transition: padding 0.5s linear;
@@ -210,13 +218,6 @@
             #video-navigation .close:hover {background-color: #db2828;}
             #video-navigation .close:hover span:before,
             #video-navigation .close:hover span:after { background-color: #ffffff;}
-
-            /*Video Container*/
-            .video-content {
-                width: 80%;
-                left: 20%;
-                padding-left: 0.5em;
-            }
 
             /*Attachment*/
             .attachment {
@@ -540,25 +541,25 @@
             /*---Media Query---*/
             @media screen and (max-width: 1000px) {
                 #video-navigation,
-                .video-content { padding: 0.5em;}
+                #video-content { padding: 0.5em;}
                 #video-navigation { 
                     padding-right: 0.25em;
                     padding-bottom: 1em;
                 }
-                .video-content { padding-left: 0.25em;}
+                #video-content { padding-left: 0.25em;}
                 #video { padding: 0;}
             }
             @media screen and (max-width: 700px) {
                 /*Parent Container*/
                 #video-navigation,
-                .video-content { padding: 0.25em;}
+                #video-content { padding: 0.25em;}
                 #video-navigation {
                     width: 40%;
                     height: 415px;
                     right: 0;
                     bottom: auto;
                 }
-                .video-content {
+                #video-content {
                     width: 100%;
                     left: 0;
                 }
@@ -579,6 +580,7 @@
                 /*Feedback*/
                 #feedback .button,
                 #feedback #video-views { font-size: .78571429rem;}
+                #video-views span:first-child,
                 #feedback #like span,
                 #feedback #dislike span { display: none;}
                 #feedback #like .ui.button .icon,
@@ -623,7 +625,6 @@
                     top: 0;
                     z-index: 100;
                 }
-                #video-views span:first-child { display: none}
                 #video-descrition {
                     position: relative;
                     width: 100%;
@@ -648,8 +649,32 @@
                     $("body").toggleClass("scrollbar hidden");
                     $("#video-navigation").transition("drop");
                 });
+                videoNavigationHeight();
             });
-
+            $(window).resize(function() {
+                videoNavigationHeight();
+            });
+            
+            function videoNavigationHeight() {
+                //!!! Remember Css Media Query
+                var  height = "100%";
+                if(viewport().width > 700)
+                    height = $("#video-content").height();
+                else if (viewport().width > 500)
+                    height = $("#video-descrition").height()-7;
+                $("#video-navigation").height(height);
+                setTimeout(function() {
+                    videoNavigationHeight();
+                }, 500);
+            }
+            function viewport() {
+                var e = window, a = 'inner';
+                if (!('innerWidth' in window)) {
+                    a = 'client';
+                    e = document.documentElement || document.body;
+                }
+                return {width : e[ a+'Width' ], height : e[ a+'Height' ]};
+            }
             function search(query) {
                 var items = $("#video-navigation").find(".item:not(.item:first)");
                 var showNoFound = true;
@@ -671,120 +696,120 @@
         </script>
 
         <noscript>
-        <style>
-            #no-script-alert {
-                position: fixed;
-                width: 100%;
-                height: 100%;
-                z-index: 1000;
-                margin: 0 auto;
-                padding: 25px 100px;
-                max-width: 1200px;
-                -webkit-font-smoothing: antialiased;
-                background-color: #fac564;
-                background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/5908/food.png");
-            }
-            #no-script-alert .document {
-                background-color: rgba(250,197,100,0.5);
-                padding: 40px 20px;
-                border-radius: 5px;
-            }
-
-            #no-script-alert h1 {
-                text-align: center;
-                font-size: 3em;
-                margin-bottom: 10px;
-                text-transform: uppercase;
-                font-weight: bold;
-                color: #fff;
-                text-shadow: 0 1px 2px rgba(0,0,0,0.15);
-            }
-            #no-script-alert p {
-                margin: 0 20px 20px;
-                font-size: 16px;
-                line-height: 1.5em;
-                color: #333;
-            }
-            #no-script-alert .brace {
-                width: auto;
-                min-width: 35px;
-                padding-bottom: 20px;
-                font-size: 2em;
-                line-height: 2em;
-                position: relative;
-                text-align: center;
-                vertical-align: middle;
-                margin: 0 15px 15px;
-                border: none;
-                background-color: transparent;
-                background-image: -webkit-radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), -webkit-radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
-                background-image: -webkit-radial-gradient(0 0 circle, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), -webkit-radial-gradient(35px 0 circle, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
-                background-image: radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
-                background-size: 35px 20px;
-                background-position: center bottom;
-                background-repeat: no-repeat;
-                text-transform: lowercase;
-                font-style: italic;
-                color: #fff;
-                -webkit-filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
-                filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
-            }
-            #no-script-alert .brace:before {
-                width: 50%;
-                border-top: 5px solid #fff;
-                border-left: 1px solid transparent;
-                border-top-left-radius: 20% 30px;
-                height: 100%;
-                content: "";
-                position: absolute;
-                top: 100%;
-                left: -15px;
-                box-sizing: border-box;
-                margin-top: -5px;
-            }
-            #no-script-alert .brace:after {
-                width: 50%;
-                border-top: 5px solid #fff;
-                border-right: 1px solid transparent;
-                border-top-right-radius: 20% 30px;
-                height: 100%;
-                content: "";
-                position: absolute;
-                top: 100%;
-                right: -15px;
-                box-sizing: border-box;
-                margin-top: -5px;
-            }
-            #no-script-alert .document-content {
-                -webkit-column-count: 1;
-                -moz-column-count: 1;
-                column-count: 1;
-                -webkit-column-gap: 20px;
-                -moz-column-gap: 20px;
-                column-gap: 20px;
-                padding: 20px 0;
-                margin: 0 100px;
-            }
-            @media screen and (min-width: 1200px) {
-                #no-script-alert .document-content {
-                    -webkit-column-count: 2;
-                    -moz-column-count: 2;
-                    column-count: 2;
+            <style>
+                body { overflow: hidden;}
+                /*Structure*/
+                #no-script-alert {
+                    position: fixed;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1000;
+                    margin: 0 auto;
+                    padding: 25px 100px;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    background-color: #ebe8d7;
+                    background-image: url("/common/image/noscript.png");
+                    overflow: auto;
                 }
-            }
-        </style>
-        <div id="no-script-alert">
-            <div class="document">
-                <h1> ATTIVARE JAVASCRIPT</h1>
-                <hr class="brace">
-                <div class="document-content">
+                #no-script-alert .document {
+                    background-color: rgba(235,232,215,0.5);
+                    padding: 40px 20px;
+                    -webkit-border-radius: 5px;
+                    -moz-border-radius: 5px;
+                    border-radius: 5px;
+                }
+                /*Typography*/
+                #no-script-alert h1 {
+                    text-align: center;
+                    font-size: 5em;
+                    margin-bottom: 10px;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    color: #ffffff;
+                    text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+                }
+                #no-script-alert p {
+                    text-align: center;
+                    margin: 0 20px 20px;
+                    font-size: 2em;
+                    line-height: 1.5em;
+                    color: #333333;
+                }
+                #no-script-alert p a:hover { text-decoration: underline;}
+                #no-script-alert .brace {
+                    position: relative;
+                    width: auto;
+                    min-width: 35px;
+                    padding-bottom: 20px;
+                    font-size: 2em;
+                    line-height: 2em;
+                    text-align: center;
+                    vertical-align: middle;
+                    margin: 0 15px 15px;
+                    border: none;
+                    background-color: transparent;
+                    background-image: -webkit-radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), -webkit-radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                    background-image: -webkit-radial-gradient(0 0 circle, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), -webkit-radial-gradient(35px 0 circle, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                    background-image: radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                    background-size: 35px 20px;
+                    background-position: center bottom;
+                    background-repeat: no-repeat;
+                    text-transform: lowercase;
+                    font-style: italic;
+                    color: #ffffff;
+                    -webkit-filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
+                    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
+                }
+                #no-script-alert .brace:before {
+                    width: 50%;
+                    border-top: 5px solid #fff;
+                    border-left: 1px solid transparent;
+                    border-top-left-radius: 20% 30px;
+                    height: 100%;
+                    content: "";
+                    position: absolute;
+                    top: 100%;
+                    left: -15px;
+                    box-sizing: border-box;
+                    margin-top: -5px;
+                }
+                #no-script-alert .brace:after {
+                    width: 50%;
+                    border-top: 5px solid #fff;
+                    border-right: 1px solid transparent;
+                    border-top-right-radius: 20% 30px;
+                    height: 100%;
+                    content: "";
+                    position: absolute;
+                    top: 100%;
+                    right: -15px;
+                    box-sizing: border-box;
+                    margin-top: -5px;
+                }
+                /*---Media Query---*/
+                @media screen and (max-width: 650px) {
+                    #no-script-alert { padding: 25px;}
+                    #no-script-alert p { margin: 0 10px;}
+                }
+                @media screen and (max-width: 500px) {
+                    #no-script-alert .document { padding: 40px 0;}
+                    #no-script-alert h1 { font-size: 3em;}
+                    #no-script-alert p { font-size: 1.5em;}
+                }
+            </style>
+            <div id="no-script-alert">
+                <div class="document">
+                    <h1> <i class="rocket icon"></i><br/>ATTIVARE JAVASCRIPT</h1>
+                    <hr class="brace">
                     <p>
-                        Per aiuto all' attivazione clicca 
-                        <a href="http://www.enable-javascript.com/" target="_blank">qui</a>
+                        Ci scusiamo per l'inconveniente ma <i>wikITT</i> funziona solamente con <strong>Javascript abilitato</strong>.
+                        <br/>
+                        Per <strong>aiuto</strong> all' <strong>attivazione</strong>
+                        <a href="http://www.enable-javascript.com/it/" target="_blank">clicca qui</a>
                     </p>
                 </div>
             </div>
-        </div>
         </noscript>
 
         <div class="wrapper">
@@ -799,8 +824,6 @@
                 function renderButton() {
                     gapi.signin2.render('authentication', {
                         'scope': 'profile email',
-                        'width': 1920,
-                        'height': 50,
                         'longtitle': true,
                         'theme': 'dark',
                         'onsuccess': onSuccess,
@@ -809,7 +832,6 @@
                 }
             </script>
 
-
             <!--#include virtual="/common/component/header.html" -->
 
             <button class="ui blue labeled icon button" id="btnShowVideoNavigation">
@@ -817,7 +839,7 @@
                 Visualizza elenco video
             </button>
 
-            <div class="video-content">
+            <div id="video-content">
                 <?php
                 //Require engine PHP page
                 require '../common/php/engine.php';
@@ -830,16 +852,16 @@
                 if (!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {
                     ?>
                     <style>
-                        .video-content { padding: 1em;}
+                        #video-content { padding: 1em;}
                         @media screen and (max-width: 1000px) {
-                            .video-content { padding-top: 0.5em;}
+                            #video-content { padding-top: 0.5em;}
                         }
                         @media screen and (max-width: 700px) {
-                            .video-content .ui.raised.segment { margin: 1em;}
+                            #video-content .ui.raised.segment { margin: 1em;}
                             #video-navigation { width: 100%;}
                         }
                         @media screen and (max-width: 700px) {
-                            .video-content .ui.raised.segment { margin: 0.25em;}
+                            #video-content .ui.raised.segment { margin: 0.25em;}
                         }
                     </style>
                     <div class="ui small breadcrumb" id="breadcrumInfo">
@@ -863,7 +885,6 @@
                             Con questi video avrai la possibilità di approfondire alcuni degli infiniti argomenti che compongono questa materia risolvendo i tuoi dubbi o semplicemente incuriosendoti verso questo vasto ed interessante mondo.
                         </p>
                     </div>
-
 
                     <div class="ui horizontal divider">
                         <i class="code icon"></i>
@@ -974,16 +995,17 @@
                                 if (mysqli_num_rows($creatorInfo) > 0) {
                                     while ($row = mysqli_fetch_array($creatorInfo)) {
                                         ?>
-                                        <a href="/author/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Color"]; ?>">
-                                            <img src="<?php echo $row["PathMiniatura"]; ?>" alt="autore"/>
-            <?php echo $row["Nome"] . "&nbsp;" . $row["Cognome"]; ?>
+                                        <a href="/author/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Colore"]; ?>">
+                                            <img src="/common/image/profile/<?php echo $row["Miniatura"]; ?>.jpg" alt="autore"/>
+                                            <?php echo $row["Nome"] . "&nbsp;" . $row["Cognome"]; ?>
                                             <div class="detail"><?php echo $row["Classe"]; ?></div>
                                         </a>
-                                    <?php }
+                                        <?php
+                                    }
                                 } else {
                                     ?>
                                     <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
-    <?php } ?>
+                                <?php } ?>
                             </div>
                         </div>
                         <div class="card">
@@ -1000,19 +1022,20 @@
                                         <hr class="divider">
                                         <div class="desc"><?php echo $row["Descrizione"]; ?></div>
                                     </a>
-        <?php }
-    } else {
-        ?>
+                                    <?php
+                                }
+                            } else {
+                                ?>
                                 <div class="ui icon message">
                                     <i class="info icon"></i>
                                     <div class="content">
                                         <p>Nessun materiale disponibile</p>
                                     </div>
                                 </div>
-                    <?php } ?>
+                            <?php } ?>
                         </div>
                     </div>
-<?php } ?>
+                <?php } ?>
             </div>
             <div id="video-navigation">
                 <div class="scrollbar informatica ui vertical menu">
@@ -1033,9 +1056,9 @@
                                 ?>
                                 <a class="font informatica active item" href="index.php?v=<?php echo $row["VideoID"]; ?>" style="font-weight: bold;">
                                     <i class="fire icon"></i>
-                                    <?php echo $row["Titolo"]; ?>
+                                <?php echo $row["Titolo"]; ?>
                                 </a>
-                            <?php } else { ?>
+                                <?php } else { ?>
                                 <a class="item" href="index.php?v=<?php echo $row["VideoID"]; ?>">
                                 <?php echo $row["Titolo"]; ?>
                                 </a>
