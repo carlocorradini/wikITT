@@ -723,7 +723,7 @@
               });
               
               request.execute(function(response){
-                  console.log(response);              
+                  console.log(response);        
               });
               alert("Fatta");
             } else {
@@ -735,10 +735,10 @@
           function revokeAccess() {
             GoogleAuth.disconnect();
           }
-         /*
+         
           function setSigninStatus(isSignedIn) {
             var user = GoogleAuth.currentUser.get();
-            var isAuthorized = user.hasGrantedScopes(SCOPE);
+            var isAuthorized = user.hasGrantedScopes(SCOPE);/*
             if (isAuthorized) {
               $('#sign-in-or-out-button').html('Sign out');
               $('#revoke-access-button').css('display', 'inline-block');
@@ -749,8 +749,8 @@
               $('#revoke-access-button').css('display', 'none');
               $('#auth-status').html('You have not authorized this app or you are ' +
                   'signed out.');
-            }
-          }*/
+            }*/
+          }
 
           function updateSigninStatus(isSignedIn) {
             setSigninStatus();
