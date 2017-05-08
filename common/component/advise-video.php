@@ -23,7 +23,8 @@
         $nVideoDB = 0;
         $nVideo = 8; 
         $risCount = mysqli_query($connection, "SELECT COUNT(*) AS 'numeroVideo' FROM video") or die (mysqli_error($connection));
-        $risRand = mysqli_query($connection, "SELECT DISTINCT v.VideoID, m.nomeIndirizzo as materia, v.titolo as titoloVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, a.id as idAutore FROM video v, materia m, autore a, realizza r WHERE v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY RAND() LIMIT 8 ") or die (mysqli_error($connetti));      
+        //il problema sta nel fatto che ci sono più autori collegati ad un video e perciò con il limit è un casino
+        $risRand = mysqli_query($connection, "SELECT DISTINCT v.VideoID, m.nomeIndirizzo as materia, v.titolo as titoloVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, a.id as idAutore FROM (SELECT v1.VideoID, v1.Titolo, v1.CodMateria, v1.Cod FROM video v1 ORDER BY RAND() LIMIT 8) v, materia m, autore a, realizza r WHERE v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ") or die (mysqli_error($connetti));      
 
         if(mysqli_num_rows($risRand) > 0){
                 while($row=mysqli_fetch_array($risRand)){
