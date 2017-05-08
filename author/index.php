@@ -213,7 +213,7 @@
                                     <a class="ui raised link stackable fluid card <?php echo $color ?>" href="../<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
                                         <div class="image">
                                             <div class="ui <?php echo $color?> ribbon label"><?php echo $row['Materia']?></div>
-                                            <img src="<?php echo "http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg"/*$row['pathMiniatura']*/ ?>">
+                                            <img src="https://img.youtube.com/vi/<?php echo $row['VideoID']?>/sddefault.jpg">
                                         </div>
                                         <div class="content">
                                             <div class="header"><?php echo $row['Titolo'] ?></div>
