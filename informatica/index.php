@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Informatica</title>
         <link rel="icon" href="/common/image/icon.ico" type="image/x-icon">
-        
+
         <!--Frameworks-->
         <!--Pace-->
         <link rel="stylesheet" type="text/css" href="/common/framework/pace/pace.min.css"/>
@@ -16,19 +16,17 @@
         <!--Semantic-UI-->
         <link rel="stylesheet" type="text/css" href="/common/framework/semantic-UI/semantic.min.css"/>
         <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
-        
+
         <!--Plyr-->
         <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/2.0.7/plyr.css"/>
         <script src="https://cdn.plyr.io/2.0.7/plyr.js" type="text/javascript"></script>
         <!--END Framweworks-->
-        
-        
-        
-        
+
+
         <meta name="google-signin-client_id" content="1093951573337-n44tvp7mtb48d5ehei7e0sfak31mrh68.apps.googleusercontent.com">
-        
-        
-        
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+
         <style>
             /*Active*/
             .header .nav-container ul li:nth-child(1) a,
@@ -41,7 +39,7 @@
                 color: #ffffff!important;
                 border-color: #ffffff;
             }
-            
+
             /*Materia Colore*/
             .font.informatica { color: #2185d0!important;}
             .font.meccanica { color: #21ba45!important;}
@@ -65,7 +63,7 @@
             .scrollbar.chimica::-webkit-scrollbar-thumb{ background-color: #db2828;}
             .scrollbar.elettrotecnica::-webkit-scrollbar-thumb{ background-color: #f2711c;}
             .scrollbar.costruzioni::-webkit-scrollbar-thumb{ background-color: #a5673f;}
-            
+
             /*General*/
             #video-navigation,
             .video-content {
@@ -106,14 +104,12 @@
                 font-style: italic;
                 font-size: 1.1em;
             }
-            
+
             /*Video Navigation*/
             #video-navigation {
-                position: absolute;
-                bottom: 0;
-                top: 70px;
                 width: 20%;
                 right: 80%;
+                height: 100vh;
                 visibility: visible;
                 display: block!important;
                 padding-right: 0.5em;
@@ -164,7 +160,7 @@
                 50%{background-position:100% 19%}
                 100%{background-position:0% 82%}
             }
-            
+
             #video-navigation .close {
                 position: fixed;
                 bottom: 3px;
@@ -210,18 +206,18 @@
                 -moz-transition: background-color ease-in-out 0.2s;
                 -o-transition: background-color ease-in-out 0.2s;
             }
-            
+
             #video-navigation .close:hover {background-color: #db2828;}
             #video-navigation .close:hover span:before,
             #video-navigation .close:hover span:after { background-color: #ffffff;}
-            
+
             /*Video Container*/
             .video-content {
                 width: 80%;
                 left: 20%;
                 padding-left: 0.5em;
             }
-            
+
             /*Attachment*/
             .attachment {
                 position: relative;
@@ -238,7 +234,7 @@
                 box-shadow: inset 0 0 0 2px #00b5ad;
             }
             .attachment:not(:last-child) { margin-right: 5px;}
-            
+
             .attachment::before,
             .attachment::after {
                 position: absolute;
@@ -307,7 +303,7 @@
                 font-weight: bold;
             }
             .attachment:hover .desc { color: #2185d0;}
-            
+
             /*Attachment File Type*/
             /*AI*/
             .attachment.ai {
@@ -557,18 +553,16 @@
                 #video-navigation,
                 .video-content { padding: 0.25em;}
                 #video-navigation {
-                    position: relative;
                     width: 40%;
                     height: 415px;
                     right: 0;
                     bottom: auto;
-                    top: auto;
                 }
                 .video-content {
                     width: 100%;
                     left: 0;
                 }
-                
+
                 /*Video Description & Card*/
                 #video-descrition {
                     position: absolute;
@@ -580,7 +574,7 @@
                     margin-top: 0.5em;
                     padding: 0.5em;
                 }
-                
+
                 /*Feedback*/
                 /*Feedback*/
                 #feedback .button,
@@ -643,26 +637,26 @@
     </head>
     <body>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 //Handle Search
-                $("#video-navigation input:first-of-type").on("keyup", function() {
+                $("#video-navigation input:first-of-type").on("keyup", function () {
                     search($(this).val().toUpperCase());
                 });
                 //Handle Video Navigation on XS Devices
                 //Open & Close
-                $("#btnShowVideoNavigation, #video-navigation .close").on("click", function() {
+                $("#btnShowVideoNavigation, #video-navigation .close").on("click", function () {
                     $("body").toggleClass("scrollbar hidden");
                     $("#video-navigation").transition("drop");
                 });
             });
-            
+
             function search(query) {
                 var items = $("#video-navigation").find(".item:not(.item:first)");
                 var showNoFound = true;
-                $(items).each(function(index, item) {
+                $(items).each(function (index, item) {
                     var iVal = $(item).text().toUpperCase();
                     if (!$(this).is("#msgNoFound")) {
-                        if(iVal.indexOf(query) > -1) {
+                        if (iVal.indexOf(query) > -1) {
                             showNoFound = false;
                             $(item).fadeIn("fast");
                         } else
@@ -675,68 +669,208 @@
                     $("#msgNoFound").hide();
             }
         </script>
-        
+
+        <noscript>
+        <style>
+            #no-script-alert {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                z-index: 1000;
+                margin: 0 auto;
+                padding: 25px 100px;
+                max-width: 1200px;
+                -webkit-font-smoothing: antialiased;
+                background-color: #fac564;
+                background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/5908/food.png");
+            }
+            #no-script-alert .document {
+                background-color: rgba(250,197,100,0.5);
+                padding: 40px 20px;
+                border-radius: 5px;
+            }
+
+            #no-script-alert h1 {
+                text-align: center;
+                font-size: 3em;
+                margin-bottom: 10px;
+                text-transform: uppercase;
+                font-weight: bold;
+                color: #fff;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+            }
+            #no-script-alert p {
+                margin: 0 20px 20px;
+                font-size: 16px;
+                line-height: 1.5em;
+                color: #333;
+            }
+            #no-script-alert .brace {
+                width: auto;
+                min-width: 35px;
+                padding-bottom: 20px;
+                font-size: 2em;
+                line-height: 2em;
+                position: relative;
+                text-align: center;
+                vertical-align: middle;
+                margin: 0 15px 15px;
+                border: none;
+                background-color: transparent;
+                background-image: -webkit-radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), -webkit-radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                background-image: -webkit-radial-gradient(0 0 circle, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), -webkit-radial-gradient(35px 0 circle, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                background-image: radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                background-size: 35px 20px;
+                background-position: center bottom;
+                background-repeat: no-repeat;
+                text-transform: lowercase;
+                font-style: italic;
+                color: #fff;
+                -webkit-filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
+                filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
+            }
+            #no-script-alert .brace:before {
+                width: 50%;
+                border-top: 5px solid #fff;
+                border-left: 1px solid transparent;
+                border-top-left-radius: 20% 30px;
+                height: 100%;
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: -15px;
+                box-sizing: border-box;
+                margin-top: -5px;
+            }
+            #no-script-alert .brace:after {
+                width: 50%;
+                border-top: 5px solid #fff;
+                border-right: 1px solid transparent;
+                border-top-right-radius: 20% 30px;
+                height: 100%;
+                content: "";
+                position: absolute;
+                top: 100%;
+                right: -15px;
+                box-sizing: border-box;
+                margin-top: -5px;
+            }
+            #no-script-alert .document-content {
+                -webkit-column-count: 1;
+                -moz-column-count: 1;
+                column-count: 1;
+                -webkit-column-gap: 20px;
+                -moz-column-gap: 20px;
+                column-gap: 20px;
+                padding: 20px 0;
+                margin: 0 100px;
+            }
+            @media screen and (min-width: 1200px) {
+                #no-script-alert .document-content {
+                    -webkit-column-count: 2;
+                    -moz-column-count: 2;
+                    column-count: 2;
+                }
+            }
+        </style>
+        <div id="no-script-alert">
+            <div class="document">
+                <h1> ATTIVARE JAVASCRIPT</h1>
+                <hr class="brace">
+                <div class="document-content">
+                    <p>
+                        Per aiuto all' attivazione clicca 
+                        <a href="http://www.enable-javascript.com/" target="_blank">qui</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        </noscript>
+
         <div class="wrapper">
+            <div id="authentication"></div>
+            <script>
+                function onSuccess(googleUser) {
+                    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+                }
+                function onFailure(error) {
+                    console.log(error);
+                }
+                function renderButton() {
+                    gapi.signin2.render('authentication', {
+                        'scope': 'profile email',
+                        'width': 1920,
+                        'height': 50,
+                        'longtitle': true,
+                        'theme': 'dark',
+                        'onsuccess': onSuccess,
+                        'onfailure': onFailure
+                    });
+                }
+            </script>
+
+
             <!--#include virtual="/common/component/header.html" -->
-            
+
             <button class="ui blue labeled icon button" id="btnShowVideoNavigation">
                 <i class="video icon"></i>
                 Visualizza elenco video
             </button>
-            
+
             <div class="video-content">
                 <?php
-                    //Require engine PHP page
-                    require '../common/php/engine.php';
-                    //Vide ID
-                    $vID = filter_input(INPUT_GET, "v");
-                    
-                    //Query
-                    $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
-                    
-                    if(!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {?>
-                        <style>
-                            .video-content { padding: 1em;}
-                            @media screen and (max-width: 1000px) {
-                                .video-content { padding-top: 0.5em;}
-                            }
-                            @media screen and (max-width: 700px) {
-                                .video-content .ui.raised.segment { margin: 1em;}
-                                #video-navigation { width: 100%;}
-                            }
-                            @media screen and (max-width: 700px) {
-                                .video-content .ui.raised.segment { margin: 0.25em;}
-                            }
-                        </style>
-                        <div class="ui small breadcrumb" id="breadcrumInfo">
-                            <a class="section" href="/index.html">Home</a>
-                            <div class="divider"> / </div>
-                            <div class="active section">Informatica</div>
-                        </div>
+                //Require engine PHP page
+                require '../common/php/engine.php';
+                //Vide ID
+                $vID = filter_input(INPUT_GET, "v");
 
-                        <div class="ui horizontal divider">
-                            <h1>Informatica</h1>
-                        </div>
+                //Query
+                $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
 
-                        <div class="ui raised segment">
-                            <a class="ui red ribbon label">Presentazione</a>
-                            <p><br>
+                if (!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {
+                    ?>
+                    <style>
+                        .video-content { padding: 1em;}
+                        @media screen and (max-width: 1000px) {
+                            .video-content { padding-top: 0.5em;}
+                        }
+                        @media screen and (max-width: 700px) {
+                            .video-content .ui.raised.segment { margin: 1em;}
+                            #video-navigation { width: 100%;}
+                        }
+                        @media screen and (max-width: 700px) {
+                            .video-content .ui.raised.segment { margin: 0.25em;}
+                        }
+                    </style>
+                    <div class="ui small breadcrumb" id="breadcrumInfo">
+                        <a class="section" href="/index.html">Home</a>
+                        <div class="divider"> / </div>
+                        <div class="active section">Informatica</div>
+                    </div>
+
+                    <div class="ui horizontal divider">
+                        <h1>Informatica</h1>
+                    </div>
+
+                    <div class="ui raised segment">
+                        <a class="ui red ribbon label">Presentazione</a>
+                        <p><br>
                             « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
                             (Edsger Wybe Dijkstra)
                             <br><br>
                             La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.
                             Contrariamente a ciò che si pensa non si tratta però di una cosa solo per “smanettoni” ma bensì è una vera e propria scienza aperta a tutti coloro appassionati di logica e di tecnologia.
                             Con questi video avrai la possibilità di approfondire alcuni degli infiniti argomenti che compongono questa materia risolvendo i tuoi dubbi o semplicemente incuriosendoti verso questo vasto ed interessante mondo.
-                            </p>
-                        </div>
+                        </p>
+                    </div>
 
 
-                        <div class="ui horizontal divider">
-                            <i class="code icon"></i>
-                        </div>
+                    <div class="ui horizontal divider">
+                        <i class="code icon"></i>
+                    </div>
 
-                        <div class="ui three column stackable grid">
-                            <div class="column">
+                    <div class="ui three column stackable grid">
+                        <div class="column">
                             <div class="ui raised segment">
                                 <a class="ui green ribbon label">Database</a>
                                 <div class="ui ordered list">                               
@@ -744,28 +878,10 @@
                                     <a class="item">MySql</a>
                                 </div>
                             </div>
-                            </div>
+                        </div>
 
-                            <div class="column">
-                                <div class="ui raised segment">
-                                    <a class="ui green ribbon label">Argomenti</a>
-                                    <div class="ui ordered list">
-                                        <div class="item">
-                                            <a>Database</a>
-                                            <div class="list">
-                                                <a class="item">Progettazione</a>
-                                                <a class="item">MySql</a>
-                                            </div>
-                                        </div>
-                                        <a class="item">Php</a>
-                                        <a class="item">Html</a>
-                                        <a class="item">CSS</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="column">
-                                <div class="ui raised segment">
+                        <div class="column">
+                            <div class="ui raised segment">
                                 <a class="ui green ribbon label">Argomenti</a>
                                 <div class="ui ordered list">
                                     <div class="item">
@@ -780,109 +896,123 @@
                                     <a class="item">CSS</a>
                                 </div>
                             </div>
-                            </div>
                         </div>
 
-                        <div class="ui horizontal divider">
-                            <i class="code icon"></i>
-                        </div>
-                    <?php } else {
-                        //Execute queries
-                        $creatorInfo = query("SELECT A.* FROM video V,realizza R,autore A WHERE V.Cod=R.CodVideo AND R.IDAutore=A.ID AND V.VideoID='$vID';");?>
-                        
-                        <div id="video">
-                            <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
-                        </div>
-                        <div id="video-descrition">
-                            <div class="card">
-                                <!--Video Info-->
-                                <?php $vInfo = mysqli_fetch_array($videoInfo)?>
-                                <div class="ui label" style="float: right;">
-                                    <i class="calendar icon"></i>
-                                    <?php echo $vInfo["DataPub"]?>
-                                </div>
-                                <h1 style="margin: 0;"><?php echo $vInfo["Titolo"];?></h1>
-                                <p style="margin: 0 0 0.5em 0;"><?php echo $vInfo["Descrizione"];?></p>
-                                
-                                <!--Like & Dislike-->
-                                <div id="feedback">
-                                    <div class="ui labeled button" id="like" tabindex="0">
-                                        <div class="ui basic green button small">
-                                            <i class="thumbs up icon"></i>
-                                            <span>Like</span>
+                        <div class="column">
+                            <div class="ui raised segment">
+                                <a class="ui green ribbon label">Argomenti</a>
+                                <div class="ui ordered list">
+                                    <div class="item">
+                                        <a>Database</a>
+                                        <div class="list">
+                                            <a class="item">Progettazione</a>
+                                            <a class="item">MySql</a>
                                         </div>
-                                        <a class="ui green left pointing label">
-                                            0
-                                        </a>
                                     </div>
-                                    <div class="ui labeled button" id="dislike" tabindex="0">
-                                        <div class="ui basic red button small">
-                                            <i class="thumbs down icon"></i>
-                                            <span>Dislike</span>
-                                        </div>
-                                        <a class="ui red left pointing label">
-                                            0
-                                        </a>
-                                    </div>
-                                    <div class="ui teal tag label large" id="video-views">
-                                        0 Visual<span>izzazioni</span>
-                                    </div>
-                                    <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em;">
-                                        <div class="bar" style="min-width: 0%;"></div>
-                                    </div>
-                                </div>
-                                
-                                <script src="https://apis.google.com/js/platform.js" async defer></script>
-                                <style>
-                                    #authentication {
-                                        position: fixed;
-                                        z-index: 1;
-                                        right: 0;
-                                        top: 500px;
-                                    }
-                                </style>
-                                
-                                <div id="authentication">
-                                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                                </div>
-                                
-                                <!--Creator Info-->
-                                <div id="creators">
-                                    <?php if (mysqli_num_rows($creatorInfo) > 0) {
-                                        while ($row = mysqli_fetch_array($creatorInfo)) {?>
-                                            <a href="/author/index.php?a=<?php echo $row["ID"];?>" class="ui medium image label <?php echo $row["Color"];?>">
-                                                <img src="<?php echo $row["PathMiniatura"];?>" alt="autore"/>
-                                                <?php echo $row["Nome"]."&nbsp;".$row["Cognome"];?>
-                                                <div class="detail"><?php echo $row["Classe"];?></div>
-                                            </a>
-                                    <?php }} else {?>
-                                        <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
-                                    <?php }?>
+                                    <a class="item">Php</a>
+                                    <a class="item">Html</a>
+                                    <a class="item">CSS</a>
                                 </div>
                             </div>
-                            <div class="card">
-                                <h1>Materiale</h1>
-                                <?php $attachments = query("SELECT M.Tipo,M.PathMateriale,M.Descrizione FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
-                                    if (mysqli_num_rows($attachments) > 0) {
-                                        while ($row = mysqli_fetch_array($attachments)) {?>
-                                            <a class="attachment <?php echo $row["Tipo"];?>"
-                                               href="<?php echo $row["PathMateriale"];?>"
-                                               target="_blank" download>
-                                                <div class="image"></div>
-                                                <hr class="divider">
-                                                <div class="desc"><?php echo $row["Descrizione"];?></div>
-                                            </a>
-                                    <?php }} else {?>
-                                        <div class="ui icon message">
-                                            <i class="info icon"></i>
-                                            <div class="content">
-                                                <p>Nessun materiale disponibile</p>
-                                            </div>
-                                        </div>
-                                <?php } ?>
+                        </div>
+                    </div>
+
+                    <div class="ui horizontal divider">
+                        <i class="code icon"></i>
+                    </div>
+                    <?php
+                } else {
+                    //Execute queries
+                    $creatorInfo = query("SELECT A.* FROM video V,realizza R,autore A WHERE V.Cod=R.CodVideo AND R.IDAutore=A.ID AND V.VideoID='$vID';");
+                    ?>
+
+                    <div id="video">
+                        <div data-type="youtube" data-video-id="<?php echo $vID; ?>"></div>
+                    </div>
+                    <div id="video-descrition">
+                        <div class="card">
+                            <!--Video Info-->
+                            <?php $vInfo = mysqli_fetch_array($videoInfo) ?>
+                            <div class="ui label" style="float: right;">
+                                <i class="calendar icon"></i>
+                                <?php echo $vInfo["DataPub"] ?>
+                            </div>
+                            <h1 style="margin: 0;"><?php echo $vInfo["Titolo"]; ?></h1>
+                            <p style="margin: 0 0 0.5em 0;"><?php echo $vInfo["Descrizione"]; ?></p>
+
+                            <!--Like & Dislike-->
+                            <div id="feedback">
+                                <div class="ui labeled button" id="like" tabindex="0">
+                                    <div class="ui basic green button small">
+                                        <i class="thumbs up icon"></i>
+                                        <span>Like</span>
+                                    </div>
+                                    <a class="ui green left pointing label">
+                                        0
+                                    </a>
+                                </div>
+                                <div class="ui labeled button" id="dislike" tabindex="0">
+                                    <div class="ui basic red button small">
+                                        <i class="thumbs down icon"></i>
+                                        <span>Dislike</span>
+                                    </div>
+                                    <a class="ui red left pointing label">
+                                        0
+                                    </a>
+                                </div>
+                                <div class="ui teal tag label large" id="video-views">
+                                    0 Visual<span>izzazioni</span>
+                                </div>
+                                <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em;">
+                                    <div class="bar" style="min-width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <!--Creator Info-->
+                            <div id="creators">
+                                <?php
+                                if (mysqli_num_rows($creatorInfo) > 0) {
+                                    while ($row = mysqli_fetch_array($creatorInfo)) {
+                                        ?>
+                                        <a href="/author/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Color"]; ?>">
+                                            <img src="<?php echo $row["PathMiniatura"]; ?>" alt="autore"/>
+            <?php echo $row["Nome"] . "&nbsp;" . $row["Cognome"]; ?>
+                                            <div class="detail"><?php echo $row["Classe"]; ?></div>
+                                        </a>
+                                    <?php }
+                                } else {
+                                    ?>
+                                    <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
+    <?php } ?>
                             </div>
                         </div>
-                    <?php }?>
+                        <div class="card">
+                            <h1>Materiale</h1>
+                            <?php
+                            $attachments = query("SELECT M.Tipo,M.PathMateriale,M.Descrizione FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
+                            if (mysqli_num_rows($attachments) > 0) {
+                                while ($row = mysqli_fetch_array($attachments)) {
+                                    ?>
+                                    <a class="attachment <?php echo $row["Tipo"]; ?>"
+                                       href="<?php echo $row["PathMateriale"]; ?>"
+                                       target="_blank" download>
+                                        <div class="image"></div>
+                                        <hr class="divider">
+                                        <div class="desc"><?php echo $row["Descrizione"]; ?></div>
+                                    </a>
+        <?php }
+    } else {
+        ?>
+                                <div class="ui icon message">
+                                    <i class="info icon"></i>
+                                    <div class="content">
+                                        <p>Nessun materiale disponibile</p>
+                                    </div>
+                                </div>
+                    <?php } ?>
+                        </div>
+                    </div>
+<?php } ?>
             </div>
             <div id="video-navigation">
                 <div class="scrollbar informatica ui vertical menu">
@@ -896,21 +1026,23 @@
                         <i class="rocket icon"></i>Nessun video trovato
                     </div>
                     <?php
-                        $videos = query("SELECT Titolo,VideoID FROM video ORDER BY Titolo;");
-                        if (mysqli_num_rows($videos) > 0) {
-                            while ($row = mysqli_fetch_array($videos)) {
-                                if($row["VideoID"] === $vID) { ?>
-                                    <a class="font informatica active item" href="index.php?v=<?php echo $row["VideoID"];?>" style="font-weight: bold;">
-                                        <i class="fire icon"></i>
-                                        <?php echo $row["Titolo"];?>
-                                    </a>
-                                <?php } else {?>
-                                    <a class="item" href="index.php?v=<?php echo $row["VideoID"];?>">
-                                        <?php echo $row["Titolo"];?>
-                                    </a>
-                                <?php }
+                    $videos = query("SELECT Titolo,VideoID FROM video ORDER BY Titolo;");
+                    if (mysqli_num_rows($videos) > 0) {
+                        while ($row = mysqli_fetch_array($videos)) {
+                            if ($row["VideoID"] === $vID) {
+                                ?>
+                                <a class="font informatica active item" href="index.php?v=<?php echo $row["VideoID"]; ?>" style="font-weight: bold;">
+                                    <i class="fire icon"></i>
+                                    <?php echo $row["Titolo"]; ?>
+                                </a>
+                            <?php } else { ?>
+                                <a class="item" href="index.php?v=<?php echo $row["VideoID"]; ?>">
+                                <?php echo $row["Titolo"]; ?>
+                                </a>
+                                <?php
                             }
                         }
+                    }
                     ?>
                 </div>
                 <button class="close">
