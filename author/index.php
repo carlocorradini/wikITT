@@ -70,6 +70,13 @@
                 -webkit-transition-duration: 0.5s;
                 transition-duration: 0.5s;
             }
+            .ui.center.aligned.grid {
+                margin-top: 5vh;
+                margin-bottom: 1vh;
+            }
+            .ui.buttons .ui.button {
+                min-width: 12vh;
+            }
         </style>
     </head>
     <body>
@@ -143,7 +150,7 @@
                         Torna alla lista
                     </a>
                     <?php
-                    $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
+                    $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
                     $query = mysqli_query($connection, $txtQuery);
                     $row = mysqli_fetch_array($query);
                     if ($row > 0) {
@@ -185,45 +192,57 @@
                                 <button class="ui fluid toggle button" id="show-hide">Mostra video</button>
                             </div>
                         </div>
-                        <div class="ui stackable four column grid" id="contenitore-4">
-                            <?php
-                            $authorID = filter_input(INPUT_GET, "a");
-                            $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, V.PathMiniatura, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
-                            $query = mysqli_query($connection, $txtQuery);
-                            while ($row = mysqli_fetch_array($query)) {
-                                switch ($row['Materia']) {
-                                    case 'Informatica':
-                                        $color = 'blue';
-                                        break;
-                                    case 'Meccanica':
-                                        $color = 'green';
-                                        break;
-                                    case 'Elettrotecnica':
-                                        $color = 'orange';
-                                        break;
-                                    case 'Costruzioni':
-                                        $color = 'brown';
-                                        break;
-                                    case 'Chimica':
-                                        $color = 'red';
-                                        break;
+                        <div id="contenitore-4">
+                            <div class="ui center aligned grid">
+                                <div class="ui buttons">
+                                    <button class="ui teal button"><i class="sort icon"> </i> Nome</button>
+                                    <div class="or"></div>
+                                    <button class="ui teal button"><i class="sort icon"> </i> Data</button>
+                                    <div class="or"></div>
+                                    <button class="ui teal button"><i class="sort icon"> </i> Materia</button>
+                                </div>
+
+                            </div>
+                            <div class="ui stackable four column grid">
+                                <?php
+                                $authorID = filter_input(INPUT_GET, "a");
+                                $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
+                                $query = mysqli_query($connection, $txtQuery);
+                                while ($row = mysqli_fetch_array($query)) {
+                                    switch ($row['Materia']) {
+                                        case 'Informatica':
+                                            $color = 'blue';
+                                            break;
+                                        case 'Meccanica':
+                                            $color = 'green';
+                                            break;
+                                        case 'Elettrotecnica':
+                                            $color = 'orange';
+                                            break;
+                                        case 'Costruzioni':
+                                            $color = 'brown';
+                                            break;
+                                        case 'Chimica':
+                                            $color = 'red';
+                                            break;
+                                    }
+                                    ?>
+                                    <div class="column">
+                                        <a class="ui link stackable fluid card <?php echo $color ?>" href="../<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
+                                            <div class="image">
+                                                <div class="ui <?php echo $color ?> ribbon label"><?php echo $row['Materia'] ?></div>
+                                                <img src="https://img.youtube.com/vi/<?php echo $row['VideoID'] ?>/sddefault.jpg">
+                                            </div>
+                                            <div class="content">
+                                                <div class="header"><?php echo $row['Titolo'] ?></div>
+                                                <div class="description"><?php echo $row['Descrizione'] ?></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <?php
                                 }
                                 ?>
-                                <div class="column">
-                                    <a class="ui link stackable fluid card <?php echo $color ?>" href="../<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
-                                        <div class="image">
-                                            <div class="ui <?php echo $color ?> ribbon label"><?php echo $row['Materia'] ?></div>
-                                            <img src="<?php echo "http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg"/* $row['pathMiniatura'] */ ?>">
-                                        </div>
-                                        <div class="content">
-                                            <div class="header"><?php echo $row['Titolo'] ?></div>
-                                            <div class="description"><?php echo $row['Descrizione'] ?></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <?php
-                            }
-                            ?>
+                            </div>
                         </div>
                         <?php
                     }
