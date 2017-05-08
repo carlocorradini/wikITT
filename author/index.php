@@ -20,7 +20,7 @@
         <!--END Framweworks-->
 
         <style>
-            .ui.raised.card .header {
+            .ui.card .header {
                 font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
                 border: none;
                 box-shadow: none;
@@ -32,14 +32,14 @@
                 background-color: transparent;
                 height: auto;
             }
-            .ui.raised.card {
+            .ui.card {
                 display: block;
                 margin: 2vh auto;
             }
-            .ui.raised.link.fluid.card {
+            .ui.link.fluid.card {
                 max-width: 35vh;
             }
-            .ui.raised.link.stackable.fluid.card {
+            .ui.link.stackable.fluid.card {
                 max-width: 30vh;
             }
             #tab {
@@ -74,34 +74,34 @@
     </head>
     <body>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $("#show-hide").one("click", show);
-                $("#show-hide").hover(function() {
+                $("#show-hide").hover(function () {
                     $("#show-hide").css("background-color", "#009924");
-                }, function() {
+                }, function () {
                     $("#show-hide").css("background-color", "#21BA45");
                 });
             });
-            
+
             function show() {
                 change($(this), "Nascondi video", "#E0E1E2", "#000", "#C7C8C9");
                 $(this).one("click", hide);
             }
-           
+
             function hide() {
                 change($(this), "Mostra video", "#21BA45", "#FFF", "#009924");
                 $(this).one("click", show);
             }
-            
+
             function change(btn, btnTxt, btnColor, btnTxtColor, btnHoverIn) {
                 var container = $("#contenitore-4");
                 btn.text(btnTxt);
                 btn.css("color", btnTxtColor);
                 btn.css("background-color", btnColor);
                 container.transition("drop");
-                btn.hover(function() {
+                btn.hover(function () {
                     btn.css("background-color", btnHoverIn);
-                }, function() {
+                }, function () {
                     btn.css("background-color", btnColor);
                 });
             }
@@ -116,40 +116,41 @@
                     connect($connection);
                     $authorID = filter_input(INPUT_GET, "a");
                     if (!isset($authorID) || $authorID === "") {
-                        $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe FROM autore A ORDER BY A.Cognome, A.Nome, A.ID";
+                        $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.Colore FROM autore A ORDER BY A.Cognome, A.Nome, A.ID";
                         $query = mysqli_query($connection, $txtQuery);
-                        while ($row = mysqli_fetch_array($query)) { ?>
-                        <div class="column">
-                            <a class="ui raised link fluid card" href="/author/index.php?a=<?php echo $row['ID'] ?>">
-                                <div class="content">
-                                    <div class="header"><?php echo $row['Nome']." ".$row['Cognome'] ?></div>
-                                    <div class="description"><?php echo $row['Classe'] ?></div>
-                                    <div class="meta">
-                                        <span class="category">Classe</span>
+                        while ($row = mysqli_fetch_array($query)) {
+                            ?>
+                            <div class="column">
+                                <a class="ui link fluid <?php echo $row['Colore'] ?> card" href="/author/index.php?a=<?php echo $row['ID'] ?>">
+                                    <div class="content">
+                                        <div class="header"><?php echo $row['Nome'] . " " . $row['Cognome'] ?></div>
+                                        <div class="description"><?php echo $row['Classe'] ?></div>
+                                        <div class="meta">
+                                            <span class="category">Classe</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                        <?php 
+                                </a>
+                            </div>
+                            <?php
                         }
-                    } else { 
-                    ?>
+                    } else {
+                        ?>
+                    </div>
                 </div>
-            </div>
-            <div class="center">
-                <a id="back" class="ui labeled icon button inverted blue" href="index.php">
-                    <i class="left arrow icon"></i>
-                    Torna alla lista
-                </a>
-                <?php
-                    $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
+                <div class="center">
+                    <a id="back" class="ui labeled icon button inverted blue" href="index.php">
+                        <i class="left arrow icon"></i>
+                        Torna alla lista
+                    </a>
+                    <?php
+                    $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
                     $query = mysqli_query($connection, $txtQuery);
                     $row = mysqli_fetch_array($query);
                     if ($row > 0) {
                         ?>
-                        <div class="ui raised card">
+                        <div class="ui <?php echo $row['Colore'] ?> card">
                             <div class="content">
-                                <div class="header"><?php echo $row['Nome']." ".$row['Cognome'] ?></div>
+                                <div class="header"><?php echo $row['Nome'] . " " . $row['Cognome'] ?></div>
                                 <div class="description"><?php echo $row['Classe'] ?></div>
                                 <div class="meta">
                                     <span class="category">Classe</span>
@@ -165,8 +166,7 @@
                             </div>
                             <div class="extra content">
                                 <div class="left floated author">
-                                    <i class="film icon"></i>
-                                    <?php echo $row['NumVideo']." video" ?>
+                                    <i class="film icon"></i><?php echo $row['NumVideo'] . " video" ?>
                                 </div>
                                 <div class="right floated author">
                                     <?php
@@ -188,7 +188,7 @@
                         <div class="ui stackable four column grid" id="contenitore-4">
                             <?php
                             $authorID = filter_input(INPUT_GET, "a");
-                            $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, V.Titolo, V.PathMiniatura, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
+                            $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, V.PathMiniatura, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
                             $query = mysqli_query($connection, $txtQuery);
                             while ($row = mysqli_fetch_array($query)) {
                                 switch ($row['Materia']) {
@@ -210,10 +210,10 @@
                                 }
                                 ?>
                                 <div class="column">
-                                    <a class="ui raised link stackable fluid card <?php echo $color ?>" href="../<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
+                                    <a class="ui link stackable fluid card <?php echo $color ?>" href="../<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
                                         <div class="image">
-                                            <div class="ui <?php echo $color?> ribbon label"><?php echo $row['Materia']?></div>
-                                            <img src="<?php echo "http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg"/*$row['pathMiniatura']*/ ?>">
+                                            <div class="ui <?php echo $color ?> ribbon label"><?php echo $row['Materia'] ?></div>
+                                            <img src="<?php echo "http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg"/* $row['pathMiniatura'] */ ?>">
                                         </div>
                                         <div class="content">
                                             <div class="header"><?php echo $row['Titolo'] ?></div>
@@ -221,11 +221,13 @@
                                         </div>
                                     </a>
                                 </div>
-                            <?php } ?>
+                                <?php
+                            }
+                            ?>
                         </div>
-                    <?php 
+                        <?php
                     }
-                } 
+                }
                 ?>
             </div>
         </div>
