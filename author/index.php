@@ -195,18 +195,18 @@
                         <div id="contenitore-4">
                             <div class="ui center aligned grid">
                                 <div class="ui buttons">
-                                    <button class="ui teal button"><i class="sort icon"> </i> Nome</button>
+                                    <button class="ui teal button" id="sortNome"><i class="sort icon"> </i> Nome</button>
                                     <div class="or"></div>
-                                    <button class="ui teal button"><i class="sort icon"> </i> Data</button>
+                                    <button class="ui teal button" id="sortData"><i class="sort icon"> </i> Data</button>
                                     <div class="or"></div>
-                                    <button class="ui teal button"><i class="sort icon"> </i> Materia</button>
+                                    <button class="ui teal button" id="sortMateria"><i class="sort icon"> </i> Materia</button>
                                 </div>
 
                             </div>
                             <div class="ui stackable four column grid">
                                 <?php
                                 $authorID = filter_input(INPUT_GET, "a");
-                                $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
+                                $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod";
                                 $query = mysqli_query($connection, $txtQuery);
                                 while ($row = mysqli_fetch_array($query)) {
                                     switch ($row['Materia']) {
@@ -227,8 +227,8 @@
                                             break;
                                     }
                                     ?>
-                                    <div class="column">
-                                        <a class="ui link stackable fluid card <?php echo $color ?>" href="../<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
+                                    <div class="column" id="ciao">
+                                        <a class="ui link stackable fluid card <?php echo $color ?>" href="/<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
                                             <div class="image">
                                                 <div class="ui <?php echo $color ?> ribbon label"><?php echo $row['Materia'] ?></div>
                                                 <img src="https://img.youtube.com/vi/<?php echo $row['VideoID'] ?>/sddefault.jpg">
@@ -250,5 +250,22 @@
                 ?>
             </div>
         </div>
+        <script>
+            var $cards = $("a.ui.link.stackable.fluid.card");
+
+            $('#sortNome').on('click', function () {
+                var alphabeticallyOrderedDivs = $cards.sort(function (a, b) {
+                    return $(a).find(".header").text() > $(b).find(".header").text();
+                });
+                $("#contenitore-4 .ui.stackable.four.column.grid .column").html(alphabeticallyOrderedDivs);
+            });
+
+            /*$('#numBnt').on('click', function () {
+                var numericallyOrderedDivs = $divs.sort(function (a, b) {
+                    return $(a).find("h2").text() > $(b).find("h2").text();
+                });
+                $("#container").html(numericallyOrderedDivs);
+            });*/
+        </script>
     </body>
 </html>
