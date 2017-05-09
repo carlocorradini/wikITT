@@ -33,3 +33,39 @@
         if ($result === FALSE) { die(mysqli_error($connection));}
         else { return $result;}
     }
+    /*END Connection*/
+    
+    /*Authentication*/
+    function authentication_param($username, $password) {
+        $toRtn = false;
+        $result = query("SELECT * FROM amministratore WHERE"
+                ." NomeUtente='$username' and Password='$password' LIMIT 1;");
+        if(mysqli_num_rows($result) === 1) {
+            $toRtn = true;
+        }
+        return $toRtn;
+    }
+    function authentication_session() {
+        $toRtn = false;
+        if(isset($_SESSION["credentials"])) {
+            $toRtn = authentication_param(getUsername(), getPassword());
+        }
+        return $toRtn;
+    }
+    function getUsername() {
+        if(isset($_SESSION["credentials"])) {
+            return $_SESSION["credentials"]["username"];
+        }
+    }
+    function getPassword() {
+        if(isset($_SESSION["credentials"])) {
+            return $_SESSION["credentials"]["password"];
+        }
+    }
+    /*END Authentication*/
+    
+    /*Set Response*/
+    function setResponse(&$response = null, $status = null, $message = null) {
+        $response["status"] = $status;
+        $response["message"] = $message;
+    }

@@ -29,8 +29,8 @@
 
         <style>
             /*Active*/
-            .header .nav-container ul li:nth-child(1) a,
-            .header .nav-container ul li:nth-child(1) a:before {
+            #header .nav-container ul li:nth-child(1) a,
+            #header .nav-container ul li:nth-child(1) a:before {
                 background: #2185d0;
                 background: linear-gradient(to bottom right, #2185d0, #59b0f2);
                 background: -webkit-linear-gradient(left top, #2185d0, #59b0f2);
@@ -127,6 +127,7 @@
                 height: 100%;
                 overflow-y: auto;
                 overflow-x: hidden;
+                margin-bottom: 0;
             }
             /*XS Responsive*/
             #btnShowVideoNavigation,
@@ -543,7 +544,7 @@
                 #video-content { padding: 0.5em;}
                 #video-navigation { 
                     padding-right: 0.25em;
-                    padding-bottom: 1em;
+                    padding-bottom: 0.5em;
                 }
                 #video-content { padding-left: 0.25em;}
                 #video { padding: 0;}
