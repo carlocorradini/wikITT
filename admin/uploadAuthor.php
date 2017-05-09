@@ -51,16 +51,16 @@
                 <div class="wrapper">
 
                     <div class="row">
-                        <div class="col-sm-4"></div>
-                        <div class="col-sm-4">
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-4">
 
                             <h1 class="center_aligned">Aggiunta nuovo autore</h1>
 
-                            <form class="ui form" id="form_input" action="login.php" method="get" onsubmit="load()">
+                            <form class="ui form" id="uploadAuth" action="#" method="POST" onsubmit="load()">
                                 <div class="field">
                                     <label>Nome Autore</label>
                                     <div class="ui right icon input">
-                                         <i class="user icon"></i>
+                                         <i class="student icon"></i>
                                          <input type="text"  id="user" name="Nome" placeholder="Nome">
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                                 <div class="field">
                                     <label>Cognome Autore</label>
                                     <div class="ui right icon input">
-                                        <i class="lock icon"></i>
+                                        <i class="user icon"></i>
                                         <input type="text" id="psw" name="Cognome" placeholder="Cognome">
                                     </div>
                                 </div>
@@ -105,8 +105,11 @@
                                 <div class="field">
                                     <label>Classe Autore</label>
                                     <div class="ui right icon input">
-                                        <i class="lock icon"></i>
+                                        <i class="users icon"></i>
                                         <input type="text" id="psw" name="Classe" placeholder="Classe">
+                                    </div>
+                                    <div class="hidden ui pointing label">
+                                        Esempio formato: 5 INA
                                     </div>
                                 </div>
                                 
@@ -116,8 +119,11 @@
                                         <i class="calendar icon"></i>
                                         <input type="text" id="psw" name="AnnoS" placeholder="Anno scolastico">
                                     </div>
-                                </div>                               
-
+                                    <div class="hidden ui pointing label">
+                                        Esempio formato: 16/17
+                                    </div>
+                                </div>
+                                
                                 <div class="field">
                                     <label>Sesso</label>
                                     <div class="ui selection dropdown">
@@ -125,11 +131,11 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Sesso</div>
                                     <div class="menu">
-                                      <div class="item" data-value="male" data-text="Male">
+                                      <div class="item" data-value="M" data-text="Maschio">
                                         <i class="male icon"></i>
                                         Maschio
                                       </div>
-                                      <div class="item" data-value="female" data-text="Female">
+                                      <div class="item" data-value="F" data-text="Femmina">
                                         <i class="female icon"></i>
                                         Femmina
                                       </div>
@@ -137,19 +143,18 @@
                                   </div>
                                 </div>
                   
-                                <!-- Immagine -->
+                                <!-- Immagine 
                                 <div class="field">
                                     <label>Miniatura autore</label>
                                         <select>
-                                            <option value="volvo" style="background-image:url(/common/image/profile/1f.png);">Volvo</option>
+                                            <div style="background-image:url(/common/image/profile/1f.png);"><option value="volvo">Volvo</option></div>
                                             <option value="saab"  style="background-image:url(/common/image/profile/1m.png);">Saab</option>
                                             <option value="honda" style="background-image:url(/common/image/profile/2f.png);">Honda</option>
                                             <option value="audi"  style="background-image:url(/common/image/profile/2m.png);">Audi</option>
                                         </select>
-                                </div>
-                                
+                                </div> -->
                                 <!-- Colore --> 
-                                
+
                                 <div class="ui floating dropdown labeled icon button">
                                     <input type="hidden" name="colore">
                                     <i class="paint brush icon"></i>
@@ -215,15 +220,76 @@
                                         </div>
                                       </div>
                                     </div>
+                                </div>
+                                        
+                                <br><br>
+                                <div class="field">
+                                <div class="ui floating dropdown labeled icon button">
+                                    <input type="hidden" name="icona">
+                                    <i class="image icon"></i>
+                                    <span class="text">Icona utente</span>
+                                    <div class="menu">
+                                      <div class="scrolling menu">
+                                        <div class="item" data-value="1f">
+                                            <img class="ui avatar image" src="/common/image/profile/1f.png">                  
+                                        </div>
+                                        <div class="item" data-value="1m">
+                                            <img class="ui avatar image" src="/common/image/profile/1m.png"> 
+                                        </div>
+                                        <div class="item" data-value="2f">
+                                            <img class="ui avatar image" src="/common/image/profile/2f.png"> 
+                                        </div>
+                                        <div class="item" data-value="2m">
+                                            <img class="ui avatar image" src="/common/image/profile/2m.png"> 
+                                        </div>
+                                        <div class="item" data-value="3f">
+                                            <img class="ui avatar image" src="/common/image/profile/3f.png"> 
+                                        </div>
+                                        <div class="item" data-value="3m">
+                                            <img class="ui avatar image" src="/common/image/profile/3m.png"> 
+                                        </div>
+                                        <div class="item" data-value="4f">
+                                            <img class="ui avatar image" src="/common/image/profile/4f.png"> 
+                                        </div>
+                                        <div class="item" data-value="4m">
+                                            <img class="ui avatar image" src="/common/image/profile/4m.png"> 
+                                        </div>
+                                        <div class="item" data-value="5f">
+                                            <img class="ui avatar image" src="/common/image/profile/5f.png"> 
+                                        </div>
+                                        <div class="item" data-value="5m">
+                                            <img class="ui avatar image" src="/common/image/profile/5m.png"> 
+                                        </div>
+                                        <div class="item" data-value="6f">
+                                            <img class="ui avatar image" src="/common/image/profile/6f.png"> 
+                                        </div>
+                                        <div class="item" data-value="6m">
+                                            <img class="ui avatar image" src="/common/image/profile/6m.png"> 
+                                        </div>
+                                        <div class="item" data-value="7f">
+                                            <img class="ui avatar image" src="/common/image/profile/7f.png"> 
+                                        </div>
+                                        <div class="item" data-value="7m">
+                                            <img class="ui avatar image" src="/common/image/profile/7m.png"> 
+                                        </div>
+                                        <div class="item" data-value="8m">
+                                            <img class="ui avatar image" src="/common/image/profile/8m.png"> 
+                                        </div>
+                                        <div class="item" data-value="9m">
+                                            <img class="ui avatar image" src="/common/image/profile/9m.png"> 
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
+                                </div>
                                 
-                                <br><br>                                     
+                                  
                                 <div class="field">                                                               
                                 <button type="submit" class="ui button">LOGIN</button>  
                                 </div>
                             </form>
                         </div>
-                        <div class="col-sm-4"></div>
+                        <div class="col-xs-4"></div>
                     </div>
                 </div>
         </div>           
