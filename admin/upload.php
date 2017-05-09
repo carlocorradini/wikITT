@@ -25,7 +25,24 @@
         <!--END Framweworks-->
     </head>
     <body>
-        <div class="contenuto">
+        <script>
+            $(document).ready(function() {
+                $('.ui.dropdown')
+                    .dropdown({
+                      allowAdditions: true
+                    })
+                  ;
+
+                  $('.ui.dropdown')
+                    .dropdown()
+                  ;
+
+                  $('#select')
+                    .dropdown()
+                  ;
+            });
+        </script>
+        <div class="wrapper">
         <!--#include virtual="/common/component/header.html" -->
         <?php
         // put your code here
@@ -47,6 +64,34 @@
                                          <input type="text"  id="user" name="Nome" placeholder="Nome">
                                     </div>
                                 </div>
+                                
+                                <!--
+                                <div class="ui fluid multiple search selection dropdown">
+                                    <input name="tags" type="hidden">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Skills</div>
+                                    <div class="menu">
+                                      <div class="item" data-value="angular">Angular</div>
+                                  <div class="item" data-value="css">CSS</div>
+                                  <div class="item" data-value="design">Graphic Design</div>
+                                  <div class="item" data-value="ember">Ember</div>
+                                  <div class="item" data-value="html">HTML</div>
+                                  <div class="item" data-value="ia">Information Architecture</div>
+                                  <div class="item" data-value="javascript">Javascript</div>
+                                  <div class="item" data-value="mech">Mechanical Engineering</div>
+                                  <div class="item" data-value="meteor">Meteor</div>
+                                  <div class="item" data-value="node">NodeJS</div>
+                                  <div class="item" data-value="plumbing">Plumbing</div>
+                                  <div class="item" data-value="python">Python</div>
+                                  <div class="item" data-value="rails">Rails</div>
+                                  <div class="item" data-value="react">React</div>
+                                  <div class="item" data-value="repair">Kitchen Repair</div>
+                                  <div class="item" data-value="ruby">Ruby</div>
+                                  <div class="item" data-value="ui">UI Design</div>
+                                  <div class="item" data-value="ux">User Experience</div>
+                                </div>
+                                </div>
+                                -->
 
 
                                 <div class="field">
@@ -71,56 +116,118 @@
                                         <i class="calendar icon"></i>
                                         <input type="text" id="psw" name="AnnoS" placeholder="Anno scolastico">
                                     </div>
-                                </div>
-                                
+                                </div>                               
+
                                 <div class="field">
                                     <label>Sesso</label>
-                                    <select class="ui dropdown">
-                                        <option value="M" >Maschio</option>
-                                        <option value="F">Femmina</option>
-                                  </select>
-                                </div> 
+                                    <div class="ui selection dropdown">
+                                    <input type="hidden" name="gender">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Sesso</div>
+                                    <div class="menu">
+                                      <div class="item" data-value="male" data-text="Male">
+                                        <i class="male icon"></i>
+                                        Maschio
+                                      </div>
+                                      <div class="item" data-value="female" data-text="Female">
+                                        <i class="female icon"></i>
+                                        Femmina
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                   
                                 <!-- Immagine -->
                                 <div class="field">
                                     <label>Miniatura autore</label>
                                         <select>
-                                            <option value="volvo" style="background-image:url(images/volvo.png);">Volvo</option>
-                                            <option value="saab"  style="background-image:url(images/saab.png);">Saab</option>
-                                            <option value="honda" style="background-image:url(images/honda.png);">Honda</option>
-                                            <option value="audi"  style="background-image:url(images/audi.png);">Audi</option>
+                                            <option value="volvo" style="background-image:url(/common/image/profile/1f.png);">Volvo</option>
+                                            <option value="saab"  style="background-image:url(/common/image/profile/1m.png);">Saab</option>
+                                            <option value="honda" style="background-image:url(/common/image/profile/2f.png);">Honda</option>
+                                            <option value="audi"  style="background-image:url(/common/image/profile/2m.png);">Audi</option>
                                         </select>
                                 </div>
                                 
-                                <!-- Colore -->
-                                <div class="field">
-                                    <label>Colore</label>
-                                    <select class="ui dropdown">
-                                        <option value="M" style="background-color: red">Rosso</option>
-                                        <option value="F" style="background-color: orange">Arancio</option>
-                                        <option value="F" style="background-color: yellow">Giallo</option>
-                                        <option value="F" style="background-color: olive">Oliva</option>
-                                        <option value="F" style="background-color: green">Verde</option>
-                                        <option value="F" style="background-color: teal">Azzurro</option>
-                                        <option value="F" style="background-color: blue">Blu</option>
-                                        <option value="F" style="background-color: violet">Viola</option>
-                                        <option value="F" style="background-color: purple">Fucsia</option>
-                                        <option value="F" style="background-color: pink">Rosa</option>
-                                        <option value="F" style="background-color: brown">Marrone</option>
-                                        <option value="F" style="background-color: gray">Grigio</option>
-                                        <option value="F" style="background-color: black">Nero</option>
-                                        
-                                  </select>
-                                </div>
+                                <!-- Colore --> 
                                 
-
+                                <div class="ui floating dropdown labeled icon button">
+                                    <input type="hidden" name="colore">
+                                    <i class="paint brush icon"></i>
+                                    <span class="text">Colore utente</span>
+                                    <div class="menu">
+                                      <div class="ui icon search input">
+                                        <i class="search icon"></i>
+                                        <input type="text" placeholder="Cerca colore...">
+                                      </div>
+                                      <div class="divider"></div>
+                                      <div class="scrolling menu">
+                                        <div class="item" data-value="red">
+                                          <div class="ui red empty circular label"></div>
+                                          Rosso
+                                        </div>
+                                        <div class="item" data-value="orange">
+                                          <div class="ui orange empty circular label"></div>
+                                          Blu
+                                        </div>
+                                        <div class="item" data-value="yellow">
+                                          <div class="ui yellow empty circular label"></div>
+                                          Giallo
+                                        </div>
+                                        <div class="item" data-value="olive">
+                                          <div class="ui olive empty circular label"></div>
+                                          Verde oliva
+                                        </div>
+                                        <div class="item" data-value="green">
+                                          <div class="ui green empty circular label"></div>
+                                          Verde
+                                        </div>
+                                        <div class="item" data-value="teal">
+                                          <div class="ui teal empty circular label"></div>
+                                          Verde acqua
+                                        </div>
+                                        <div class="item" data-value="blue">
+                                          <div class="ui blue empty circular label"></div>
+                                          Blu
+                                        </div>
+                                        <div class="item" data-value="violet">
+                                          <div class="ui violet empty circular label"></div>
+                                          Viola scuro
+                                        </div>
+                                        <div class="item" data-value="purple">
+                                          <div class="ui purple empty circular label"></div>
+                                          Viola chiaro
+                                        </div>
+                                        <div class="item" data-value="pink">
+                                          <div class="ui pink empty circular label"></div>
+                                          Rosa
+                                        </div>
+                                        <div class="item" data-value="brown">
+                                          <div class="ui brown empty circular label"></div>
+                                          Marrone
+                                        </div>
+                                        <div class="item" data-value="grey">
+                                          <div class="ui grey empty circular label"></div>
+                                          Grigio
+                                        </div>
+                                        <div class="item" data-value="black">
+                                          <div class="ui black empty circular label"></div>
+                                          Nero
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                
+                                <br><br>                                     
+                                <div class="field">                                                               
                                 <button type="submit" class="ui button">LOGIN</button>  
+                                </div>
                             </form>
                         </div>
                         <div class="col-sm-4"></div>
                     </div>
                 </div>
-        </div></div>
+        </div>           
+        </div>
         <!--#include virtual="/common/component/footer.html" -->
     </body>
 </html>
