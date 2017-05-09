@@ -209,15 +209,21 @@
                 }
                 liveSearch.appendChild(ul);
             }
+            function checkSubmit(e) {
+                if(e && e.keyCode == 13) {
+                   document.getElementById('cerca').submit();
+                }
+            }          
+            
         </script>
         <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
             <!--Logo-->
             <img class="ui large image center" src="/common/image/icon-large.png" alt="wikITT"/>
             <!--Search-bar-->
-            <form id="search-form">
+            <form id="search-form" action="/search/result.php" method="post">
                 <div class="ui icon input huge">
-                    <input id="cerca"  type="text" placeholder="Cerca..." autocomplete="off" onkeyup="showResult(this.value)" onfocus="showResult(this.value);">
+                        <input id="cerca" name="search" type="text" placeholder="Cerca..." autocomplete="off" onkeyup="showResult(this.value)" onfocus="showResult(this.value)" onkeypress="checkSubmit()">
                     <i class="circular search link icon"></i>
                 </div>
                 <div id="livesearch" style="display: block;"></div>
@@ -296,9 +302,9 @@
                     </ul>
                 </li>
             </ul>
-            <a href="/search/result.php">Result</a>
             <!--#include virtual="/common/component/advise-video.php" -->
-            <!--#include virtual="/common/component/footer.html" -->
+           
         </div>
+         <!--#include virtual="/common/component/footer.html" -->
     </body>
 </html>

@@ -47,7 +47,7 @@
                   }
                 ?>
                 <div class="column">
-                    <div class="ui card <?php echo $color?>">
+                    <div class="ui card <?php echo $color?>" style="cursor: pointer;" onclick="window.location='http://localhost/informatica/index.php?v=<?php echo $row['VideoID'];?>';">
                         <a class="image">
                             <div class="ui <?php echo $color?> ribbon label"><?php echo $row['materia']?></div>
                             

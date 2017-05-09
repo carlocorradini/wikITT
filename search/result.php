@@ -1,8 +1,11 @@
 <?php 
-//includere header
-//includere livesearch 
+    session_start();
+    require '../common/php/engine.php';
+    $connection = null;
+    connect($connection);
 ?>
 <head>
+    <title>carlo culo</title>
     <!--Frameworks-->
     <!--Pace-->
     <link rel="stylesheet" type="text/css" href="/common/framework/pace/pace.min.css"/>
@@ -21,20 +24,46 @@
     <!--END Framweworks-->
 </head>
 <style>
-    .floating-box{
-        float:left;
-    }
-    .miniatura{
-        height:80%;
-        vertical-align: central;
-        margin: auto!important;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
-    }
     .line{
         width: 60%!important;
-        margin:auto;
-        height: 25%;
+        margin: auto!important;
+        height: 19%;
+        
     }
+    .floating-box{
+        margin:auto;
+        display: flex;
+        
+    }
+    .miniatura{
+        float:left;
+        display:inline-block;
+        width: 200px;
+        height: 150px;
+        vertical-align: central;
+       
+    }
+    .categoria-autore{
+        margin-left: 15px;
+        display:flex;
+    }
+    .titolo{
+        margin-left: 15px;
+        display:flex;
+    }
+    .descrizione{
+        margin-left: 15px;
+        display:flex;
+    }
+    .visite-data{
+        margin-top: 40px;
+        margin-left: 15px;
+        display:flex;
+    }
+
+    
+    
+    
     /*Livesearch */
     #livesearch{
         width: 600px!important;
@@ -89,18 +118,18 @@
 
     }
     .card {
-                position: relative;
-                width: 100%;
-                min-height: 100px;
-                margin-top: 1em;
-                padding: 1em;
-                border-radius: 3px;
-                -webkit-border-radius: 3px;
-                -moz-border-radius: 3px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-                -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-                -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            }
+        position: relative;
+        width: 100%;
+        min-height: 100px;
+        margin-top: 1em!important;
+        padding: 1em;
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.3);
+    }
 </style>
 <script>
     function showResult(str) {
@@ -155,49 +184,129 @@
         }
         liveSearch.appendChild(ul);
     }
+    function checkSubmit(e) {
+        if(e && e.keyCode == 13) {
+           document.getElementById('cerca-result').submit();
+        }
+    }    
 </script>
 <html>
+    <div class="wrapper">
     <!--#include virtual="../common/component/header.html" -->
-    <form id="search-form">
+    <form id="search-form" action="#" method="post">
         <div class="ui icon input huge">
-            <input id="cerca"  type="text" placeholder="Cerca..." autocomplete="off" onkeyup="showResult(this.value)" onfocus="showResult(this.value);">
+            <input id="cerca-result" name='cerca-result' type="text" value="<?php 
+            if(isset($_REQUEST['search'])){
+                echo $_REQUEST['search'];
+                }else{ 
+                    if(isset($_REQUEST['cerca-result'])){
+                        echo $_REQUEST['cerca-result'];
+                    }else{ 
+                        echo $_SESSION['lastSearch'];
+                    }
+                    
+                }?>" placeholder="Cerca..." autocomplete="off" onkeyup="showResult(this.value)" onfocus="showResult(this.value);" onkeydown="checkSubmit()">
             <i class="circular search link icon"></i>
         </div>
         <div id="livesearch" style="display: block;"></div>
     </form>
-<?php
-    require '../common/php/engine.php';
-    $connection = null;
-    //connessione da
-    //tabase
-    connect($connection);
-    //far passare term
-    //includere coso autori
 
-    
-    $result = query("SELECT DISTINCT v.VideoID, m.nomeIndirizzo as materia, v.titolo as titoloVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, a.id as idAutore FROM (SELECT v1.VideoID, v1.Titolo, v1.CodMateria, v1.Cod FROM video v1 ORDER BY RAND() LIMIT 8) v, materia m, autore a, realizza r WHERE v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo GROUP BY v.VideoID");
-    if(mysqli_num_rows($result) > 0){
-        while ($row = mysqli_fetch_array($result)) {?>
-            <div class="line card">
-                <div class="floating-box">
-                    <img class="miniatura" src="https://img.youtube.com/vi/<?php echo $row['VideoID']?>/sddefault.jpg">
-                </div>
-                <div class="floating-box">
-                    <p>Categoria e autore</p>
-                    <!-- titolo -->
-                    
-                    <div class="content">
-                        <div><h2><a href="#"><?php echo $row['titoloVideo']?></a></h2></div>                        
-                    </div>
-                    <p>Descrizione</p>
-                    <!-- le visite le prendi con l'API -->
-                    <p>Visite</p>
-                </div>
-            </div>
-    <?php
-        }
-    }   
-    ?>
 
    
 </html>
+
+
+<?php
+if(isset($_REQUEST['search'])){
+    
+    $term = $_REQUEST['search'];
+    $_SESSION['lastSearch'] = $term;   
+    printResult($term);
+}else{
+    if(isset($_REQUEST['cerca-result'])){
+        $term = $_REQUEST['cerca-result'];
+        $_SESSION['lastSearch'] = $term;   
+        printResult($term);
+    }else{
+    printResult($_SESSION['lastSearch']);
+    }
+}
+
+?>
+
+<?php
+    function printResult($term){
+        $color;
+        $result = query("SELECT DISTINCT v.VideoID, v.Descrizione, m.nomeIndirizzo as materia, v.Titolo as titoloVideo, v.Cod FROM (SELECT v1.VideoID, v1.Titolo, v1.CodMateria, v1.Cod, v1.Descrizione, LOCATE('$term', v1.Titolo) as score FROM video v1 WHERE v1.Titolo LIKE '%$term%' ORDER BY score) v, materia m WHERE v.CodMateria = m.Cod");
+        if(mysqli_num_rows($result) > 0){
+            while ($row = mysqli_fetch_array($result)){
+                switch ($row['materia']) {
+                    case 'Informatica':
+                      $color='blue';
+                      break;
+                    case 'Meccanica':
+                      $color='green';
+                      break;
+                    case 'Elettrotecnica':
+                      $color='orange';
+                      break;
+                    case 'Costruzioni':
+                      $color='brown';
+                      break;
+                    case 'Chimica':
+                      $color='red';
+                      break;
+                  
+                 
+                  
+                  
+                  
+                //$resultautori = query("SELECT DISTINCT a.Nome as nomeAutore, a.Cognome as cognomeAutore, a.ID as idAutore FROM Autore a, realizza r WHERE r.CodVideo = 'INFO011_17' AND a.ID = r.IDAutore");
+                }?>
+                <div class="line card floating-box" style="cursor: pointer;" onclick="window.location='http://localhost/informatica/index.php?v=<?php echo $row['VideoID'];?>'" > 
+                    <img class="miniatura" src="https://img.youtube.com/vi/<?php echo $row['VideoID']; ?>/sddefault.jpg">    
+                    <div>
+                        
+                        <div class="categoria-autore">
+                            <div class="ui <?php echo $color?> label"><?php echo $row['materia']?></div>
+                            <?php
+                            /*
+                            if(mysqli_num_rows($resultautori) > 0){
+                                while ($rowautori = mysqli_fetch_array($resultautori)){?>
+                            <a href="/author/index.php?a=<?php echo $rowautori['idAutore'];?>">
+                                <i class="users icon"></i>
+                                <?php echo $rowautori['nomeAutore']." ".$rowautori['cognomeAutore'];?>
+                            </a>
+                            <?php
+                                }
+                            }
+                            ?>
+                            */?>
+                        </div>
+                        <div class="content titolo">
+                            <div><h2><a href="#"><?php echo $row['titoloVideo']?></a></h2></div>                        
+                        </div>
+                        <div class="descrizione">
+                            <p><?php echo $row['Descrizione'];?></p>
+                        </div>
+                        <div class="visite-data">
+                            <!-- le visite le prendi con l'API -->
+                            <p>Visite sentire perenzoni per api google</p>
+                        </div>
+                    </div>
+                </div>
+
+        <?php
+            }
+        }   
+}
+
+
+
+
+
+?>
+    </div>
+    <!--#include virtual="/common/component/footer.html" -->
+</html>
+
