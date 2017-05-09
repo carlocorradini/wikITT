@@ -1,4 +1,3 @@
-
 <style>
     .card{
         width: 225px!important;
