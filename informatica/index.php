@@ -47,22 +47,21 @@
             .font.elettrotecnica { color: #f2711c!important;}
             .font.costruzioni { color: #a5673f!important;}
             /*Scrollbar*/
-            .scrollbar.hidden { overflow: hidden; display: block!important;}
-            .scrollbar::-webkit-scrollbar-track{
+            .scrollbar::-webkit-scrollbar-track {
                 background-color: #F5F5F5;
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
                 -moz-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
             }
-            .scrollbar::-webkit-scrollbar{
+            .scrollbar::-webkit-scrollbar {
                 width: 6px;
                 height: 6px;
                 background-color: #F5F5F5;
             }
-            .scrollbar.informatica::-webkit-scrollbar-thumb{ background-color: #2185d0;}
-            .scrollbar.meccanica::-webkit-scrollbar-thumb{ background-color: #21ba45;}
-            .scrollbar.chimica::-webkit-scrollbar-thumb{ background-color: #db2828;}
-            .scrollbar.elettrotecnica::-webkit-scrollbar-thumb{ background-color: #f2711c;}
-            .scrollbar.costruzioni::-webkit-scrollbar-thumb{ background-color: #a5673f;}
+            .scrollbar.informatica::-webkit-scrollbar-thumb { background-color: #2185d0;}
+            .scrollbar.meccanica::-webkit-scrollbar-thumb { background-color: #21ba45;}
+            .scrollbar.chimica::-webkit-scrollbar-thumb { background-color: #db2828;}
+            .scrollbar.elettrotecnica::-webkit-scrollbar-thumb { background-color: #f2711c;}
+            .scrollbar.costruzioni::-webkit-scrollbar-thumb { background-color: #a5673f;}
 
             /*General*/
             #video-navigation,
@@ -616,6 +615,7 @@
             }
             /*XS Devices*/
             @media screen and (max-width: 500px) {
+                .scrollbar-hidden { overflow: hidden; display: block!important;}
                 #video-navigation {
                     position: fixed;
                     display: none!important;
@@ -646,12 +646,9 @@
                 //Handle Video Navigation on XS Devices
                 //Open & Close
                 $("#btnShowVideoNavigation, #video-navigation .close").on("click", function () {
-                    $("body").toggleClass("scrollbar hidden");
+                    $("body").toggleClass("scrollbar-hidden");
                     $("#video-navigation").transition("drop");
                 });
-                videoNavigationHeight();
-            });
-            $(window).resize(function() {
                 videoNavigationHeight();
             });
             
@@ -996,7 +993,7 @@
                                     while ($row = mysqli_fetch_array($creatorInfo)) {
                                         ?>
                                         <a href="/author/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Colore"]; ?>">
-                                            <img src="/common/image/profile/<?php echo $row["Miniatura"]; ?>.jpg" alt="autore"/>
+                                            <img src="/common/image/profile/<?php echo $row["Miniatura"]; ?>.png" alt="autore"/>
                                             <?php echo $row["Nome"] . "&nbsp;" . $row["Cognome"]; ?>
                                             <div class="detail"><?php echo $row["Classe"]; ?></div>
                                         </a>

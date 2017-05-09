@@ -172,7 +172,7 @@
                                     <?php echo $row['NumVideo']." video" ?>
                                 </div>
                                 <div class="right floated author">
-                                    <img class="ui avatar image" src="/common/image/profile/<?php echo $row['Miniatura'];?>.jpg" alt="autore"/>
+                                    <img class="ui avatar image" src="/common/image/profile/<?php echo $row['Miniatura'];?>.png" alt="autore"/>
                                 </div>
                             </div>
                             <div class="extra content">
