@@ -88,6 +88,8 @@
                 }, function () {
                     $("#show-hide").css("background-color", "#21BA45");
                 });
+                $("#sortNome").one("click", alphaSort);
+                $("#sortData").one("click", dateSort);
             });
 
             function show() {
@@ -112,6 +114,86 @@
                     btn.css("background-color", btnColor);
                 });
             }
+
+            function dateSort() {
+                $("#sortNome i").removeClass("ascending").removeClass("descending");
+                if ($("#sortData i").hasClass("ascending")) {
+                    $("#sortData i").removeClass("ascending").addClass("descending");
+                } else {
+                    $("#sortData i").addClass("descending");
+                }
+                var $cards = $("a.ui.link.stackable.fluid.card");
+                var alphabeticallyOrderedDivs = $cards.sort(function (a, b) {
+                    return $(a).find("#dataPub").text() < $(b).find("#dataPub").text();
+                });
+                $cards = alphabeticallyOrderedDivs;
+                $("#contenitore-4 .ui.stackable.four.column.grid .column").remove();
+                for (i = 0; i < $cards.length; i++) {
+                    $("#contenitore-4 .ui.stackable.four.column.grid").append("<div class='column' id='" + i + "'></div>");
+                    $("#contenitore-4 .ui.stackable.four.column.grid #" + i).html($cards[i]);
+                }
+                $("#sortData").one("click", dateSortReverse);
+                $("#sortNome").one("click", alphaSort);
+            }
+
+            function dateSortReverse() {
+                $("#sortNome i").removeClass("ascending").removeClass("descending");
+                if ($("#sortData i").hasClass("descending")) {
+                    $("#sortData i").removeClass("descending").addClass("ascending");
+                }
+                var $cards = $("a.ui.link.stackable.fluid.card");
+                var alphabeticallyOrderedDivs = $cards.sort(function (a, b) {
+                    return $(a).find("#dataPub").text() > $(b).find("#dataPub").text();
+                });
+                $cards = alphabeticallyOrderedDivs;
+                $("#contenitore-4 .ui.stackable.four.column.grid .column").remove();
+                for (i = 0; i < $cards.length; i++) {
+                    $("#contenitore-4 .ui.stackable.four.column.grid").append("<div class='column' id='" + i + "'></div>");
+                    $("#contenitore-4 .ui.stackable.four.column.grid #" + i).html($cards[i]);
+                }
+                $("#sortData").one("click", dateSort);
+                $("#sortNome").one("click", alphaSort);
+            }
+
+            function alphaSort() {
+                $("#sortData i").removeClass("ascending").removeClass("descending");
+                if ($("#sortNome i").hasClass("ascending")) {
+                    $("#sortNome i").removeClass("ascending").addClass("descending");
+                } else {
+                    $("#sortNome i").addClass("descending");
+                }
+                var $cards = $("a.ui.link.stackable.fluid.card");
+                var alphabeticallyOrderedDivs = $cards.sort(function (a, b) {
+                    return $(a).find("div.header").text() > $(b).find("div.header").text();
+                });
+                $cards = alphabeticallyOrderedDivs;
+                $("#contenitore-4 .ui.stackable.four.column.grid .column").remove();
+                for (i = 0; i < $cards.length; i++) {
+                    $("#contenitore-4 .ui.stackable.four.column.grid").append("<div class='column' id='" + i + "'></div>");
+                    $("#contenitore-4 .ui.stackable.four.column.grid #" + i).html($cards[i]);
+                }
+                $("#sortNome").one("click", alphaSortReverse);
+                $("#sortData").one("click", dateSort);
+            }
+
+            function alphaSortReverse() {
+                $("#sortData i").removeClass("ascending").removeClass("descending");
+                if ($("#sortNome i").hasClass("descending")) {
+                    $("#sortNome i").removeClass("descending").addClass("ascending");
+                }
+                var $cards = $("a.ui.link.stackable.fluid.card");
+                var alphabeticallyOrderedDivs = $cards.sort(function (a, b) {
+                    return $(a).find("div.header").text() < $(b).find("div.header").text();
+                });
+                $cards = alphabeticallyOrderedDivs;
+                $("#contenitore-4 .ui.stackable.four.column.grid .column").remove();
+                for (i = 0; i < $cards.length; i++) {
+                    $("#contenitore-4 .ui.stackable.four.column.grid").append("<div class='column' id='" + i + "'></div>");
+                    $("#contenitore-4 .ui.stackable.four.column.grid #" + i).html($cards[i]);
+                }
+                $("#sortNome").one("click", alphaSort);
+                $("#sortData").one("click", dateSort);
+            }
         </script>
         <div class="contenuto">
             <!--#include virtual="/common/component/header.html" -->
@@ -123,7 +205,7 @@
                     connect($connection);
                     $authorID = filter_input(INPUT_GET, "a");
                     if (!isset($authorID) || $authorID === "") {
-                        $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.Colore FROM autore A ORDER BY A.Cognome, A.Nome, A.ID";
+                        $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.Colore FROM autore A ORDER BY A.Nome, A.Cognome, A.ID";
                         $query = mysqli_query($connection, $txtQuery);
                         while ($row = mysqli_fetch_array($query)) {
                             ?>
@@ -195,18 +277,16 @@
                         <div id="contenitore-4">
                             <div class="ui center aligned grid">
                                 <div class="ui buttons">
-                                    <button class="ui teal button" id="sortNome"><i class="sort icon"> </i> Nome</button>
+                                    <button class="ui teal button" id="sortNome"><i class="icon sort"> </i> Nome</button>
                                     <div class="or"></div>
-                                    <button class="ui teal button" id="sortData"><i class="sort icon"> </i> Data</button>
-                                    <div class="or"></div>
-                                    <button class="ui teal button" id="sortMateria"><i class="sort icon"> </i> Materia</button>
+                                    <button class="ui teal button" id="sortData"><i class="icon sort"> </i> Data</button>
                                 </div>
 
                             </div>
                             <div class="ui stackable four column grid">
                                 <?php
                                 $authorID = filter_input(INPUT_GET, "a");
-                                $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, V.Descrizione, V.VideoID, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod";
+                                $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, V.Descrizione, V.VideoID, V.DataPub, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod";
                                 $query = mysqli_query($connection, $txtQuery);
                                 while ($row = mysqli_fetch_array($query)) {
                                     switch ($row['Materia']) {
@@ -227,7 +307,7 @@
                                             break;
                                     }
                                     ?>
-                                    <div class="column" id="ciao">
+                                    <div class="column">
                                         <a class="ui link stackable fluid card <?php echo $color ?>" href="/<?php echo strtolower($row['Materia']) ?>/index.php?v=<?php echo $row['VideoID'] ?>">
                                             <div class="image">
                                                 <div class="ui <?php echo $color ?> ribbon label"><?php echo $row['Materia'] ?></div>
@@ -235,6 +315,10 @@
                                             </div>
                                             <div class="content">
                                                 <div class="header"><?php echo $row['Titolo'] ?></div>
+                                                <div class="description" id="dataPub"><?php echo $row['DataPub'] ?></div>
+                                                <div class="meta">
+                                                    <span class="category">Data</span>
+                                                </div>
                                                 <div class="description"><?php echo $row['Descrizione'] ?></div>
                                             </div>
                                         </a>
@@ -250,22 +334,5 @@
                 ?>
             </div>
         </div>
-        <script>
-            var $cards = $("a.ui.link.stackable.fluid.card");
-
-            $('#sortNome').on('click', function () {
-                var alphabeticallyOrderedDivs = $cards.sort(function (a, b) {
-                    return $(a).find(".header").text() > $(b).find(".header").text();
-                });
-                $("#contenitore-4 .ui.stackable.four.column.grid .column").html(alphabeticallyOrderedDivs);
-            });
-
-            /*$('#numBnt').on('click', function () {
-                var numericallyOrderedDivs = $divs.sort(function (a, b) {
-                    return $(a).find("h2").text() > $(b).find("h2").text();
-                });
-                $("#container").html(numericallyOrderedDivs);
-            });*/
-        </script>
     </body>
 </html>
