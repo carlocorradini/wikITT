@@ -193,7 +193,7 @@
                     $authorID = filter_input(INPUT_GET, "a");
                     
                     if (!isset($authorID) || $authorID === "") {
-                        $query = query("SELECT A.ID, A.Nome, A.Cognome, A.Classe FROM autore A ORDER BY A.Cognome, A.Nome, A.ID");
+                        $query = query("SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.Colore FROM autore A ORDER BY A.Nome, A.Cognome, A.ID");
                         while ($row = mysqli_fetch_array($query)) {
                             ?>
                             <div class="column">
