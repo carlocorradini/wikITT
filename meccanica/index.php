@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Informatica</title>
+        <title>Meccanica</title>
         <link rel="icon" href="/common/image/icon.ico" type="image/x-icon">
         
         <!--Frameworks-->
@@ -24,13 +24,13 @@
         
         <style>
             /*Active*/
-            .header .nav-container ul li:nth-child(1) a,
-            .header .nav-container ul li:nth-child(1) a:before {
-                background: #2185d0;
-                background: linear-gradient(to bottom right, #2185d0, #59b0f2);
-                background: -webkit-linear-gradient(left top, #2185d0, #59b0f2);
-                background: -moz-linear-gradient(bottom right, #2185d0, #59b0f2);
-                background: -o-linear-gradient(bottom right, #2185d0, #59b0f2);
+            .header .nav-container ul li:nth-child(2) a,
+            .header .nav-container ul li:nth-child(2) a:before {
+                background: #21ba45;
+                background: linear-gradient(to bottom right, #21ba45, #48f271);
+                background: -webkit-linear-gradient(left top, #21ba45, #48f271);
+                background: -moz-linear-gradient(bottom right, #21ba45, #48f271);
+                background: -o-linear-gradient(bottom right, #21ba45, #48f271);
                 color: #ffffff!important;
                 border-color: #ffffff;
             }
@@ -647,7 +647,9 @@
                 max-width: 100%;
                 margin:auto;
             }
-            
+            a{
+                color: #21ba45;
+            }
             
             
             
@@ -692,7 +694,7 @@
         <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
             
-            <button class="ui blue labeled icon button" id="btnShowVideoNavigation">
+            <button class="ui green labeled icon button" id="btnShowVideoNavigation">
                 <i class="video icon"></i>
                 Visualizza elenco video
             </button>
@@ -724,15 +726,15 @@
                         <div class="ui small breadcrumb" id="breadcrumInfo">
                             <a class="section" href="/index.html">Home</a>
                             <div class="divider"> / </div>
-                            <div class="active section">Informatica</div>
+                            <div class="active section">Meccanica</div>
                         </div>
 
                         <div class="ui horizontal divider">
-                            <h1>Informatica</h1>
+                            <h1>Meccanica</h1>
                         </div>
 
                         <div class="ui raised segment" style="margin-bottom: 30px">
-                            <a class="ui blue ribbon label">Presentazione</a>
+                            <a class="ui green ribbon label">Presentazione</a>
                             <p><br>
                             « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
                             (Edsger Wybe Dijkstra)
@@ -760,7 +762,7 @@
                                 $risCount = mysqli_query($connection, "SELECT COUNT(*) AS 'numeroVideo' FROM video") or die (mysqli_error($connection));
                                 $risRand = mysqli_query($connection, "SELECT DISTINCT v.dataPub, m.nome, v.titolo as titoloVideo, v.descrizione as descrizioneVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, v.pathMiniatura, a.id as idAutore FROM video v, materia m, autore a, realizza r WHERE m.NomeIndirizzo = 'Informatica' AND v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY v.DataPub LIMIT 4 ") or die (mysqli_error($connetti));      
 
-                                $color = 'blue';
+                                $color = 'green';
                                 if(mysqli_num_rows($risRand) > 0){
                                         while($row=mysqli_fetch_array($risRand)){                                         
                                         ?>
@@ -888,7 +890,7 @@
                     <?php }?>
             </div>
             <div id="video-navigation">
-                <div class="scrollbar informatica ui vertical menu">
+                <div class="scrollbar meccanica ui vertical menu">
                     <div class="item">
                         <div class="ui transparent icon input">
                             <input type="text" placeholder="Cerca...">
@@ -903,7 +905,7 @@
                         if (mysqli_num_rows($videos) > 0) {
                             while ($row = mysqli_fetch_array($videos)) {
                                 if($row["VideoID"] === $vID) { ?>
-                                    <a class="font informatica active item" href="index.php?v=<?php echo $row["VideoID"];?>" style="font-weight: bold;">
+                                    <a class="font meccanica active item" href="index.php?v=<?php echo $row["VideoID"];?>" style="font-weight: bold;">
                                         <i class="fire icon"></i>
                                         <?php echo $row["Titolo"];?>
                                     </a>
@@ -924,3 +926,4 @@
         <script>plyr.setup();</script>
     </body>
 </html>
+
