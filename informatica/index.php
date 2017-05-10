@@ -645,6 +645,7 @@
         </style>
     </head>
     <body>
+        
         <script>
             $(document).ready(function () {
                 //Handle Search
@@ -698,8 +699,98 @@
                 else
                     $("#msgNoFound").hide();
             }
-        </script>
+            
+            var GoogleAuth;
+            var user;
+            var SCOPE = 'https://www.googleapis.com/auth/youtube.force-ssl';
+            function handleClientLoad() {
+                gapi.load('client:auth2', initClient);
+            }
 
+            function initClient() {
+                var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest';
+                gapi.client.init({
+                    'apiKey': 'AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA',
+                    'discoveryDocs': ['https://people.googleapis.com/$discovery/rest'],
+                    'clientId': '1093951573337-n44tvp7mtb48d5ehei7e0sfak31mrh68.apps.googleusercontent.com',
+                    'scope': SCOPE
+                }).then(function () {
+                    
+                GoogleAuth = gapi.auth2.getAuthInstance();
+                GoogleAuth.isSignedIn.listen(updateSigninStatus);
+
+                user = GoogleAuth.currentUser.get();
+                //setSigninStatus();
+                $('#like').on("click", function() {
+                  handleAuthClick("like");
+                }); 
+                
+                 $('#dislike').on("click", function() {
+                  handleAuthClick("dislike");
+                });
+                
+                
+                $('#revoke-access-button').click(function() {
+                  revokeAccess();
+                }); 
+                });
+            }
+            
+            
+            
+        function handleAuthClick(rating) {
+            if (GoogleAuth.isSignedIn.get()) {
+              // User is authorized and has clicked 'Sign out' button.
+              alert("Qui fai la query");
+              //https://developers.google.com/apis-explorer/#search/rate/m/youtube/v3/youtube.videos.rate?id=RjUlmco7v2M&rating=like&_h=1&            
+              //POST https://www.googleapis.com/youtube/v3/videos/rate?id=RjUlmco7v2M&rating=like&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA
+
+              var request = gapi.client.request({
+                'method': 'POST',
+                'path': 'https://www.googleapis.com/youtube/v3/videos/rate',
+                'params': {
+                    'id':"<?php echo  filter_input(INPUT_GET, "v");?>",
+                    'rating':rating,
+                    'key':"AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA"}
+              });
+              
+              request.execute(function(response){
+                  console.log(response);        
+              });
+              alert("Fatta");
+            } else {
+              // User is not signed in. Start Google auth flow.
+              GoogleAuth.signIn();
+            }
+          }
+
+          function revokeAccess() {
+            GoogleAuth.disconnect();
+          }
+         
+          function setSigninStatus(isSignedIn) {
+            var user = GoogleAuth.currentUser.get();
+            var isAuthorized = user.hasGrantedScopes(SCOPE);/*
+            if (isAuthorized) {
+              $('#sign-in-or-out-button').html('Sign out');
+              $('#revoke-access-button').css('display', 'inline-block');
+              $('#auth-status').html('You are currently signed in and have granted ' +
+                  'access to this app.');
+            } else {
+              $('#sign-in-or-out-button').html('Sign In/Authorize');
+              $('#revoke-access-button').css('display', 'none');
+              $('#auth-status').html('You have not authorized this app or you are ' +
+                  'signed out.');
+            }*/
+          }
+
+          function updateSigninStatus(isSignedIn) {
+            setSigninStatus();
+          }
+        </script>
+        <script async defer src="https://apis.google.com/js/api.js" 
+                onload="this.onload=function(){};handleClientLoad()">
+        </script>
         <noscript>
             <style>
                 body { overflow: hidden;}
@@ -846,10 +937,56 @@
 
             <div id="video-content">
                 <?php
-                //Require engine PHP page
-                require '../common/php/engine.php';
-                //Vide ID
-                $vID = filter_input(INPUT_GET, "v");
+
+                    //Require engine PHP page
+                    require '../common/php/engine.php';
+                    //Vide ID
+                    $vID = filter_input(INPUT_GET, "v");
+                    
+                    //Query
+                    $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
+                    
+                    
+                    //Function StampaVisual
+                    function stampaStat($VideoID){
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_URL, 'https://www.googleapis.com/youtube/v3/videos?part=statistics&id='.$VideoID.'&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA');
+                        $result = curl_exec($ch);
+                        curl_close($ch);
+
+                        $obj = json_decode($result);
+                        return $obj;
+                    }
+                    
+                    $stat = stampaStat($vID);
+                    
+                    function stampaPercentuale($num1, $num2) {
+                        
+                        $sum = $num1+$num2;
+                        echo ($num1*100)/$sum;
+                    }
+                    
+                    if(!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {?>
+                        <style>
+                            .video-content { padding: 1em;}
+                            @media screen and (max-width: 1000px) {
+                                .video-content { padding-top: 0.5em;}
+                            }
+                            @media screen and (max-width: 700px) {
+                                .video-content .ui.raised.segment { margin: 1em;}
+                                #video-navigation { width: 100%;}
+                            }
+                            @media screen and (max-width: 700px) {
+                                .video-content .ui.raised.segment { margin: 0.25em;}
+                            }
+                        </style>
+                        <div class="ui small breadcrumb" id="breadcrumInfo">
+                            <a class="section" href="/index.html">Home</a>
+                            <div class="divider"> / </div>
+                            <div class="active section">Informatica</div>
+                        </div>
 
                 //Query
                 $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
@@ -943,44 +1080,54 @@
                         </div>
                     </div>
 
-                    <div class="ui horizontal divider">
-                        <i class="code icon"></i>
-                    </div>
-                    <?php
-                } else {
-                    //Execute queries
-                    $creatorInfo = query("SELECT A.* FROM video V,realizza R,autore A WHERE V.Cod=R.CodVideo AND R.IDAutore=A.ID AND V.VideoID='$vID';");
-                    ?>
 
-                    <div id="video">
-                        <div data-type="youtube" data-video-id="<?php echo $vID; ?>"></div>
-                    </div>
-                    <div id="video-descrition">
-                        <div class="card">
-                            <!--Video Info-->
-                            <?php $vInfo = mysqli_fetch_array($videoInfo) ?>
-                            <div class="ui label" style="float: right;">
-                                <i class="calendar icon"></i>
-                                <?php echo $vInfo["DataPub"] ?>
-                            </div>
-                            <h1 style="margin: 0;"><?php echo $vInfo["Titolo"]; ?></h1>
-                            <p style="margin: 0 0 0.5em 0;"><?php echo $vInfo["Descrizione"]; ?></p>
-
-                            <!--Like & Dislike-->
-                            <div id="feedback">
-                                <div class="ui labeled button" id="like" tabindex="0">
-                                    <div class="ui basic green button small">
-                                        <i class="thumbs up icon"></i>
-                                        <span>Like</span>
-                                    </div>
-                                    <a class="ui green left pointing label">
-                                        0
-                                    </a>
+                        <div class="ui horizontal divider">
+                            <i class="code icon"></i>
+                        </div>
+                    <?php } else {
+                        //Execute queries
+                        $creatorInfo = query("SELECT A.* FROM video V,realizza R,autore A WHERE V.Cod=R.CodVideo AND R.IDAutore=A.ID AND V.VideoID='$vID';");?>
+                        
+                        <div id="video">
+                            <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
+                        </div>
+                        <div id="video-descrition">
+                            <div class="card">
+                                <!--Video Info-->
+                                <?php $vInfo = mysqli_fetch_array($videoInfo)?>
+                                <div class="ui label" style="float: right;">
+                                    <i class="calendar icon"></i>
+                                    <?php echo $vInfo["DataPub"]?>
                                 </div>
-                                <div class="ui labeled button" id="dislike" tabindex="0">
-                                    <div class="ui basic red button small">
-                                        <i class="thumbs down icon"></i>
-                                        <span>Dislike</span>
+                                <h1 style="margin: 0;"><?php echo $vInfo["Titolo"];?></h1>
+                                <p style="margin: 0 0 0.5em 0;"><?php echo $vInfo["Descrizione"];?></p>
+                                
+                                <!--Like & Dislike-->
+                                <div id="feedback">
+                                    <div class="ui labeled button" id="like" tabindex="0">
+                                        <div class="ui basic green button small">
+                                            <i class="thumbs up icon"></i>
+                                            <span>Like</span>
+                                        </div>
+                                        <a class="ui green left pointing label">
+                                            <?php echo $stat->items[0]->statistics->likeCount; ?>
+                                        </a>
+                                    </div>
+                                    <div class="ui labeled button" id="dislike" tabindex="0">
+                                        <div class="ui basic red button small">
+                                            <i class="thumbs down icon"></i>
+                                            <span>Dislike</span>
+                                        </div>
+                                        <a class="ui red left pointing label">
+                                            <?php echo $stat->items[0]->statistics->dislikeCount; ?>
+                                        </a>
+                                    </div>
+                                    <div class="ui teal tag label large" id="video-views">
+                                        <span><?php echo number_format(stampaStat($vID)->items[0]->statistics->viewCount, 0, ',', '.'); ?></span> Visualizzazioni
+                                    </div>
+                                    <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em; background-color: #db2828;">
+                                        <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale($stat->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%;"></div>
+
                                     </div>
                                     <a class="ui red left pointing label">
                                         0
