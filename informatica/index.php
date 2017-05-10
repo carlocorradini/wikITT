@@ -16,16 +16,15 @@
         <!--Semantic-UI-->
         <link rel="stylesheet" type="text/css" href="/common/framework/semantic-UI/semantic.min.css"/>
         <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
-
+        
         <!--Plyr-->
         <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/2.0.7/plyr.css"/>
         <script src="https://cdn.plyr.io/2.0.7/plyr.js" type="text/javascript"></script>
         <!--END Framweworks-->
 
-
+        <!--Google API-->
         <meta name="google-signin-client_id" content="1093951573337-n44tvp7mtb48d5ehei7e0sfak31mrh68.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-
 
         <style>
             /*Active*/
@@ -909,25 +908,6 @@
         </noscript>
 
         <div class="wrapper">
-            <div id="authentication"></div>
-            <script>
-                function onSuccess(googleUser) {
-                    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-                }
-                function onFailure(error) {
-                    console.log(error);
-                }
-                function renderButton() {
-                    gapi.signin2.render('authentication', {
-                        'scope': 'profile email',
-                        'longtitle': true,
-                        'theme': 'dark',
-                        'onsuccess': onSuccess,
-                        'onfailure': onFailure
-                    });
-                }
-            </script>
-
             <!--#include virtual="/common/component/header.html" -->
 
             <button class="ui blue labeled icon button" id="btnShowVideoNavigation">
@@ -1127,17 +1107,7 @@
                                     </div>
                                     <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em; background-color: #db2828;">
                                         <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale($stat->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%;"></div>
-
                                     </div>
-                                    <a class="ui red left pointing label">
-                                        0
-                                    </a>
-                                </div>
-                                <div class="ui teal tag label large" id="video-views">
-                                    0 Visual<span>izzazioni</span>
-                                </div>
-                                <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em;">
-                                    <div class="bar" style="min-width: 0%;"></div>
                                 </div>
                             </div>
 
