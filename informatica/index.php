@@ -917,15 +917,13 @@
 
             <div id="video-content">
                 <?php
-
                     //Require engine PHP page
                     require '../common/php/engine.php';
-                    //Vide ID
+                    //Video ID
                     $vID = filter_input(INPUT_GET, "v");
                     
                     //Query
                     $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
-                    
                     
                     //Function StampaVisual
                     function stampaStat($VideoID){
@@ -948,18 +946,19 @@
                         echo ($num1*100)/$sum;
                     }
                     
-                    if(!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {?>
+                    if (!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {
+                    ?>
                         <style>
-                            .video-content { padding: 1em;}
+                            #video-content { padding: 1em;}
                             @media screen and (max-width: 1000px) {
-                                .video-content { padding-top: 0.5em;}
+                                #video-content { padding-top: 0.5em;}
                             }
                             @media screen and (max-width: 700px) {
-                                .video-content .ui.raised.segment { margin: 1em;}
+                                #video-content .ui.raised.segment { margin: 1em;}
                                 #video-navigation { width: 100%;}
                             }
                             @media screen and (max-width: 700px) {
-                                .video-content .ui.raised.segment { margin: 0.25em;}
+                                #video-content .ui.raised.segment { margin: 0.25em;}
                             }
                         </style>
                         <div class="ui small breadcrumb" id="breadcrumInfo">
@@ -968,97 +967,73 @@
                             <div class="active section">Informatica</div>
                         </div>
 
-                //Query
-                $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
-
-                if (!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {
-                    ?>
-                    <style>
-                        #video-content { padding: 1em;}
-                        @media screen and (max-width: 1000px) {
-                            #video-content { padding-top: 0.5em;}
-                        }
-                        @media screen and (max-width: 700px) {
-                            #video-content .ui.raised.segment { margin: 1em;}
-                            #video-navigation { width: 100%;}
-                        }
-                        @media screen and (max-width: 700px) {
-                            #video-content .ui.raised.segment { margin: 0.25em;}
-                        }
-                    </style>
-                    <div class="ui small breadcrumb" id="breadcrumInfo">
-                        <a class="section" href="/index.html">Home</a>
-                        <div class="divider"> / </div>
-                        <div class="active section">Informatica</div>
-                    </div>
-
-                    <div class="ui horizontal divider">
-                        <h1>Informatica</h1>
-                    </div>
-
-                    <div class="ui raised segment">
-                        <a class="ui red ribbon label">Presentazione</a>
-                        <p><br>
-                            « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
-                            (Edsger Wybe Dijkstra)
-                            <br><br>
-                            La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.
-                            Contrariamente a ciò che si pensa non si tratta però di una cosa solo per “smanettoni” ma bensì è una vera e propria scienza aperta a tutti coloro appassionati di logica e di tecnologia.
-                            Con questi video avrai la possibilità di approfondire alcuni degli infiniti argomenti che compongono questa materia risolvendo i tuoi dubbi o semplicemente incuriosendoti verso questo vasto ed interessante mondo.
-                        </p>
-                    </div>
-
-                    <div class="ui horizontal divider">
-                        <i class="code icon"></i>
-                    </div>
-
-                    <div class="ui three column stackable grid">
-                        <div class="column">
-                            <div class="ui raised segment">
-                                <a class="ui green ribbon label">Database</a>
-                                <div class="ui ordered list">                               
-                                    <a class="item">Progettazione</a>
-                                    <a class="item">MySql</a>
-                                </div>
-                            </div>
+                        <div class="ui horizontal divider">
+                            <h1>Informatica</h1>
                         </div>
 
-                        <div class="column">
-                            <div class="ui raised segment">
-                                <a class="ui green ribbon label">Argomenti</a>
-                                <div class="ui ordered list">
-                                    <div class="item">
-                                        <a>Database</a>
-                                        <div class="list">
-                                            <a class="item">Progettazione</a>
-                                            <a class="item">MySql</a>
-                                        </div>
+                        <div class="ui raised segment">
+                            <a class="ui red ribbon label">Presentazione</a>
+                            <p><br>
+                                « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
+                                (Edsger Wybe Dijkstra)
+                                <br><br>
+                                La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.
+                                Contrariamente a ciò che si pensa non si tratta però di una cosa solo per “smanettoni” ma bensì è una vera e propria scienza aperta a tutti coloro appassionati di logica e di tecnologia.
+                                Con questi video avrai la possibilità di approfondire alcuni degli infiniti argomenti che compongono questa materia risolvendo i tuoi dubbi o semplicemente incuriosendoti verso questo vasto ed interessante mondo.
+                            </p>
+                        </div>
+
+                        <div class="ui horizontal divider">
+                            <i class="code icon"></i>
+                        </div>
+
+                        <div class="ui three column stackable grid">
+                            <div class="column">
+                                <div class="ui raised segment">
+                                    <a class="ui green ribbon label">Database</a>
+                                    <div class="ui ordered list">                               
+                                        <a class="item">Progettazione</a>
+                                        <a class="item">MySql</a>
                                     </div>
-                                    <a class="item">Php</a>
-                                    <a class="item">Html</a>
-                                    <a class="item">CSS</a>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="column">
-                            <div class="ui raised segment">
-                                <a class="ui green ribbon label">Argomenti</a>
-                                <div class="ui ordered list">
-                                    <div class="item">
-                                        <a>Database</a>
-                                        <div class="list">
-                                            <a class="item">Progettazione</a>
-                                            <a class="item">MySql</a>
+                            <div class="column">
+                                <div class="ui raised segment">
+                                    <a class="ui green ribbon label">Argomenti</a>
+                                    <div class="ui ordered list">
+                                        <div class="item">
+                                            <a>Database</a>
+                                            <div class="list">
+                                                <a class="item">Progettazione</a>
+                                                <a class="item">MySql</a>
+                                            </div>
                                         </div>
+                                        <a class="item">Php</a>
+                                        <a class="item">Html</a>
+                                        <a class="item">CSS</a>
                                     </div>
-                                    <a class="item">Php</a>
-                                    <a class="item">Html</a>
-                                    <a class="item">CSS</a>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="ui raised segment">
+                                    <a class="ui green ribbon label">Argomenti</a>
+                                    <div class="ui ordered list">
+                                        <div class="item">
+                                            <a>Database</a>
+                                            <div class="list">
+                                                <a class="item">Progettazione</a>
+                                                <a class="item">MySql</a>
+                                            </div>
+                                        </div>
+                                        <a class="item">Php</a>
+                                        <a class="item">Html</a>
+                                        <a class="item">CSS</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
                         <div class="ui horizontal divider">
@@ -1109,25 +1084,25 @@
                                         <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale($stat->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%;"></div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!--Creator Info-->
-                            <div id="creators">
-                                <?php
-                                if (mysqli_num_rows($creatorInfo) > 0) {
-                                    while ($row = mysqli_fetch_array($creatorInfo)) {
+                                <!--Creator Info-->
+                                <div id="creators">
+                                    <?php
+                                    if (mysqli_num_rows($creatorInfo) > 0) {
+                                        while ($row = mysqli_fetch_array($creatorInfo)) {
+                                            ?>
+                                            <a href="/author/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Colore"]; ?>">
+                                                <img src="/common/image/profile/<?php echo $row["Miniatura"]; ?>.png" alt="autore"/>
+                                                <?php echo $row["Nome"] . "&nbsp;" . $row["Cognome"]; ?>
+                                                <div class="detail"><?php echo $row["Classe"]; ?></div>
+                                            </a>
+                                            <?php
+                                        }
+                                    } else {
                                         ?>
-                                        <a href="/author/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Colore"]; ?>">
-                                            <img src="/common/image/profile/<?php echo $row["Miniatura"]; ?>.png" alt="autore"/>
-                                            <?php echo $row["Nome"] . "&nbsp;" . $row["Cognome"]; ?>
-                                            <div class="detail"><?php echo $row["Classe"]; ?></div>
-                                        </a>
-                                        <?php
-                                    }
-                                } else {
-                                    ?>
-                                    <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
-                                <?php } ?>
+                                        <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
                         <div class="card">
