@@ -165,7 +165,7 @@
             for(var i=0; i<data.length; i++) {
                 var li = document.createElement("li");
                 var a = document.createElement("a");
-                a.setAttribute("href", "https://www.youtube.com/watch?v="+data[i].vId);
+                a.setAttribute("href", 'http://localhost/informatica/index.php?v='+data[i].vId);
                 a.innerHTML = "<b>"+data[i].titolo+"</b>";
                 var span = document.createElement("span");
                 span.innerHTML = " - <i>"+data[i].materia+"</i>";
@@ -252,7 +252,7 @@ if(isset($_REQUEST['search'])){
     function printResult($term){
         
         $color;
-        $result = query("SELECT DISTINCT v.VideoID, v.Descrizione, m.nomeIndirizzo as materia, v.Titolo as titoloVideo, v.Cod FROM (SELECT v1.VideoID, v1.Titolo, v1.CodMateria, v1.Cod, v1.Descrizione, LOCATE('%$term', v1.Titolo) as score FROM video v1 WHERE v1.Titolo LIKE '%$term%' ORDER BY score) v, materia m WHERE v.CodMateria = m.Cod");
+        $result = query("SELECT DISTINCT v.VideoID, v.Descrizione, m.nomeIndirizzo as materia, v.Titolo as titoloVideo, v.Cod, v.DataPub FROM (SELECT v1.VideoID, v1.DataPub, v1.Titolo, v1.CodMateria, v1.Cod, v1.Descrizione, LOCATE('%$term', v1.Titolo) as score FROM video v1 WHERE v1.Titolo LIKE '%$term%' ORDER BY score) v, materia m WHERE v.CodMateria = m.Cod");
         
         if(mysqli_num_rows($result) > 0){
             while ($row = mysqli_fetch_array($result)){
@@ -277,7 +277,7 @@ if(isset($_REQUEST['search'])){
                 $vid = $row['Cod'];
                 $resultautori = query("SELECT DISTINCT a.Nome as nomeAutore, a.Cognome as cognomeAutore, a.ID as idAutore FROM autore a, realizza r WHERE r.CodVideo ='$vid' AND a.ID = r.IDAutore");
                 ?>
-                <div class="line card floating-box" style="cursor: pointer;" onclick="window.location="http://localhost/informatica/index.php?v=<?php echo $row['VideoID'];?>'" > 
+                <div class="line card floating-box" style="cursor: pointer;" onclick="window.location='http://localhost/informatica/index.php?v=<?php echo $row['VideoID'];?>'" > 
                     <img class="miniatura" src="https://img.youtube.com/vi/<?php echo $row['VideoID']; ?>/sddefault.jpg">    
                     <div>
                         
@@ -304,8 +304,9 @@ if(isset($_REQUEST['search'])){
                             <div class="ui teal tag label large" id="video-views">
                                 <span><?php echo number_format(stampaStat($row['VideoID'])->items[0]->statistics->viewCount, 0, ',', '.');?></span> Visualizzazioni
                             </div>
-                            <div class="ui tiny green active progress" id="feedback-progress">
-                                <div class="bar" style="min-width: 0%;"></div>
+                            <div class="ui label" style="float: right;">
+                                <i class="calendar icon"></i>
+                                <?php echo $row["DataPub"]?>
                             </div>
                         </div>
                     </div>
