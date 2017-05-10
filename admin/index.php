@@ -71,7 +71,7 @@
             });
             function submitForm(form) {
                 //Send Data for Validation
-                //$(form).addClass("loading");
+                $(form).addClass("loading");
                 var username = $(form).find("input[name=username]").val();
                 var password = $(form).find("input[name=password]").val();
                 var url = "/common/php/admin-authentication.php?"
@@ -80,12 +80,17 @@
                     type: 'GET',
                     url: url,
                     success: function (data) {
+                        $(form).removeClass("loading");
+                        var message = $("#message");
                         if (data.status) {
-                            $("#message").find("i").removeClass();
-                            $("#message").find("i").addClass("checkmark icon");
-                            $("#message").find("span");
-                        } else
-                            $(form).removeClass("loading");
+                            $(message).removeClass("error").addClass("success");
+                            $(message).find("i").removeClass().addClass("checkmark icon");
+                            $(message).find("span").html(data.message+" - Redirecting...");
+                        } else {
+                            $(message).removeClass("success").addClass("error");
+                            $(message).find("i").removeClass().addClass("remove icon");
+                            $(message).find("span").html(data.message);
+                        }
                         console.info("[AUTHENTICATION]: " + data.message);
                     }, error: function (jqXHR, status, error) {
                         console.error("[AUTHENTICATION]: " + error);
@@ -100,7 +105,7 @@
                 <form class="ui attached form segment big">
                     <h1 class="ui horizontal divider header">
                         <i class="shield icon"></i>
-                        Admin | Sing In
+                        Admin | Sign In
                     </h1>
                     <div class="field">
                         <label>Username</label>
