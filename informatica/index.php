@@ -537,6 +537,13 @@
                 box-shadow: inset 0 0 0 2px #556080;
             }
             .attachment.zip .image { background-image: url("/common/image/file_extension/zip.png");}
+            /*XAMPP*/
+            .attachment.xampp {
+                -webkit-box-shadow: inset 0 0 0 2px #fb7a24;
+                -moz-box-shadow: inset 0 0 0 2px #fb7a24;
+                box-shadow: inset 0 0 0 2px #fb7a24;
+            }
+            .attachment.xampp .image { background-image: url("/common/image/file_extension/xampp.png");}
 
             /*---Media Query---*/
             @media screen and (max-width: 1000px) {
