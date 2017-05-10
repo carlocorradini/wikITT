@@ -16,17 +16,11 @@
             $result = query("SELECT Email FROM newsletter WHERE Email='$email' LIMIT 1;");
             if(mysqli_num_rows($result) === 0) {
                 $result = query("INSERT INTO newsletter(Email) VALUES ('$email');");
-                setResponse(TRUE, "Email inserted correctly!");
-            } else { setResponse(TRUE, "Email Address already registered!");}
+                setResponse($data, TRUE, "Email inserted correctly!");
+            } else { setResponse($data, TRUE, "Email Address already registered!");}
             connection_close();
-        } else { setResponse(FALSE, "Email Address in invalid format!");}
-    } else { setResponse(FALSE, "Email is not set!");}
-    
-    function setResponse($status = null, $message = null) {
-        global $data;
-        $data["status"] = $status;
-        $data["message"] = $message;
-    }
+        } else { setResponse($data, FALSE, "Email Address in invalid format!");}
+    } else { setResponse($data, FALSE, "Email is not set!");}
     
     echo json_encode($data);
     

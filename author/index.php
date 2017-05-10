@@ -66,9 +66,9 @@
                 display: block;
                 margin: 0 2vh 0 2vh;
             }
-            #back {
-                -webkit-transition-duration: 0.5s;
-                transition-duration: 0.5s;
+            .slow {
+                -webkit-transition-duration: 0.5s!important;
+                transition-duration: 0.5s!important;
             }
             .ui.center.aligned.grid {
                 margin-top: 5vh;
@@ -184,18 +184,16 @@
                 $("#sortNome").one("click", alphaSort);
             }
         </script>
-        <div class="contenuto">
+        <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
             <div class="center" id="tab">
                 <div class="ui stackable four column grid">
                     <?php
                     require '../common/php/engine.php';
-                    $connection = null;
-                    connect($connection);
                     $authorID = filter_input(INPUT_GET, "a");
+                    
                     if (!isset($authorID) || $authorID === "") {
-                        $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.Colore FROM autore A ORDER BY A.Nome, A.Cognome, A.ID";
-                        $query = mysqli_query($connection, $txtQuery);
+                        $query = query("SELECT A.ID, A.Nome, A.Cognome, A.Classe FROM autore A ORDER BY A.Cognome, A.Nome, A.ID");
                         while ($row = mysqli_fetch_array($query)) {
                             ?>
                             <div class="column">
@@ -215,14 +213,20 @@
                         ?>
                     </div>
                 </div>
-                <div class="center">
-                    <a id="back" class="ui labeled icon button inverted blue" href="index.php">
+            </div>
+            <div class="center">
+                <a class="ui labeled icon button inverted blue slow" href="index.php">
+                    <i class="user icon"></i>
+                    Visualizza autori
+                </a>
+                <?php if(isset($_SERVER['HTTP_REFERER'])) {?>
+                    <a class="ui labeled icon button inverted violet slow" href="<?php echo $_SERVER["HTTP_REFERER"];?>">
                         <i class="left arrow icon"></i>
-                        Torna alla lista
+                        Torna
                     </a>
-                    <?php
-                    $txtQuery = "SELECT A.ID, A.Nome, A.Cognome, A.Classe, A.AnnoS, A.Sesso, A.Colore, V.Titolo, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod";
-                    $query = mysqli_query($connection, $txtQuery);
+                <?php
+                }
+                    $query = query("SELECT A.*, V.Titolo, V.PathMiniatura, M.NomeIndirizzo AS 'Materia', (SELECT COUNT(*) FROM realizza WHERE IDAutore = A.ID) AS 'NumVideo' FROM autore A, realizza R, video V, materia M WHERE ID = '$authorID' AND A.ID = R.IDAutore AND V.Cod = R.CodVideo AND V.CodMateria = M.Cod ORDER BY V.Titolo, V.Cod");
                     $row = mysqli_fetch_array($query);
                     if ($row > 0) {
                         ?>
@@ -247,16 +251,7 @@
                                     <i class="film icon"></i><?php echo $row['NumVideo'] . " video" ?>
                                 </div>
                                 <div class="right floated author">
-                                    <?php
-                                    switch ($row['Sesso']) {
-                                        case "M":
-                                            ?> <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/matthew.png"> <?php
-                                            break;
-                                        case "F":
-                                            ?> <img class="ui avatar image" src="https://semantic-ui.com/images/avatar2/large/molly.png"> <?php
-                                            break;
-                                    }
-                                    ?>
+                                    <img class="ui avatar image" src="/common/image/profile/<?php echo $row['Miniatura'];?>.png" alt="autore"/>
                                 </div>
                             </div>
                             <div class="extra content">
@@ -322,6 +317,5 @@
                 }
                 ?>
             </div>
-        </div>
     </body>
 </html>
