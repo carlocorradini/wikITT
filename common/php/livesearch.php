@@ -1,7 +1,7 @@
 
 <?php
     //Require engine PHP page
-    require '../php/engine.php';
+    require 'engine.php';
     //Prepare response for JS
     header('Content-Type: application/json');
     $data = array();

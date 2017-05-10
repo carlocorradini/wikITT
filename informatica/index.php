@@ -24,7 +24,7 @@
 
         <!--Google API-->
         <meta name="google-signin-client_id" content="1093951573337-n44tvp7mtb48d5ehei7e0sfak31mrh68.apps.googleusercontent.com">
-        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
 
         <style>
             /*Active*/
@@ -183,15 +183,14 @@
                 -moz-border-radius: 50px;
             }
             #video-navigation .close span {
-                position: relative;
+                position: absolute;
                 width: 32px;
                 height: 32px;
-                right: 16px;
-                bottom: 16px;
+                right: 8px;
+                bottom: 8px;
             }
             @-moz-document url-prefix() {
                 #video-navigation .close { right: 20px;}
-                #video-navigation .close span { bottom: 3px;}
             }
             #video-navigation .close span:before,
             #video-navigation .close span:after {
@@ -644,7 +643,6 @@
         </style>
     </head>
     <body>
-        
         <script>
             $(document).ready(function () {
                 //Handle Search
@@ -699,13 +697,14 @@
                     $("#msgNoFound").hide();
             }
             
+            //--GOOGLE API--
             var GoogleAuth;
             var user;
             var SCOPE = 'https://www.googleapis.com/auth/youtube.force-ssl';
             function handleClientLoad() {
                 gapi.load('client:auth2', initClient);
             }
-
+            
             function initClient() {
                 var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest';
                 gapi.client.init({
@@ -714,61 +713,56 @@
                     'clientId': '1093951573337-n44tvp7mtb48d5ehei7e0sfak31mrh68.apps.googleusercontent.com',
                     'scope': SCOPE
                 }).then(function () {
+                    GoogleAuth = gapi.auth2.getAuthInstance();
+                    GoogleAuth.isSignedIn.listen(updateSigninStatus);
+                    user = GoogleAuth.currentUser.get();
                     
-                GoogleAuth = gapi.auth2.getAuthInstance();
-                GoogleAuth.isSignedIn.listen(updateSigninStatus);
-
-                user = GoogleAuth.currentUser.get();
-                //setSigninStatus();
-                $('#like').on("click", function() {
-                  handleAuthClick("like");
-                }); 
-                
-                 $('#dislike').on("click", function() {
-                  handleAuthClick("dislike");
-                });
-                
-                
-                $('#revoke-access-button').click(function() {
-                  revokeAccess();
-                }); 
+                    //setSigninStatus();
+                    $('#like').on("click", function() {
+                        handleAuthClick("like");
+                    }); 
+                    $('#dislike').on("click", function() {
+                        handleAuthClick("dislike");
+                    });
+                    $('#revoke-access-button').click(function() {
+                        revokeAccess();
+                    }); 
                 });
             }
              
             function handleAuthClick(rating) {
                 if (GoogleAuth.isSignedIn.get()) {
-                  // User is authorized and has clicked 'Sign out' button.
-                  console.log("Query Google");
-                  //https://developers.google.com/apis-explorer/#search/rate/m/youtube/v3/youtube.videos.rate?id=RjUlmco7v2M&rating=like&_h=1&            
-                  //POST https://www.googleapis.com/youtube/v3/videos/rate?id=RjUlmco7v2M&rating=like&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA
+                    // User is authorized and has clicked 'Sign out' button
+                    console.log("Query Google in esecuzione");
+                    //https://developers.google.com/apis-explorer/#search/rate/m/youtube/v3/youtube.videos.rate?id=RjUlmco7v2M&rating=like&_h=1&            
+                    //POST https://www.googleapis.com/youtube/v3/videos/rate?id=RjUlmco7v2M&rating=like&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA
 
-                  var request = gapi.client.request({
-                    'method': 'POST',
-                    'path': 'https://www.googleapis.com/youtube/v3/videos/rate',
-                    'params': {
-                        'id':"<?php echo  filter_input(INPUT_GET, "v");?>",
-                        'rating':rating,
-                        'key':"AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA"}
-                  });
+                    var request = gapi.client.request({
+                        'method': 'POST',
+                        'path': 'https://www.googleapis.com/youtube/v3/videos/rate',
+                        'params': {
+                            'id': "<?php echo filter_input(INPUT_GET, "v");?>",
+                            'rating': rating,
+                            'key': "AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA"
+                        }
+                    });
 
-                  request.execute(function(response){
-                      console.log(response);        
-                  });
-                  console.log("Query eseguita");
+                    request.execute(function(response){
+                        console.log(response);        
+                    });
+                    console.log("Query Google eseguita");
                 } else {
-                  // User is not signed in. Start Google auth flow.
-                  GoogleAuth.signIn();
+                    // User is not signed in. Start Google auth flow
+                    GoogleAuth.signIn();
                 }
-              }
-
-              function revokeAccess() {
+            }
+            function revokeAccess() {
                 GoogleAuth.disconnect();
-              }
-
-              function setSigninStatus(isSignedIn) {
+            }
+            function setSigninStatus(isSignedIn) {
                 var user = GoogleAuth.currentUser.get();
-                var isAuthorized = user.hasGrantedScopes(SCOPE);/*
-                if (isAuthorized) {
+                var isAuthorized = user.hasGrantedScopes(SCOPE);
+                /*if (isAuthorized) {
                   $('#sign-in-or-out-button').html('Sign out');
                   $('#revoke-access-button').css('display', 'inline-block');
                   $('#auth-status').html('You are currently signed in and have granted ' +
@@ -779,14 +773,13 @@
                   $('#auth-status').html('You have not authorized this app or you are ' +
                       'signed out.');
                 }*/
-              }
-
-              function updateSigninStatus(isSignedIn) {
+            }
+            function updateSigninStatus(isSignedIn) {
                 setSigninStatus();
-              }
+            }
         </script>
         <script async defer src="https://apis.google.com/js/api.js" 
-                onload="this.onload=function(){};handleClientLoad()">
+            onload="this.onload=function(){};handleClientLoad()">
         </script>
         <noscript>
             <style>
@@ -842,9 +835,14 @@
                     margin: 0 15px 15px;
                     border: none;
                     background-color: transparent;
-                    background-image: -webkit-radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), -webkit-radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
-                    background-image: -webkit-radial-gradient(0 0 circle, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), -webkit-radial-gradient(35px 0 circle, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
-                    background-image: radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                    background-image: -webkit-radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px),
+                        -webkit-radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                    background-image: -moz-radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px),
+                        -moz-radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                    background-image: -o-radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px),
+                        -o-radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                    background-image: radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px),
+                        radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
                     background-size: 35px 20px;
                     background-position: center bottom;
                     background-repeat: no-repeat;
@@ -935,11 +933,8 @@
                         $obj = json_decode($result);
                         return $obj;
                     }
-                    
-                    $stat = stampaStat($vID);
-                    
+                    $stat = stampaStat($vID); 
                     function stampaPercentuale($num1, $num2) {
-                        
                         $sum = $num1+$num2;
                         echo ($num1*100)/$sum;
                     }
@@ -1033,7 +1028,6 @@
                             </div>
                         </div>
 
-
                         <div class="ui horizontal divider">
                             <i class="code icon"></i>
                         </div>
@@ -1076,10 +1070,10 @@
                                         </a>
                                     </div>
                                     <div class="ui teal tag label large" id="video-views">
-                                        <span><?php echo number_format(stampaStat($vID)->items[0]->statistics->viewCount, 0, ',', '.'); ?></span> Visualizzazioni
+                                        <?php echo number_format(stampaStat($vID)->items[0]->statistics->viewCount, 0, ',', '.'); ?> Visual<span>izzazioni</span>
                                     </div>
                                     <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em; background-color: #db2828;">
-                                        <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale($stat->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%;"></div>
+                                        <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale($stat->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%"></div>
                                     </div>
                                 </div>
 
@@ -1089,7 +1083,7 @@
                                     if (mysqli_num_rows($creatorInfo) > 0) {
                                         while ($row = mysqli_fetch_array($creatorInfo)) {
                                             ?>
-                                            <a href="/author/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Colore"]; ?>">
+                                            <a href="/autore/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Colore"]; ?>">
                                                 <img src="/common/image/profile/<?php echo $row["Miniatura"]; ?>.png" alt="autore"/>
                                                 <?php echo $row["Nome"] . "&nbsp;" . $row["Cognome"]; ?>
                                                 <div class="detail"><?php echo $row["Classe"]; ?></div>
@@ -1102,34 +1096,34 @@
                                     <?php } ?>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <h1>Materiale</h1>
-                            <?php
-                            $attachments = query("SELECT M.Tipo,M.PathMateriale,M.Descrizione FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
-                            if (mysqli_num_rows($attachments) > 0) {
-                                while ($row = mysqli_fetch_array($attachments)) {
+                            <!--Materiale-->
+                            <div class="card">
+                                <h1>Materiale</h1>
+                                <?php
+                                $attachments = query("SELECT M.Tipo,M.PathMateriale,M.Descrizione FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
+                                if (mysqli_num_rows($attachments) > 0) {
+                                    while ($row = mysqli_fetch_array($attachments)) {
+                                        ?>
+                                        <a class="attachment <?php echo $row["Tipo"]; ?>"
+                                           href="<?php echo $row["PathMateriale"]; ?>"
+                                           target="_blank" download>
+                                            <div class="image"></div>
+                                            <hr class="divider">
+                                            <div class="desc"><?php echo $row["Descrizione"]; ?></div>
+                                        </a>
+                                        <?php
+                                    }
+                                } else {
                                     ?>
-                                    <a class="attachment <?php echo $row["Tipo"]; ?>"
-                                       href="<?php echo $row["PathMateriale"]; ?>"
-                                       target="_blank" download>
-                                        <div class="image"></div>
-                                        <hr class="divider">
-                                        <div class="desc"><?php echo $row["Descrizione"]; ?></div>
-                                    </a>
-                                    <?php
-                                }
-                            } else {
-                                ?>
-                                <div class="ui icon message">
-                                    <i class="info icon"></i>
-                                    <div class="content">
-                                        <p>Nessun materiale disponibile</p>
+                                    <div class="ui icon message">
+                                        <i class="info icon"></i>
+                                        <div class="content">
+                                            <p>Nessun materiale disponibile</p>
+                                        </div>
                                     </div>
-                                </div>
-                            <?php } ?>
+                                <?php } ?>
+                            </div>
                         </div>
-                    </div>
                 <?php } ?>
             </div>
             <div id="video-navigation">
@@ -1168,6 +1162,7 @@
                 </button>
             </div>
         </div>
+        <!--#include virtual="/common/component/footer.html" -->
         <script>plyr.setup();</script>
     </body>
 </html>

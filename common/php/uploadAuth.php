@@ -1,36 +1,30 @@
 <?php
-
-    require './engine.php';
+    //Require engine PHP page
+    require 'engine.php';
+    //Prepare response for JS
+    header('Content-Type: application/json');
     $data = array(
-            "status" => null,
-            "message" => null
+        "status" => null,
+        "message" => null
     );
-    
-    //Ricevi DATI
+    //Dati
     $nome = filter_input(INPUT_GET, "Nome");
     $cognome = filter_input(INPUT_GET, "Cognome");
     $classe = filter_input(INPUT_GET, "Classe");
     $annoS = filter_input(INPUT_GET, "AnnoS");
     $gender = filter_input(INPUT_GET, "gender");
     $colore = filter_input(INPUT_GET, "colore");
-    if($gender="M"){
-        
-    }
-    elseif ($gender="F") {
-    
-    }
     $icona = filter_input(INPUT_GET, "icona");
     
-    $result = query("INSERT INTO autore VALUES ('$nome', '$cognome', '$classe', '$annoS', '$gender', '$icona', '$colore');");
-    setResponse(TRUE, "Author inserted correctly!");
     
-     function setResponse($status = null, $message = null) {
-        global $data;
-        $data["status"] = $status;
-        $data["message"] = $message;
+    if($gender=="M") {
+        
+    }
+    else if ($gender=="F") {
+    
     }
     
-   echo json_encode($data);
+    $result = query("INSERT INTO autore VALUES ('$nome', '$cognome', '$classe', '$annoS', '$gender', '$icona', '$colore');");
+    setResponse($data, TRUE, "Author inserted correctly!");
     
-    
-?>
+    echo json_encode($data);

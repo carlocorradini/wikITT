@@ -171,7 +171,7 @@ Il footer deve essere incluso fuori e dopo il <div class="wrapper"> con il coman
     $(document).ready(function () {
         $("#scroll-top").on("click", function() {
             $('html,body').animate({
-                scrollTop: $(".header").offset().top
+                scrollTop: $("#header").offset().top
             },'slow');
         });
     });
@@ -187,9 +187,7 @@ Il footer deve essere incluso fuori e dopo il <div class="wrapper"> con il coman
         <div class="ui center aligned container" >         
             <div class="ui horizontal small divided link list">
                 <p class="item font-color">© 2017 wikITT</p> 
-                <a href="/terms-and-conditions/index.html" class="item font-color">Terms and conditions</a>
                 <a href="/about/index.html" class="item font-color">About Us</a>
-                <a href="#" class="item font-color">Sitemap</a>
                 <a href="/supporto/index.html" class="item font-color">Supporto</a>
                 <a href="/aiutaci/index.html" class="item font-color">Aiutaci</a>
             </div>

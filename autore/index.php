@@ -199,7 +199,7 @@
                         while ($row = mysqli_fetch_array($query)) {
                             ?>
                             <div class="column">
-                                <a class="ui link fluid <?php echo $row['Colore'] ?> card" href="/author/index.php?a=<?php echo $row['ID'] ?>">
+                                <a class="ui link fluid <?php echo $row['Colore'] ?> card" href="/autore/index.php?a=<?php echo $row['ID'] ?>">
                                     <div class="content">
                                         <div class="header"><?php echo $row['Nome'] . " " . $row['Cognome'] ?></div>
                                         <div class="description"><?php echo $row['Classe'] ?></div>
