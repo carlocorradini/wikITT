@@ -643,6 +643,42 @@
         </style>
     </head>
     <body>
+        <?php
+            //Require engine PHP page
+            require '../common/php/engine.php';
+            //Video ID
+            $vID = filter_input(INPUT_GET, "v");
+            //Query for video
+            $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
+            
+            //--GOOGLE API--
+            function getVideoStat($vID) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_URL, 'https://www.googleapis.com/youtube/v3/videos?part=statistics&id='.$vID.'&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA');
+                $result = curl_exec($ch);
+                curl_close($ch);
+                return json_decode($result);
+            }
+            function getViewCount($vStat) {
+                return $vStat->items[0]->statistics->viewCount;
+            }
+            function getLikeCount($vStat) {
+                return $vStat->items[0]->statistics->dislikeCount;
+            }
+            function getDisklikeCount($vStat) {
+                return $vStat->items[0]->statistics->dislikeCount;
+            }
+            function getLikePercentage($likeCount, $dislikeCount) {
+                $sum = $likeCount+$dislikeCount;
+                return ($likeCount*100)/$sum;
+            }
+            function getDislikeLikePercentage($dislikeCount, $likeCount) {
+                $sum = $dislikeCount+$likeCount;
+                return ($dislikeCount*100)/$sum;
+            }
+        ?>
         <script>
             $(document).ready(function () {
                 //Handle Search
@@ -701,10 +737,10 @@
             var GoogleAuth;
             var user;
             var SCOPE = 'https://www.googleapis.com/auth/youtube.force-ssl';
+            
             function handleClientLoad() {
                 gapi.load('client:auth2', initClient);
             }
-            
             function initClient() {
                 var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest';
                 gapi.client.init({
@@ -729,7 +765,6 @@
                     }); 
                 });
             }
-             
             function handleAuthClick(rating) {
                 if (GoogleAuth.isSignedIn.get()) {
                     // User is authorized and has clicked 'Sign out' button
@@ -905,226 +940,203 @@
 
         <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
-
             <button class="ui blue labeled icon button" id="btnShowVideoNavigation">
                 <i class="video icon"></i>
                 Visualizza elenco video
             </button>
 
             <div id="video-content">
-                <?php
-                    //Require engine PHP page
-                    require '../common/php/engine.php';
-                    //Video ID
-                    $vID = filter_input(INPUT_GET, "v");
-                    
-                    //Query
-                    $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
-                    
-                    //Function StampaVisual
-                    function stampaStat($VideoID){
-                        $ch = curl_init();
-                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($ch, CURLOPT_URL, 'https://www.googleapis.com/youtube/v3/videos?part=statistics&id='.$VideoID.'&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA');
-                        $result = curl_exec($ch);
-                        curl_close($ch);
-
-                        $obj = json_decode($result);
-                        return $obj;
-                    }
-                    $stat = stampaStat($vID); 
-                    function stampaPercentuale($num1, $num2) {
-                        $sum = $num1+$num2;
-                        echo ($num1*100)/$sum;
-                    }
-                    
-                    if (!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {
+                <?php 
+                if (!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {
                     ?>
-                        <style>
-                            #video-content { padding: 1em;}
-                            @media screen and (max-width: 1000px) {
-                                #video-content { padding-top: 0.5em;}
-                            }
-                            @media screen and (max-width: 700px) {
-                                #video-content .ui.raised.segment { margin: 1em;}
-                                #video-navigation { width: 100%;}
-                            }
-                            @media screen and (max-width: 700px) {
-                                #video-content .ui.raised.segment { margin: 0.25em;}
-                            }
-                        </style>
-                        <div class="ui small breadcrumb" id="breadcrumInfo">
-                            <a class="section" href="/index.html">Home</a>
-                            <div class="divider"> / </div>
-                            <div class="active section">Informatica</div>
-                        </div>
+                    <style>
+                        #video-content { padding: 1em;}
+                        @media screen and (max-width: 1000px) {
+                            #video-content { padding-top: 0.5em;}
+                        }
+                        @media screen and (max-width: 700px) {
+                            #video-content .ui.raised.segment { margin: 1em;}
+                            #video-navigation { width: 100%;}
+                        }
+                        @media screen and (max-width: 700px) {
+                            #video-content .ui.raised.segment { margin: 0.25em;}
+                        }
+                    </style>
+                    <div class="ui small breadcrumb" id="breadcrumInfo">
+                        <a class="section" href="/index.html">Home</a>
+                        <div class="divider"> / </div>
+                        <div class="active section">Informatica</div>
+                    </div>
 
-                        <div class="ui horizontal divider">
-                            <h1>Informatica</h1>
-                        </div>
+                    <div class="ui horizontal divider">
+                        <h1>Informatica</h1>
+                    </div>
 
-                        <div class="ui raised segment">
-                            <a class="ui red ribbon label">Presentazione</a>
-                            <p><br>
-                                « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
-                                (Edsger Wybe Dijkstra)
-                                <br><br>
-                                La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.
-                                Contrariamente a ciò che si pensa non si tratta però di una cosa solo per “smanettoni” ma bensì è una vera e propria scienza aperta a tutti coloro appassionati di logica e di tecnologia.
-                                Con questi video avrai la possibilità di approfondire alcuni degli infiniti argomenti che compongono questa materia risolvendo i tuoi dubbi o semplicemente incuriosendoti verso questo vasto ed interessante mondo.
-                            </p>
-                        </div>
+                    <div class="ui raised segment">
+                        <a class="ui red ribbon label">Presentazione</a>
+                        <p><br>
+                            « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
+                            (Edsger Wybe Dijkstra)
+                            <br><br>
+                            La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.
+                            Contrariamente a ciò che si pensa non si tratta però di una cosa solo per “smanettoni” ma bensì è una vera e propria scienza aperta a tutti coloro appassionati di logica e di tecnologia.
+                            Con questi video avrai la possibilità di approfondire alcuni degli infiniti argomenti che compongono questa materia risolvendo i tuoi dubbi o semplicemente incuriosendoti verso questo vasto ed interessante mondo.
+                        </p>
+                    </div>
 
-                        <div class="ui horizontal divider">
-                            <i class="code icon"></i>
-                        </div>
+                    <div class="ui horizontal divider">
+                        <i class="code icon"></i>
+                    </div>
 
-                        <div class="ui three column stackable grid">
-                            <div class="column">
-                                <div class="ui raised segment">
-                                    <a class="ui green ribbon label">Database</a>
-                                    <div class="ui ordered list">                               
-                                        <a class="item">Progettazione</a>
-                                        <a class="item">MySql</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="column">
-                                <div class="ui raised segment">
-                                    <a class="ui green ribbon label">Argomenti</a>
-                                    <div class="ui ordered list">
-                                        <div class="item">
-                                            <a>Database</a>
-                                            <div class="list">
-                                                <a class="item">Progettazione</a>
-                                                <a class="item">MySql</a>
-                                            </div>
-                                        </div>
-                                        <a class="item">Php</a>
-                                        <a class="item">Html</a>
-                                        <a class="item">CSS</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="column">
-                                <div class="ui raised segment">
-                                    <a class="ui green ribbon label">Argomenti</a>
-                                    <div class="ui ordered list">
-                                        <div class="item">
-                                            <a>Database</a>
-                                            <div class="list">
-                                                <a class="item">Progettazione</a>
-                                                <a class="item">MySql</a>
-                                            </div>
-                                        </div>
-                                        <a class="item">Php</a>
-                                        <a class="item">Html</a>
-                                        <a class="item">CSS</a>
-                                    </div>
+                    <div class="ui three column stackable grid">
+                        <div class="column">
+                            <div class="ui raised segment">
+                                <a class="ui green ribbon label">Database</a>
+                                <div class="ui ordered list">                               
+                                    <a class="item">Progettazione</a>
+                                    <a class="item">MySql</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="ui horizontal divider">
-                            <i class="code icon"></i>
-                        </div>
-                    <?php } else {
-                        //Execute queries
-                        $creatorInfo = query("SELECT A.* FROM video V,realizza R,autore A WHERE V.Cod=R.CodVideo AND R.IDAutore=A.ID AND V.VideoID='$vID';");?>
-                        
-                        <div id="video">
-                            <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
-                        </div>
-                        <div id="video-descrition">
-                            <div class="card">
-                                <!--Video Info-->
-                                <?php $vInfo = mysqli_fetch_array($videoInfo)?>
-                                <div class="ui label" style="float: right;">
-                                    <i class="calendar icon"></i>
-                                    <?php echo $vInfo["DataPub"]?>
-                                </div>
-                                <h1 style="margin: 0;"><?php echo $vInfo["Titolo"];?></h1>
-                                <p style="margin: 0 0 0.5em 0;"><?php echo $vInfo["Descrizione"];?></p>
-                                
-                                <!--Like & Dislike-->
-                                <div id="feedback">
-                                    <div class="ui labeled button" id="like" tabindex="0">
-                                        <div class="ui basic green button small">
-                                            <i class="thumbs up icon"></i>
-                                            <span>Like</span>
+                        <div class="column">
+                            <div class="ui raised segment">
+                                <a class="ui green ribbon label">Argomenti</a>
+                                <div class="ui ordered list">
+                                    <div class="item">
+                                        <a>Database</a>
+                                        <div class="list">
+                                            <a class="item">Progettazione</a>
+                                            <a class="item">MySql</a>
                                         </div>
-                                        <a class="ui green left pointing label">
-                                            <?php echo $stat->items[0]->statistics->likeCount; ?>
-                                        </a>
                                     </div>
-                                    <div class="ui labeled button" id="dislike" tabindex="0">
-                                        <div class="ui basic red button small">
-                                            <i class="thumbs down icon"></i>
-                                            <span>Dislike</span>
-                                        </div>
-                                        <a class="ui red left pointing label">
-                                            <?php echo $stat->items[0]->statistics->dislikeCount; ?>
-                                        </a>
-                                    </div>
-                                    <div class="ui teal tag label large" id="video-views">
-                                        <?php echo number_format(stampaStat($vID)->items[0]->statistics->viewCount, 0, ',', '.'); ?> Visual<span>izzazioni</span>
-                                    </div>
-                                    <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em; background-color: #db2828;">
-                                        <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale($stat->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%"></div>
-                                    </div>
-                                </div>
-
-                                <!--Creator Info-->
-                                <div id="creators">
-                                    <?php
-                                    if (mysqli_num_rows($creatorInfo) > 0) {
-                                        while ($row = mysqli_fetch_array($creatorInfo)) {
-                                            ?>
-                                            <a href="/autore/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Colore"]; ?>">
-                                                <img src="/common/image/profile/<?php echo $row["Miniatura"]; ?>.png" alt="autore"/>
-                                                <?php echo $row["Nome"] . "&nbsp;" . $row["Cognome"]; ?>
-                                                <div class="detail"><?php echo $row["Classe"]; ?></div>
-                                            </a>
-                                            <?php
-                                        }
-                                    } else {
-                                        ?>
-                                        <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
-                                    <?php } ?>
+                                    <a class="item">Php</a>
+                                    <a class="item">Html</a>
+                                    <a class="item">CSS</a>
                                 </div>
                             </div>
-                            <!--Materiale-->
-                            <div class="card">
-                                <h1>Materiale</h1>
+                        </div>
+
+                        <div class="column">
+                            <div class="ui raised segment">
+                                <a class="ui green ribbon label">Argomenti</a>
+                                <div class="ui ordered list">
+                                    <div class="item">
+                                        <a>Database</a>
+                                        <div class="list">
+                                            <a class="item">Progettazione</a>
+                                            <a class="item">MySql</a>
+                                        </div>
+                                    </div>
+                                    <a class="item">Php</a>
+                                    <a class="item">Html</a>
+                                    <a class="item">CSS</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui horizontal divider">
+                        <i class="code icon"></i>
+                    </div>
+                <?php } else {
+                    //--All is set and Video exist--
+                    //Set Video statistics variable
+                    $vStat = getVideoStat($vID);
+                    //Execute query creator
+                    $creatorInfo = query("SELECT A.* FROM video V,realizza R,autore A WHERE V.Cod=R.CodVideo AND R.IDAutore=A.ID AND V.VideoID='$vID';");?>
+
+                    <div id="video">
+                        <div data-type="youtube" data-video-id="<?php echo $vID;?>"></div>
+                    </div>
+                    <div id="video-descrition">
+                        <div class="card">
+                            <!--Video Info-->
+                            <?php $vInfo = mysqli_fetch_array($videoInfo);?>
+                            <div class="ui label" style="float: right;">
+                                <i class="calendar icon"></i>
+                                <?php echo $vInfo["DataPub"];?>
+                            </div>
+                            <h1 style="margin: 0;"><?php echo $vInfo["Titolo"];?></h1>
+                            <p style="margin: 0 0 0.5em 0;"><?php echo $vInfo["Descrizione"];?></p>
+
+                            <!--Like & Dislike-->
+                            <div id="feedback">
+                                <div class="ui labeled button" id="like" tabindex="0">
+                                    <div class="ui basic green button small">
+                                        <i class="thumbs up icon"></i>
+                                        <span>Like</span>
+                                    </div>
+                                    <a class="ui green left pointing label">
+                                        <?php echo getLikeCount($vStat);?>
+                                    </a>
+                                </div>
+                                <div class="ui labeled button" id="dislike" tabindex="0">
+                                    <div class="ui basic red button small">
+                                        <i class="thumbs down icon"></i>
+                                        <span>Dislike</span>
+                                    </div>
+                                    <a class="ui red left pointing label">
+                                        <?php echo getDisklikeCount($vStat);?>
+                                    </a>
+                                </div>
+                                <div class="ui teal tag label large" id="video-views">
+                                    <?php echo number_format(getViewCount($vStat), 0, ',', '.');?> Visual<span>izzazioni</span>
+                                </div>
+                                <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em;
+                                    <?php if(getLikeCount($vStat) != 0 && getDisklikeCount($vStat) != 0) {?>background-color: #db2828;<?php }?>">
+                                    <div class="bar" style="min-width: 0%; width:<?php echo getLikePercentage(getLikeCount($vStat), getDisklikeCount($vStat));?>%"></div>
+                                </div>
+                            </div>
+
+                            <!--Creator Info-->
+                            <div id="creators">
                                 <?php
-                                $attachments = query("SELECT M.Tipo,M.PathMateriale,M.Descrizione FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
-                                if (mysqli_num_rows($attachments) > 0) {
-                                    while ($row = mysqli_fetch_array($attachments)) {
+                                if (mysqli_num_rows($creatorInfo) > 0) {
+                                    while ($row = mysqli_fetch_array($creatorInfo)) {
                                         ?>
-                                        <a class="attachment <?php echo $row["Tipo"]; ?>"
-                                           href="<?php echo $row["PathMateriale"]; ?>"
-                                           target="_blank" download>
-                                            <div class="image"></div>
-                                            <hr class="divider">
-                                            <div class="desc"><?php echo $row["Descrizione"]; ?></div>
+                                        <a href="/autore/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Colore"]; ?>">
+                                            <img src="/common/image/profile/<?php echo $row["Miniatura"]; ?>.png" alt="autore"/>
+                                            <?php echo $row["Nome"] . "&nbsp;" . $row["Cognome"]; ?>
+                                            <div class="detail"><?php echo $row["Classe"]; ?></div>
                                         </a>
                                         <?php
                                     }
                                 } else {
                                     ?>
-                                    <div class="ui icon message">
-                                        <i class="info icon"></i>
-                                        <div class="content">
-                                            <p>Nessun materiale disponibile</p>
-                                        </div>
-                                    </div>
+                                    <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
                                 <?php } ?>
                             </div>
                         </div>
-                <?php } ?>
+                        <!--Materiale-->
+                        <div class="card">
+                            <h1>Materiale</h1>
+                            <?php
+                            $attachments = query("SELECT M.Tipo,M.PathMateriale,M.Descrizione FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
+                            if (mysqli_num_rows($attachments) > 0) {
+                                while ($row = mysqli_fetch_array($attachments)) {
+                                    ?>
+                                    <a class="attachment <?php echo $row["Tipo"]; ?>"
+                                       href="<?php echo $row["PathMateriale"]; ?>"
+                                       target="_blank" download>
+                                        <div class="image"></div>
+                                        <hr class="divider">
+                                        <div class="desc"><?php echo $row["Descrizione"]; ?></div>
+                                    </a>
+                                    <?php
+                                }
+                            } else {
+                                ?>
+                                <div class="ui icon message">
+                                    <i class="info icon"></i>
+                                    <div class="content">
+                                        <p>Nessun materiale disponibile</p>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+            <?php } ?>
             </div>
             <div id="video-navigation">
                 <div class="scrollbar informatica ui vertical menu">
