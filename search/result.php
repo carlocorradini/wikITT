@@ -5,7 +5,7 @@
     connect($connection);
 ?>
 <head>
-    <title>carlo culo</title>
+    <title>Risultati ricerca</title>
     <!--Frameworks-->
     <!--Pace-->
     <link rel="stylesheet" type="text/css" href="/common/framework/pace/pace.min.css"/>
@@ -185,7 +185,7 @@
         liveSearch.appendChild(ul);
     }
     function checkSubmit(e) {
-        if(e && e.keyCode == 13) {
+        if(e && e.keyCode === 13 && document.getElementById('cerca-result').value()!== null && document.getElementById('cerca-result').value()!== "") {
            document.getElementById('cerca-result').submit();
         }
     }    
@@ -234,10 +234,26 @@ if(isset($_REQUEST['search'])){
 
 ?>
 
+
 <?php
+
+    //mettere engine
+    function stampaStat($VideoID){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL, 'https://www.googleapis.com/youtube/v3/videos?part=statistics&id='.$VideoID.'&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA');
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $obj = json_decode($result);
+        return $obj;
+    }
     function printResult($term){
+        
         $color;
-        $result = query("SELECT DISTINCT v.VideoID, v.Descrizione, m.nomeIndirizzo as materia, v.Titolo as titoloVideo, v.Cod FROM (SELECT v1.VideoID, v1.Titolo, v1.CodMateria, v1.Cod, v1.Descrizione, LOCATE('$term', v1.Titolo) as score FROM video v1 WHERE v1.Titolo LIKE '%$term%' ORDER BY score) v, materia m WHERE v.CodMateria = m.Cod");
+        $result = query("SELECT DISTINCT v.VideoID, v.Descrizione, m.nomeIndirizzo as materia, v.Titolo as titoloVideo, v.Cod FROM (SELECT v1.VideoID, v1.Titolo, v1.CodMateria, v1.Cod, v1.Descrizione, LOCATE('%$term', v1.Titolo) as score FROM video v1 WHERE v1.Titolo LIKE '%$term%' ORDER BY score) v, materia m WHERE v.CodMateria = m.Cod");
+        
         if(mysqli_num_rows($result) > 0){
             while ($row = mysqli_fetch_array($result)){
                 switch ($row['materia']) {
@@ -256,32 +272,27 @@ if(isset($_REQUEST['search'])){
                     case 'Chimica':
                       $color='red';
                       break;
-                  
+                }  
                  
-                  
-                  
-                  
-                //$resultautori = query("SELECT DISTINCT a.Nome as nomeAutore, a.Cognome as cognomeAutore, a.ID as idAutore FROM Autore a, realizza r WHERE r.CodVideo = 'INFO011_17' AND a.ID = r.IDAutore");
-                }?>
-                <div class="line card floating-box" style="cursor: pointer;" onclick="window.location='http://localhost/informatica/index.php?v=<?php echo $row['VideoID'];?>'" > 
+                $vid = $row['Cod'];
+                $resultautori = query("SELECT DISTINCT a.Nome as nomeAutore, a.Cognome as cognomeAutore, a.ID as idAutore FROM autore a, realizza r WHERE r.CodVideo ='$vid' AND a.ID = r.IDAutore");
+                ?>
+                <div class="line card floating-box" style="cursor: pointer;" onclick="window.location="http://localhost/informatica/index.php?v=<?php echo $row['VideoID'];?>'" > 
                     <img class="miniatura" src="https://img.youtube.com/vi/<?php echo $row['VideoID']; ?>/sddefault.jpg">    
                     <div>
                         
                         <div class="categoria-autore">
                             <div class="ui <?php echo $color?> label"><?php echo $row['materia']?></div>
                             <?php
-                            /*
+                            echo "<i class='users icon'></i>";
                             if(mysqli_num_rows($resultautori) > 0){
                                 while ($rowautori = mysqli_fetch_array($resultautori)){?>
-                            <a href="/author/index.php?a=<?php echo $rowautori['idAutore'];?>">
-                                <i class="users icon"></i>
-                                <?php echo $rowautori['nomeAutore']." ".$rowautori['cognomeAutore'];?>
-                            </a>
-                            <?php
+                                    <a style='margin-left: 4px;' href="../author/index.php?a=<?php echo $rowautori['idAutore'];?>"><?php echo $rowautori['nomeAutore']." ".$rowautori['cognomeAutore'];?> </a>
+                                    <?php
                                 }
                             }
                             ?>
-                            */?>
+                            
                         </div>
                         <div class="content titolo">
                             <div><h2><a href="#"><?php echo $row['titoloVideo']?></a></h2></div>                        
@@ -290,8 +301,12 @@ if(isset($_REQUEST['search'])){
                             <p><?php echo $row['Descrizione'];?></p>
                         </div>
                         <div class="visite-data">
-                            <!-- le visite le prendi con l'API -->
-                            <p>Visite sentire perenzoni per api google</p>
+                            <div class="ui teal tag label large" id="video-views">
+                                <span><?php echo number_format(stampaStat($row['VideoID'])->items[0]->statistics->viewCount, 0, ',', '.');?></span> Visualizzazioni
+                            </div>
+                            <div class="ui tiny green active progress" id="feedback-progress">
+                                <div class="bar" style="min-width: 0%;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
