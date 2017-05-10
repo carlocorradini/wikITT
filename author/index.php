@@ -206,7 +206,6 @@
                                         <div class="meta">
                                             <span class="category">Classe</span>
                                         </div>
-
                                     </div>
                                 </a>
                             </div>
