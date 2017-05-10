@@ -46,13 +46,13 @@ $(document).ready(function() {
                 url: url,
                 success: function (data) {
                     //If all is correct show success message else prompt error
-                    if (data) {
+                    if (data.status) {
                         console.info("[NEWSLETTER]: "+data.message);
                         newsletterSuccess(input.val());
                     }
                     else
                         console.error("[NEWSLETTER]: "+data.message);
-                }, error: function (jqXHR,status,error) {
+                }, error: function (jqXHR, status, error) {
                     console.error("[NEWSLETTER]: "+error);
                 }
             });

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Informatica</title>
         <link rel="icon" href="/common/image/icon.ico" type="image/x-icon">
-        
+
         <!--Frameworks-->
         <!--Pace-->
         <link rel="stylesheet" type="text/css" href="/common/framework/pace/pace.min.css"/>
@@ -16,16 +16,21 @@
         <!--Semantic-UI-->
         <link rel="stylesheet" type="text/css" href="/common/framework/semantic-UI/semantic.min.css"/>
         <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
-        
+
         <!--Plyr-->
         <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/2.0.7/plyr.css"/>
         <script src="https://cdn.plyr.io/2.0.7/plyr.js" type="text/javascript"></script>
         <!--END Framweworks-->
-        
+
+
+        <meta name="google-signin-client_id" content="1093951573337-n44tvp7mtb48d5ehei7e0sfak31mrh68.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+
         <style>
             /*Active*/
-            .header .nav-container ul li:nth-child(1) a,
-            .header .nav-container ul li:nth-child(1) a:before {
+            #header .nav-container ul li:nth-child(1) a,
+            #header .nav-container ul li:nth-child(1) a:before {
                 background: #2185d0;
                 background: linear-gradient(to bottom right, #2185d0, #59b0f2);
                 background: -webkit-linear-gradient(left top, #2185d0, #59b0f2);
@@ -34,7 +39,7 @@
                 color: #ffffff!important;
                 border-color: #ffffff;
             }
-            
+
             /*Materia Colore*/
             .font.informatica { color: #2185d0!important;}
             .font.meccanica { color: #21ba45!important;}
@@ -42,26 +47,25 @@
             .font.elettrotecnica { color: #f2711c!important;}
             .font.costruzioni { color: #a5673f!important;}
             /*Scrollbar*/
-            .scrollbar.hidden { overflow: hidden; display: block!important;}
-            .scrollbar::-webkit-scrollbar-track{
+            .scrollbar::-webkit-scrollbar-track {
                 background-color: #F5F5F5;
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
                 -moz-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
             }
-            .scrollbar::-webkit-scrollbar{
+            .scrollbar::-webkit-scrollbar {
                 width: 6px;
                 height: 6px;
                 background-color: #F5F5F5;
             }
-            .scrollbar.informatica::-webkit-scrollbar-thumb{ background-color: #2185d0;}
-            .scrollbar.meccanica::-webkit-scrollbar-thumb{ background-color: #21ba45;}
-            .scrollbar.chimica::-webkit-scrollbar-thumb{ background-color: #db2828;}
-            .scrollbar.elettrotecnica::-webkit-scrollbar-thumb{ background-color: #f2711c;}
-            .scrollbar.costruzioni::-webkit-scrollbar-thumb{ background-color: #a5673f;}
-            
+            .scrollbar.informatica::-webkit-scrollbar-thumb { background-color: #2185d0;}
+            .scrollbar.meccanica::-webkit-scrollbar-thumb { background-color: #21ba45;}
+            .scrollbar.chimica::-webkit-scrollbar-thumb { background-color: #db2828;}
+            .scrollbar.elettrotecnica::-webkit-scrollbar-thumb { background-color: #f2711c;}
+            .scrollbar.costruzioni::-webkit-scrollbar-thumb { background-color: #a5673f;}
+
             /*General*/
             #video-navigation,
-            .video-content {
+            #video-content {
                 position: relative;
                 padding: 1em;
                 min-height: 1px;
@@ -70,8 +74,16 @@
                 -webkit-transition: padding 0.5s;
                 -moz-transition: padding 0.5s;
             }
+            
+            /*Video Container*/
+            #video-content {
+                width: 80%;
+                left: 20%;
+                padding-left: 0.5em;
+            }
+            
             #video {
-                padding: 0 10%;
+                padding: 0 7.5%;
                 background-color: rgba(0,0,0,0.9);
                 transition: padding 0.5s linear;
                 -webkit-transition: padding 0.5s linear;
@@ -99,14 +111,12 @@
                 font-style: italic;
                 font-size: 1.1em;
             }
-            
+
             /*Video Navigation*/
             #video-navigation {
-                position: absolute;
-                bottom: 0;
-                top: 70px;
                 width: 20%;
                 right: 80%;
+                height: 100vh;
                 visibility: visible;
                 display: block!important;
                 padding-right: 0.5em;
@@ -117,6 +127,7 @@
                 height: 100%;
                 overflow-y: auto;
                 overflow-x: hidden;
+                margin-bottom: 0;
             }
             /*XS Responsive*/
             #btnShowVideoNavigation,
@@ -157,7 +168,7 @@
                 50%{background-position:100% 19%}
                 100%{background-position:0% 82%}
             }
-            
+
             #video-navigation .close {
                 position: fixed;
                 bottom: 3px;
@@ -203,18 +214,11 @@
                 -moz-transition: background-color ease-in-out 0.2s;
                 -o-transition: background-color ease-in-out 0.2s;
             }
-            
+
             #video-navigation .close:hover {background-color: #db2828;}
             #video-navigation .close:hover span:before,
             #video-navigation .close:hover span:after { background-color: #ffffff;}
-            
-            /*Video Container*/
-            .video-content {
-                width: 80%;
-                left: 20%;
-                padding-left: 0.5em;
-            }
-            
+
             /*Attachment*/
             .attachment {
                 position: relative;
@@ -231,7 +235,7 @@
                 box-shadow: inset 0 0 0 2px #00b5ad;
             }
             .attachment:not(:last-child) { margin-right: 5px;}
-            
+
             .attachment::before,
             .attachment::after {
                 position: absolute;
@@ -300,7 +304,7 @@
                 font-weight: bold;
             }
             .attachment:hover .desc { color: #2185d0;}
-            
+
             /*Attachment File Type*/
             /*AI*/
             .attachment.ai {
@@ -533,35 +537,40 @@
                 box-shadow: inset 0 0 0 2px #556080;
             }
             .attachment.zip .image { background-image: url("/common/image/file_extension/zip.png");}
+            /*XAMPP*/
+            .attachment.xampp {
+                -webkit-box-shadow: inset 0 0 0 2px #fb7a24;
+                -moz-box-shadow: inset 0 0 0 2px #fb7a24;
+                box-shadow: inset 0 0 0 2px #fb7a24;
+            }
+            .attachment.xampp .image { background-image: url("/common/image/file_extension/xampp.png");}
 
             /*---Media Query---*/
             @media screen and (max-width: 1000px) {
                 #video-navigation,
-                .video-content { padding: 0.5em;}
+                #video-content { padding: 0.5em;}
                 #video-navigation { 
                     padding-right: 0.25em;
-                    padding-bottom: 1em;
+                    padding-bottom: 0.5em;
                 }
-                .video-content { padding-left: 0.25em;}
+                #video-content { padding-left: 0.25em;}
                 #video { padding: 0;}
             }
             @media screen and (max-width: 700px) {
                 /*Parent Container*/
                 #video-navigation,
-                .video-content { padding: 0.25em;}
+                #video-content { padding: 0.25em;}
                 #video-navigation {
-                    position: relative;
                     width: 40%;
                     height: 415px;
                     right: 0;
                     bottom: auto;
-                    top: auto;
                 }
-                .video-content {
+                #video-content {
                     width: 100%;
                     left: 0;
                 }
-                
+
                 /*Video Description & Card*/
                 #video-descrition {
                     position: absolute;
@@ -573,11 +582,12 @@
                     margin-top: 0.5em;
                     padding: 0.5em;
                 }
-                
+
                 /*Feedback*/
                 /*Feedback*/
                 #feedback .button,
                 #feedback #video-views { font-size: .78571429rem;}
+                #video-views span:first-child,
                 #feedback #like span,
                 #feedback #dislike span { display: none;}
                 #feedback #like .ui.button .icon,
@@ -613,6 +623,7 @@
             }
             /*XS Devices*/
             @media screen and (max-width: 500px) {
+                .scrollbar-hidden { overflow: hidden; display: block!important;}
                 #video-navigation {
                     position: fixed;
                     display: none!important;
@@ -636,26 +647,47 @@
     <body>
         
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 //Handle Search
-                $("#video-navigation input:first-of-type").on("keyup", function() {
+                $("#video-navigation input:first-of-type").on("keyup", function () {
                     search($(this).val().toUpperCase());
                 });
                 //Handle Video Navigation on XS Devices
                 //Open & Close
-                $("#btnShowVideoNavigation, #video-navigation .close").on("click", function() {
-                    $("body").toggleClass("scrollbar hidden");
+                $("#btnShowVideoNavigation, #video-navigation .close").on("click", function () {
+                    $("body").toggleClass("scrollbar-hidden");
                     $("#video-navigation").transition("drop");
                 });
+                videoNavigationHeight();
             });
             
+            function videoNavigationHeight() {
+                //!!! Remember Css Media Query
+                var  height = "100%";
+                if(viewport().width > 700)
+                    height = $("#video-content").height();
+                else if (viewport().width > 500)
+                    height = $("#video-descrition").height()-7;
+                $("#video-navigation").height(height);
+                setTimeout(function() {
+                    videoNavigationHeight();
+                }, 500);
+            }
+            function viewport() {
+                var e = window, a = 'inner';
+                if (!('innerWidth' in window)) {
+                    a = 'client';
+                    e = document.documentElement || document.body;
+                }
+                return {width : e[ a+'Width' ], height : e[ a+'Height' ]};
+            }
             function search(query) {
                 var items = $("#video-navigation").find(".item:not(.item:first)");
                 var showNoFound = true;
-                $(items).each(function(index, item) {
+                $(items).each(function (index, item) {
                     var iVal = $(item).text().toUpperCase();
                     if (!$(this).is("#msgNoFound")) {
-                        if(iVal.indexOf(query) > -1) {
+                        if (iVal.indexOf(query) > -1) {
                             showNoFound = false;
                             $(item).fadeIn("fast");
                         } else
@@ -759,16 +791,153 @@
         <script async defer src="https://apis.google.com/js/api.js" 
                 onload="this.onload=function(){};handleClientLoad()">
         </script>
+        <noscript>
+            <style>
+                body { overflow: hidden;}
+                /*Structure*/
+                #no-script-alert {
+                    position: fixed;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1000;
+                    margin: 0 auto;
+                    padding: 25px 100px;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    background-color: #ebe8d7;
+                    background-image: url("/common/image/noscript.png");
+                    overflow: auto;
+                }
+                #no-script-alert .document {
+                    background-color: rgba(235,232,215,0.5);
+                    padding: 40px 20px;
+                    -webkit-border-radius: 5px;
+                    -moz-border-radius: 5px;
+                    border-radius: 5px;
+                }
+                /*Typography*/
+                #no-script-alert h1 {
+                    text-align: center;
+                    font-size: 5em;
+                    margin-bottom: 10px;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    color: #ffffff;
+                    text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+                }
+                #no-script-alert p {
+                    text-align: center;
+                    margin: 0 20px 20px;
+                    font-size: 2em;
+                    line-height: 1.5em;
+                    color: #333333;
+                }
+                #no-script-alert p a:hover { text-decoration: underline;}
+                #no-script-alert .brace {
+                    position: relative;
+                    width: auto;
+                    min-width: 35px;
+                    padding-bottom: 20px;
+                    font-size: 2em;
+                    line-height: 2em;
+                    text-align: center;
+                    vertical-align: middle;
+                    margin: 0 15px 15px;
+                    border: none;
+                    background-color: transparent;
+                    background-image: -webkit-radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), -webkit-radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                    background-image: -webkit-radial-gradient(0 0 circle, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), -webkit-radial-gradient(35px 0 circle, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                    background-image: radial-gradient(circle at 0 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px), radial-gradient(circle at 35px 0, rgba(255,255,255,0) 14.5px, #fff 15.5px, #fff 19.5px, rgba(255,255,255,0) 20.5px);
+                    background-size: 35px 20px;
+                    background-position: center bottom;
+                    background-repeat: no-repeat;
+                    text-transform: lowercase;
+                    font-style: italic;
+                    color: #ffffff;
+                    -webkit-filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
+                    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.15));
+                }
+                #no-script-alert .brace:before {
+                    width: 50%;
+                    border-top: 5px solid #fff;
+                    border-left: 1px solid transparent;
+                    border-top-left-radius: 20% 30px;
+                    height: 100%;
+                    content: "";
+                    position: absolute;
+                    top: 100%;
+                    left: -15px;
+                    box-sizing: border-box;
+                    margin-top: -5px;
+                }
+                #no-script-alert .brace:after {
+                    width: 50%;
+                    border-top: 5px solid #fff;
+                    border-right: 1px solid transparent;
+                    border-top-right-radius: 20% 30px;
+                    height: 100%;
+                    content: "";
+                    position: absolute;
+                    top: 100%;
+                    right: -15px;
+                    box-sizing: border-box;
+                    margin-top: -5px;
+                }
+                /*---Media Query---*/
+                @media screen and (max-width: 650px) {
+                    #no-script-alert { padding: 25px;}
+                    #no-script-alert p { margin: 0 10px;}
+                }
+                @media screen and (max-width: 500px) {
+                    #no-script-alert .document { padding: 40px 0;}
+                    #no-script-alert h1 { font-size: 3em;}
+                    #no-script-alert p { font-size: 1.5em;}
+                }
+            </style>
+            <div id="no-script-alert">
+                <div class="document">
+                    <h1> <i class="rocket icon"></i><br/>ATTIVARE JAVASCRIPT</h1>
+                    <hr class="brace">
+                    <p>
+                        Ci scusiamo per l'inconveniente ma <i>wikITT</i> funziona solamente con <strong>Javascript abilitato</strong>.
+                        <br/>
+                        Per <strong>aiuto</strong> all' <strong>attivazione</strong>
+                        <a href="http://www.enable-javascript.com/it/" target="_blank">clicca qui</a>
+                    </p>
+                </div>
+            </div>
+        </noscript>
+
         <div class="wrapper">
+            <div id="authentication"></div>
+            <script>
+                function onSuccess(googleUser) {
+                    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+                }
+                function onFailure(error) {
+                    console.log(error);
+                }
+                function renderButton() {
+                    gapi.signin2.render('authentication', {
+                        'scope': 'profile email',
+                        'longtitle': true,
+                        'theme': 'dark',
+                        'onsuccess': onSuccess,
+                        'onfailure': onFailure
+                    });
+                }
+            </script>
+
             <!--#include virtual="/common/component/header.html" -->
-            
+
             <button class="ui blue labeled icon button" id="btnShowVideoNavigation">
                 <i class="video icon"></i>
                 Visualizza elenco video
             </button>
-            
-            <div class="video-content">
+
+            <div id="video-content">
                 <?php
+
                     //Require engine PHP page
                     require '../common/php/engine.php';
                     //Vide ID
@@ -819,29 +988,52 @@
                             <div class="active section">Informatica</div>
                         </div>
 
-                        <div class="ui horizontal divider">
-                            <h1>Informatica</h1>
-                        </div>
+                //Query
+                $videoInfo = query("SELECT Titolo,Descrizione,DataPub FROM video WHERE VideoID='$vID' LIMIT 1;");
 
-                        <div class="ui raised segment">
-                            <a class="ui red ribbon label">Presentazione</a>
-                            <p><br>
+                if (!isset($vID) || $vID === "" || mysqli_num_rows($videoInfo) == 0) {
+                    ?>
+                    <style>
+                        #video-content { padding: 1em;}
+                        @media screen and (max-width: 1000px) {
+                            #video-content { padding-top: 0.5em;}
+                        }
+                        @media screen and (max-width: 700px) {
+                            #video-content .ui.raised.segment { margin: 1em;}
+                            #video-navigation { width: 100%;}
+                        }
+                        @media screen and (max-width: 700px) {
+                            #video-content .ui.raised.segment { margin: 0.25em;}
+                        }
+                    </style>
+                    <div class="ui small breadcrumb" id="breadcrumInfo">
+                        <a class="section" href="/index.html">Home</a>
+                        <div class="divider"> / </div>
+                        <div class="active section">Informatica</div>
+                    </div>
+
+                    <div class="ui horizontal divider">
+                        <h1>Informatica</h1>
+                    </div>
+
+                    <div class="ui raised segment">
+                        <a class="ui red ribbon label">Presentazione</a>
+                        <p><br>
                             « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
                             (Edsger Wybe Dijkstra)
                             <br><br>
                             La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.
                             Contrariamente a ciò che si pensa non si tratta però di una cosa solo per “smanettoni” ma bensì è una vera e propria scienza aperta a tutti coloro appassionati di logica e di tecnologia.
                             Con questi video avrai la possibilità di approfondire alcuni degli infiniti argomenti che compongono questa materia risolvendo i tuoi dubbi o semplicemente incuriosendoti verso questo vasto ed interessante mondo.
-                            </p>
-                        </div>
+                        </p>
+                    </div>
 
+                    <div class="ui horizontal divider">
+                        <i class="code icon"></i>
+                    </div>
 
-                        <div class="ui horizontal divider">
-                            <i class="code icon"></i>
-                        </div>
-
-                        <div class="ui three column stackable grid">
-                            <div class="column">
+                    <div class="ui three column stackable grid">
+                        <div class="column">
                             <div class="ui raised segment">
                                 <a class="ui green ribbon label">Database</a>
                                 <div class="ui ordered list">                               
@@ -849,28 +1041,10 @@
                                     <a class="item">MySql</a>
                                 </div>
                             </div>
-                            </div>
+                        </div>
 
-                            <div class="column">
-                                <div class="ui raised segment">
-                                    <a class="ui green ribbon label">Argomenti</a>
-                                    <div class="ui ordered list">
-                                        <div class="item">
-                                            <a>Database</a>
-                                            <div class="list">
-                                                <a class="item">Progettazione</a>
-                                                <a class="item">MySql</a>
-                                            </div>
-                                        </div>
-                                        <a class="item">Php</a>
-                                        <a class="item">Html</a>
-                                        <a class="item">CSS</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="column">
-                                <div class="ui raised segment">
+                        <div class="column">
+                            <div class="ui raised segment">
                                 <a class="ui green ribbon label">Argomenti</a>
                                 <div class="ui ordered list">
                                     <div class="item">
@@ -885,8 +1059,27 @@
                                     <a class="item">CSS</a>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="ui raised segment">
+                                <a class="ui green ribbon label">Argomenti</a>
+                                <div class="ui ordered list">
+                                    <div class="item">
+                                        <a>Database</a>
+                                        <div class="list">
+                                            <a class="item">Progettazione</a>
+                                            <a class="item">MySql</a>
+                                        </div>
+                                    </div>
+                                    <a class="item">Php</a>
+                                    <a class="item">Html</a>
+                                    <a class="item">CSS</a>
+                                </div>
                             </div>
                         </div>
+                    </div>
+
 
                         <div class="ui horizontal divider">
                             <i class="code icon"></i>
@@ -934,46 +1127,67 @@
                                     </div>
                                     <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em; background-color: #db2828;">
                                         <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale($stat->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%;"></div>
+
                                     </div>
+                                    <a class="ui red left pointing label">
+                                        0
+                                    </a>
                                 </div>
-                                
-                                <!--Creator Info-->
-                                <div id="creators">
-                                    <?php if (mysqli_num_rows($creatorInfo) > 0) {
-                                        while ($row = mysqli_fetch_array($creatorInfo)) {?>
-                                            <a href="/author/index.php?a=<?php echo $row["ID"];?>" class="ui medium image label <?php echo $row["Color"];?>">
-                                                <img src="<?php echo $row["PathMiniatura"];?>" alt="autore"/>
-                                                <?php echo $row["Nome"]."&nbsp;".$row["Cognome"];?>
-                                                <div class="detail"><?php echo $row["Classe"];?></div>
-                                            </a>
-                                    <?php }} else {?>
-                                        <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
-                                    <?php }?>
+                                <div class="ui teal tag label large" id="video-views">
+                                    0 Visual<span>izzazioni</span>
+                                </div>
+                                <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em;">
+                                    <div class="bar" style="min-width: 0%;"></div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <h1>Materiale</h1>
-                                <?php $attachments = query("SELECT M.Tipo,M.PathMateriale,M.Descrizione FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
-                                    if (mysqli_num_rows($attachments) > 0) {
-                                        while ($row = mysqli_fetch_array($attachments)) {?>
-                                            <a class="attachment <?php echo $row["Tipo"];?>"
-                                               href="<?php echo $row["PathMateriale"];?>"
-                                               target="_blank" download>
-                                                <div class="image"></div>
-                                                <hr class="divider">
-                                                <div class="desc"><?php echo $row["Descrizione"];?></div>
-                                            </a>
-                                    <?php }} else {?>
-                                        <div class="ui icon message">
-                                            <i class="info icon"></i>
-                                            <div class="content">
-                                                <p>Nessun materiale disponibile</p>
-                                            </div>
-                                        </div>
+
+                            <!--Creator Info-->
+                            <div id="creators">
+                                <?php
+                                if (mysqli_num_rows($creatorInfo) > 0) {
+                                    while ($row = mysqli_fetch_array($creatorInfo)) {
+                                        ?>
+                                        <a href="/author/index.php?a=<?php echo $row["ID"]; ?>" class="ui medium image label <?php echo $row["Colore"]; ?>">
+                                            <img src="/common/image/profile/<?php echo $row["Miniatura"]; ?>.png" alt="autore"/>
+                                            <?php echo $row["Nome"] . "&nbsp;" . $row["Cognome"]; ?>
+                                            <div class="detail"><?php echo $row["Classe"]; ?></div>
+                                        </a>
+                                        <?php
+                                    }
+                                } else {
+                                    ?>
+                                    <div class="ui label red"><i class="warning sign icon"></i>Autore sconosciuto</div>
                                 <?php } ?>
                             </div>
                         </div>
-                    <?php }?>
+                        <div class="card">
+                            <h1>Materiale</h1>
+                            <?php
+                            $attachments = query("SELECT M.Tipo,M.PathMateriale,M.Descrizione FROM video V,materiale M WHERE V.Cod=M.Fk_Video AND V.VideoID='$vID';");
+                            if (mysqli_num_rows($attachments) > 0) {
+                                while ($row = mysqli_fetch_array($attachments)) {
+                                    ?>
+                                    <a class="attachment <?php echo $row["Tipo"]; ?>"
+                                       href="<?php echo $row["PathMateriale"]; ?>"
+                                       target="_blank" download>
+                                        <div class="image"></div>
+                                        <hr class="divider">
+                                        <div class="desc"><?php echo $row["Descrizione"]; ?></div>
+                                    </a>
+                                    <?php
+                                }
+                            } else {
+                                ?>
+                                <div class="ui icon message">
+                                    <i class="info icon"></i>
+                                    <div class="content">
+                                        <p>Nessun materiale disponibile</p>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
             <div id="video-navigation">
                 <div class="scrollbar informatica ui vertical menu">
@@ -987,21 +1201,23 @@
                         <i class="rocket icon"></i>Nessun video trovato
                     </div>
                     <?php
-                        $videos = query("SELECT Titolo,VideoID FROM video ORDER BY Titolo;");
-                        if (mysqli_num_rows($videos) > 0) {
-                            while ($row = mysqli_fetch_array($videos)) {
-                                if($row["VideoID"] === $vID) { ?>
-                                    <a class="font informatica active item" href="index.php?v=<?php echo $row["VideoID"];?>" style="font-weight: bold;">
-                                        <i class="fire icon"></i>
-                                        <?php echo $row["Titolo"];?>
-                                    </a>
-                                <?php } else {?>
-                                    <a class="item" href="index.php?v=<?php echo $row["VideoID"];?>">
-                                        <?php echo $row["Titolo"];?>
-                                    </a>
-                                <?php }
+                    $videos = query("SELECT Titolo,VideoID FROM video ORDER BY Titolo;");
+                    if (mysqli_num_rows($videos) > 0) {
+                        while ($row = mysqli_fetch_array($videos)) {
+                            if ($row["VideoID"] === $vID) {
+                                ?>
+                                <a class="font informatica active item" href="index.php?v=<?php echo $row["VideoID"]; ?>" style="font-weight: bold;">
+                                    <i class="fire icon"></i>
+                                <?php echo $row["Titolo"]; ?>
+                                </a>
+                                <?php } else { ?>
+                                <a class="item" href="index.php?v=<?php echo $row["VideoID"]; ?>">
+                                <?php echo $row["Titolo"]; ?>
+                                </a>
+                                <?php
                             }
                         }
+                    }
                     ?>
                 </div>
                 <button class="close">

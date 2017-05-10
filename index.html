@@ -128,6 +128,9 @@
             #popup #github {
                 background-color: #24292e;
             }
+            #popup #help {
+                background-color: #ff3d00;
+            }
             @media screen and (max-width: 800px) {
                 #popup { display: none;}
             }
@@ -232,24 +235,29 @@
             <!--Menu popup-->
             <ul id="popup" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
                 <li class="mfb-component__wrap">
-                    <a href="#" class="mfb-component__button--main" id="social">
+                    <a class="mfb-component__button--main" id="social">
                         <i class="mfb-component__main-icon--resting ion-arrow-up-b"></i>
                         <i class="mfb-component__main-icon--active ion-arrow-down-b"></i>
                     </a>
                     <ul class="mfb-component__list">
                         <li>
-                            <a href="https://github.com/carlocorradini/wikITT" data-mfb-label="Seguici su Github" class="mfb-component__button--child" id="github">
+                            <a href="https://github.com/carlocorradini/wikITT" target="_blank" data-mfb-label="Seguici su Github" class="mfb-component__button--child" id="github">
                                 <i class="mfb-component__child-icon ion-social-github"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="#" data-mfb-label="Seguici su Youtube" class="mfb-component__button--child" id="youtube">
+                            <a href="https://www.youtube.com/channel/UC3CagkpTNwQNIyN51df7moA" data-mfb-label="Seguici su Youtube" target="_blank" class="mfb-component__button--child" id="youtube">
                                 <i class="mfb-component__child-icon ion-social-youtube"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="#" data-mfb-label="Seguici su Facebook" class="mfb-component__button--child" id="facebook">
+                            <a href="#" data-mfb-label="Seguici su Facebook" target="_blank" class="mfb-component__button--child" id="facebook">
                                 <i class="mfb-component__child-icon ion-social-facebook"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/help/index.html" data-mfb-label="Il sito è in beta, per problemi contatta qui gli amministratori" class="mfb-component__button--child" id="help">
+                                <i class="mfb-component__child-icon ion-alert"></i>
                             </a>
                         </li>
                     </ul>

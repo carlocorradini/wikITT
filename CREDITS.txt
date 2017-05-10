@@ -37,5 +37,8 @@ CPP => http://www.unixstickers.com/stickers/coding_stickers/c-plus-plus-programm
 C => http://www.unixstickers.com/stickers/coding_stickers/c-logo-programming-language-sticker
 PHP => https://commons.wikimedia.org/wiki/File:Application-x-php.svg
 RB => http://perfectial.com/ruby/
-
 DOWNLOAD => http://www.flaticon.com/free-icon/file_138601#term=download&page=1&position=14
+
+NOSCRIPT BG => https://www.toptal.com/designers/subtlepatterns/giftly/
+
+PROFILE IMAGE => https://semantic-ui.com/images/avatar/large/<nomeImmagine.estensione>
