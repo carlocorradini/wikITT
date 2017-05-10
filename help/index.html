@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Supporto</title>
+        <link rel="icon" href="/common/image/icon.ico" type="image/x-icon">
+        
+        <!--Frameworks-->
+        <!--Pace-->
+        <link rel="stylesheet" type="text/css" href="/common/framework/pace/pace.min.css"/>
+        <script src="/common/framework/pace/pace.min.js" type="text/javascript"></script>
+        <!--Jquery-->
+        <script src="/common/framework/jquery.min.js" type="text/javascript"></script>
+        <!--Semantic-UI-->
+        <link rel="stylesheet" type="text/css" href="/common/framework/semantic-UI/semantic.min.css"/>
+        <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
+        <!--Bootstrap-->
+        <link rel="stylesheet" type="text/css" href="/common/framework/bootstrap.min.css"/>
+        <!--END Framweworks-->
+        
+        <style>
+            .banner{ 
+                position: relative; 
+                width: 100%;
+                text-align: center;
+            }
+            .help{ 
+                position: absolute; 
+                top: 10%;
+                width: 100%;
+                color: #fff;
+            }            
+            #tab{
+                padding-top: 4em;
+                padding-bottom: 3em;
+                margin-top: 3%;
+                margin-left: 30%;
+                margin-right: 30%;
+            }
+            .thanks{
+                padding-top: 1em;
+                color: #f44336;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <!--#include virtual="/common/component/header.html" -->
+
+            <div class="banner">
+                <img src="/common/image/banner.jpg" alt="" />
+                <h1 class="help">CONTATTACI</h1>
+            </div>        
+            <div class="ui blue raised segment center aligned" id="tab">
+                <h2>Hai riscontrato qualche problema?</h2><br>
+                <p>Inviaci una mail a <span data-tooltip="Premi per inviare"><a href="mailto:prova@gmail.com?Subject=Problema%20nel%20sito" target="_top">questo indirizzo</a></span>.</p>
+                <p>Specifica l'errore, dove si verifica e sotto quali circostanze.</p>
+                <h2 class='thanks'>Grazie!</h2>
+            </div>        
+        </div>
+        <!--#include virtual="/common/component/footer.html" -->
+    </body>
+</html>
