@@ -16,6 +16,9 @@ Il footer deve essere incluso fuori e dopo il <div class="wrapper"> con il coman
         </div>
         #include virtual="/common/component/footer.html" 
 -->
+<head>
+    
+
 <style>
     .bounce {
         -webkit-animation: bounce 2s infinite;
@@ -166,12 +169,13 @@ Il footer deve essere incluso fuori e dopo il <div class="wrapper"> con il coman
         height: 50px!important;
     }
     
-</style> 
+</style>
+
 <script>
     $(document).ready(function () {
         $("#scroll-top").on("click", function() {
             $('html,body').animate({
-                scrollTop: $(".header").offset().top
+                scrollTop: $("#header").offset().top
             },'slow');
         });
     });
