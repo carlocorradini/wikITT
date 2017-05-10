@@ -734,58 +734,56 @@
                 }); 
                 });
             }
-            
-            
-            
-        function handleAuthClick(rating) {
-            if (GoogleAuth.isSignedIn.get()) {
-              // User is authorized and has clicked 'Sign out' button.
-              alert("Qui fai la query");
-              //https://developers.google.com/apis-explorer/#search/rate/m/youtube/v3/youtube.videos.rate?id=RjUlmco7v2M&rating=like&_h=1&            
-              //POST https://www.googleapis.com/youtube/v3/videos/rate?id=RjUlmco7v2M&rating=like&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA
+             
+            function handleAuthClick(rating) {
+                if (GoogleAuth.isSignedIn.get()) {
+                  // User is authorized and has clicked 'Sign out' button.
+                  console.log("Query Google");
+                  //https://developers.google.com/apis-explorer/#search/rate/m/youtube/v3/youtube.videos.rate?id=RjUlmco7v2M&rating=like&_h=1&            
+                  //POST https://www.googleapis.com/youtube/v3/videos/rate?id=RjUlmco7v2M&rating=like&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA
 
-              var request = gapi.client.request({
-                'method': 'POST',
-                'path': 'https://www.googleapis.com/youtube/v3/videos/rate',
-                'params': {
-                    'id':"<?php echo  filter_input(INPUT_GET, "v");?>",
-                    'rating':rating,
-                    'key':"AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA"}
-              });
-              
-              request.execute(function(response){
-                  console.log(response);        
-              });
-              alert("Fatta");
-            } else {
-              // User is not signed in. Start Google auth flow.
-              GoogleAuth.signIn();
-            }
-          }
+                  var request = gapi.client.request({
+                    'method': 'POST',
+                    'path': 'https://www.googleapis.com/youtube/v3/videos/rate',
+                    'params': {
+                        'id':"<?php echo  filter_input(INPUT_GET, "v");?>",
+                        'rating':rating,
+                        'key':"AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA"}
+                  });
 
-          function revokeAccess() {
-            GoogleAuth.disconnect();
-          }
-         
-          function setSigninStatus(isSignedIn) {
-            var user = GoogleAuth.currentUser.get();
-            var isAuthorized = user.hasGrantedScopes(SCOPE);/*
-            if (isAuthorized) {
-              $('#sign-in-or-out-button').html('Sign out');
-              $('#revoke-access-button').css('display', 'inline-block');
-              $('#auth-status').html('You are currently signed in and have granted ' +
-                  'access to this app.');
-            } else {
-              $('#sign-in-or-out-button').html('Sign In/Authorize');
-              $('#revoke-access-button').css('display', 'none');
-              $('#auth-status').html('You have not authorized this app or you are ' +
-                  'signed out.');
-            }*/
-          }
+                  request.execute(function(response){
+                      console.log(response);        
+                  });
+                  console.log("Query eseguita");
+                } else {
+                  // User is not signed in. Start Google auth flow.
+                  GoogleAuth.signIn();
+                }
+              }
 
-          function updateSigninStatus(isSignedIn) {
-            setSigninStatus();
-          }
+              function revokeAccess() {
+                GoogleAuth.disconnect();
+              }
+
+              function setSigninStatus(isSignedIn) {
+                var user = GoogleAuth.currentUser.get();
+                var isAuthorized = user.hasGrantedScopes(SCOPE);/*
+                if (isAuthorized) {
+                  $('#sign-in-or-out-button').html('Sign out');
+                  $('#revoke-access-button').css('display', 'inline-block');
+                  $('#auth-status').html('You are currently signed in and have granted ' +
+                      'access to this app.');
+                } else {
+                  $('#sign-in-or-out-button').html('Sign In/Authorize');
+                  $('#revoke-access-button').css('display', 'none');
+                  $('#auth-status').html('You have not authorized this app or you are ' +
+                      'signed out.');
+                }*/
+              }
+
+              function updateSigninStatus(isSignedIn) {
+                setSigninStatus();
+              }
         </script>
         <script async defer src="https://apis.google.com/js/api.js" 
                 onload="this.onload=function(){};handleClientLoad()">
