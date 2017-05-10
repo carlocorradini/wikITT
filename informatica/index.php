@@ -790,6 +790,9 @@
                         $obj = json_decode($result);
                         return $obj;
                     }
+                    
+                    $stat = stampaStat($vID);
+                    
                     function stampaPercentuale($num1, $num2) {
                         
                         $sum = $num1+$num2;
@@ -914,7 +917,7 @@
                                             <span>Like</span>
                                         </div>
                                         <a class="ui green left pointing label">
-                                            <?php echo stampaStat($vID)->items[0]->statistics->likeCount; ?>
+                                            <?php echo $stat->items[0]->statistics->likeCount; ?>
                                         </a>
                                     </div>
                                     <div class="ui labeled button" id="dislike" tabindex="0">
@@ -923,14 +926,14 @@
                                             <span>Dislike</span>
                                         </div>
                                         <a class="ui red left pointing label">
-                                            <?php echo stampaStat($vID)->items[0]->statistics->dislikeCount; ?>
+                                            <?php echo $stat->items[0]->statistics->dislikeCount; ?>
                                         </a>
                                     </div>
                                     <div class="ui teal tag label large" id="video-views">
                                         <span><?php echo number_format(stampaStat($vID)->items[0]->statistics->viewCount, 0, ',', '.'); ?></span> Visualizzazioni
                                     </div>
                                     <div class="ui tiny green active progress" id="feedback-progress" style="margin-top: 0.5em; background-color: #db2828;">
-                                        <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale(stampaStat($vID)->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%;"></div>
+                                        <div class="bar" style="min-width: 0%; width:<?php echo stampaPercentuale($stat->items[0]->statistics->likeCount, stampaStat($vID)->items[0]->statistics->dislikeCount);?>%;"></div>
                                     </div>
                                 </div>
                                 

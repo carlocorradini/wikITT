@@ -13,6 +13,12 @@
     $annoS = filter_input(INPUT_GET, "AnnoS");
     $gender = filter_input(INPUT_GET, "gender");
     $colore = filter_input(INPUT_GET, "colore");
+    if($gender="M"){
+        
+    }
+    elseif ($gender="F") {
+    
+    }
     $icona = filter_input(INPUT_GET, "icona");
     
     $result = query("INSERT INTO autore VALUES ('$nome', '$cognome', '$classe', '$annoS', '$gender', '$icona', '$colore');");
