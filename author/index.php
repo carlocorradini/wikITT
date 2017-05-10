@@ -115,6 +115,15 @@
                 });
             }
 
+            function createView($cards) {
+                $("#contenitore-4 .ui.stackable.four.column.grid .column").remove();
+                for (i = 0; i < $cards.length; i++) {
+                    console.log("createView " + $cards.length);
+                    $("#contenitore-4 .ui.stackable.four.column.grid").append("<div class='column' id='" + i + "'></div>");
+                    $("#contenitore-4 .ui.stackable.four.column.grid #" + i).html($cards[i]);
+                }
+            }
+
             function dateSort() {
                 $("#sortNome i").removeClass("ascending").removeClass("descending");
                 if ($("#sortData i").hasClass("ascending")) {
@@ -127,13 +136,8 @@
                     return $(a).find("#dataPub").text() < $(b).find("#dataPub").text();
                 });
                 $cards = alphabeticallyOrderedDivs;
-                $("#contenitore-4 .ui.stackable.four.column.grid .column").remove();
-                for (i = 0; i < $cards.length; i++) {
-                    $("#contenitore-4 .ui.stackable.four.column.grid").append("<div class='column' id='" + i + "'></div>");
-                    $("#contenitore-4 .ui.stackable.four.column.grid #" + i).html($cards[i]);
-                }
+                createView($cards);
                 $("#sortData").one("click", dateSortReverse);
-                $("#sortNome").one("click", alphaSort);
             }
 
             function dateSortReverse() {
@@ -146,13 +150,8 @@
                     return $(a).find("#dataPub").text() > $(b).find("#dataPub").text();
                 });
                 $cards = alphabeticallyOrderedDivs;
-                $("#contenitore-4 .ui.stackable.four.column.grid .column").remove();
-                for (i = 0; i < $cards.length; i++) {
-                    $("#contenitore-4 .ui.stackable.four.column.grid").append("<div class='column' id='" + i + "'></div>");
-                    $("#contenitore-4 .ui.stackable.four.column.grid #" + i).html($cards[i]);
-                }
+                createView($cards);
                 $("#sortData").one("click", dateSort);
-                $("#sortNome").one("click", alphaSort);
             }
 
             function alphaSort() {
@@ -167,13 +166,8 @@
                     return $(a).find("div.header").text() > $(b).find("div.header").text();
                 });
                 $cards = alphabeticallyOrderedDivs;
-                $("#contenitore-4 .ui.stackable.four.column.grid .column").remove();
-                for (i = 0; i < $cards.length; i++) {
-                    $("#contenitore-4 .ui.stackable.four.column.grid").append("<div class='column' id='" + i + "'></div>");
-                    $("#contenitore-4 .ui.stackable.four.column.grid #" + i).html($cards[i]);
-                }
+                createView($cards);
                 $("#sortNome").one("click", alphaSortReverse);
-                $("#sortData").one("click", dateSort);
             }
 
             function alphaSortReverse() {
@@ -186,13 +180,8 @@
                     return $(a).find("div.header").text() < $(b).find("div.header").text();
                 });
                 $cards = alphabeticallyOrderedDivs;
-                $("#contenitore-4 .ui.stackable.four.column.grid .column").remove();
-                for (i = 0; i < $cards.length; i++) {
-                    $("#contenitore-4 .ui.stackable.four.column.grid").append("<div class='column' id='" + i + "'></div>");
-                    $("#contenitore-4 .ui.stackable.four.column.grid #" + i).html($cards[i]);
-                }
+                createView($cards);
                 $("#sortNome").one("click", alphaSort);
-                $("#sortData").one("click", dateSort);
             }
         </script>
         <div class="contenuto">
