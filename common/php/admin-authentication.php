@@ -11,8 +11,8 @@
     );
     //Username & Password
     $username = filter_input(INPUT_GET, "username");
-    $password = filter_input(INPUT_GET, "password");
-    
+    $password = md5(filter_input(INPUT_GET, "password"));
+
     if (!isset($_SESSION["credentials"])) {
         if(isset($username) && isset($password)) {
             if(authentication_param($username, $password)) {
