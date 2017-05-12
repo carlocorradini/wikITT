@@ -704,7 +704,7 @@
                 $("#video-navigation").height(height);
                 setTimeout(function() {
                     videoNavigationHeight();
-                }, 500);
+                }, 250);
             }
             function viewport() {
                 var e = window, a = 'inner';
