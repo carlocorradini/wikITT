@@ -9,9 +9,9 @@
         "message" => null
     );
     //Email
-    $email = filter_input(INPUT_GET, "email");
+    $email = filter_input(INPUT_POST, "email");
     
-    if(isset($email)) {
+    if(isset($email) && $email != "") {
         if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $result = query("SELECT Email FROM newsletter WHERE Email='$email' LIMIT 1;");
             if(mysqli_num_rows($result) === 0) {

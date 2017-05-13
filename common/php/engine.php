@@ -1,9 +1,13 @@
 
 <?php
     //DB Access
-    $dbAddress = "mysql.stackcp.com:21257";
+    /*$dbAddress = "mysql.stackcp.com:21257";
     $dbUsername = "wikitt-355d4a";
     $dbPassword = "1234password";
+    $dbName = "wikitt-355d4a";*/
+    $dbAddress = "localhost";
+    $dbUsername = "root";
+    $dbPassword = "";
     $dbName = "wikitt-355d4a";
     //DB Usage
     connect($connection);
