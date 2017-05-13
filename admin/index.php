@@ -83,7 +83,8 @@
                         if (data.status) {
                             $(message).removeClass("error").addClass("success");
                             $(message).find("i").removeClass().addClass("checkmark icon");
-                            $(message).find("span").html(data.message+" - Redirecting...");
+                            $(message).find("span").html(data.message + ' - Redirecting in <span id="redirect-timeout"></span>');
+                            redirect(3, $("#message #redirect-timeout"), "index.php");
                         } else {
                             $(message).removeClass("success").addClass("error");
                             $(message).find("i").removeClass().addClass("remove icon");
@@ -95,6 +96,18 @@
                     }
                 });
                 return false;
+            }
+            function redirect(timeOut, component, target) {
+                $(component).html(timeOut);
+                setTimeout(countDown, 1000);
+                function countDown() {
+                    timeOut--;
+                    if (timeOut > 0)
+                        setTimeout(countDown, 1000);
+                    else
+                        window.location.href = target;
+                    $(component).html(timeOut);
+                }
             }
         </script>
         <div class="wrapper">
