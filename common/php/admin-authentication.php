@@ -10,12 +10,16 @@
         "message" => null
     );
     //Username & Password
-    $username = filter_input(INPUT_GET, "username");
-    $password = md5(filter_input(INPUT_GET, "password"));
+    $username = filter_input(INPUT_POST, "username");
+    $password = md5(filter_input(INPUT_POST, "password"));
 
     if (!isset($_SESSION["credentials"])) {
         if(isset($username) && isset($password)) {
             if(authentication_param($username, $password)) {
+                $_SESSION["credentials"] = array(
+                    "username" => $username,
+                    "password" => $password
+                );
                 setResponse($data, TRUE, "Autenticazione riuscita");
             } else { setResponse($data, FALSE, "Username o Password non valide");}
             connection_close();

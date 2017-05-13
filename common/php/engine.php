@@ -39,7 +39,7 @@
     function authentication_param($username, $password) {
         global $connection;
         $toRtn = false;
-        $stmt = mysqli_prepare($connection, "SELECT * FROM amministratore WHERE NomeUtente=? and Password=? LIMIT 1;");
+        $stmt = mysqli_prepare($connection, "SELECT * FROM amministratore WHERE BINARY NomeUtente=? and Password=? LIMIT 1;");
         mysqli_stmt_bind_param($stmt, "ss", $username, $password);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_store_result($stmt);

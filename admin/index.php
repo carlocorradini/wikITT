@@ -72,13 +72,11 @@
             function submitForm(form) {
                 //Send Data for Validation
                 $(form).addClass("loading");
-                var username = $(form).find("input[name=username]").val();
-                var password = $(form).find("input[name=password]").val();
-                var url = "/common/php/admin-authentication.php?"
-                        + "username=" + username + "&password=" + password;
+                var url = "/common/php/admin-authentication.php";
                 $.ajax({
-                    type: 'GET',
+                    type: 'POST',
                     url: url,
+                    data: $(form).serialize(),
                     success: function (data) {
                         $(form).removeClass("loading");
                         var message = $("#message");
@@ -102,7 +100,7 @@
         <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
             <div id="sign-in">
-                <form class="ui attached form segment big">
+                <form class="ui attached form segment big" action="#">
                     <h1 class="ui horizontal divider header">
                         <i class="shield icon"></i>
                         Admin | Sign In
