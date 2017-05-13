@@ -23,6 +23,10 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/2.0.7/plyr.css"/>
         <script src="https://cdn.plyr.io/2.0.7/plyr.js" type="text/javascript"></script>
         <!--END Framweworks-->
+        
+        <!--Custom-->
+        <link rel="stylesheet" type="text/css" href="/common/style/style.css"/>
+        <script src="/common/script/script.js" type="text/javascript"></script>
     </head>
     <body>
         <script>
@@ -40,6 +44,26 @@
                   $('#select')
                     .dropdown()
                   ;
+                  
+                  $("#uploadAuth").submit(function() {    
+                        var url = "/common/php/uploadAuth.php";
+                        $.ajax({
+                            type: 'POST',
+                            data: $("#uploadAuth").serialize(),
+                            url: url,
+                            success: function (data) {
+                                //If all is correct show success message else prompt error
+                                if (data.status) {
+                                    alert("Inserimento riuscito");
+                                }
+                                else
+                                    alert("Inserimento fallito");
+                            }, error: function (jqXHR, status, error) {
+                                console.error("[UPLOADAUUTHOR]: "+error);
+                            }
+                        });
+                    return false;
+                    });
             });
         </script>
         <div class="wrapper">
@@ -56,7 +80,7 @@
 
                             <h1 class="center_aligned">Aggiunta nuovo autore</h1>
 
-                            <form class="ui form" id="uploadAuth" action="#" method="POST" onsubmit="load()">
+                            <form class="ui form" id="uploadAuth">
                                 <div class="field">
                                     <label>Nome Autore</label>
                                     <div class="ui right icon input">
