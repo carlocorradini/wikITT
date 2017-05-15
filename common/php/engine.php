@@ -1,17 +1,38 @@
 
 <?php
-    //DB Access
-    $dbAddress = "mysql.stackcp.com:21257";
+    //---DB Access---
+    /*$dbAddress = "mysql.stackcp.com:21257";
     $dbUsername = "wikitt-355d4a";
     $dbPassword = "1234password";
-    $dbName = "wikitt-355d4a";
-    /*$dbAddress = "localhost";
+    $dbName = "wikitt-355d4a";*/
+    $dbAddress = "localhost";
     $dbUsername = "root";
     $dbPassword = "";
-    $dbName = "wikitt";*/
-    //DB Usage
+    $dbName = "wikitt-355d4a";
+    //---DB Usage---
     connect($connection);
-    //Set encoding UTF-8 -> Italian
+    //---Encryption---
+    /*Benchmark server to determine cost
+        $timeTarget = 0.05; // 50 milliseconds 
+        $cost = 8;
+        do {
+            $cost++;
+            $start = microtime(true);
+            password_hash("test", PASSWORD_BCRYPT, ["cost" => $cost]);
+            $end = microtime(true);
+        } while (($end - $start) < $timeTarget);
+        echo "Appropriate Cost Found: " . $cost . "\n";
+    */
+    //Options for password_hash
+    //$psw = password_hash("[String.To.Encrypt]", PASSWORD_BCRYPT, $options);
+    $options = [
+        'cost' => 12,
+        //PHP 5
+        mcrypt_create_iv(22, MCRYPT_DEV_URANDOM)
+        //PHP 7
+        //'salt' => random_bytes(22)
+    ];
+    //---Set encoding UTF-8 -> Italian---
     query("SET character_set_results=utf8");
     mb_language("uni");
     mb_internal_encoding("UTF-8");
@@ -43,11 +64,12 @@
     function authentication_param($username, $password) {
         global $connection;
         $toRtn = false;
-        $stmt = mysqli_prepare($connection, "SELECT * FROM amministratore WHERE BINARY NomeUtente=? and Password=? LIMIT 1;");
-        mysqli_stmt_bind_param($stmt, "ss", $username, $password);
+        $stmt = mysqli_prepare($connection, "SELECT Password FROM amministratore WHERE BINARY NomeUtente=? LIMIT 1;");
+        mysqli_stmt_bind_param($stmt, "s", $username);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_store_result($stmt);
-        if(mysqli_stmt_num_rows($stmt) === 1) {
+        $result = mysqli_stmt_get_result($stmt);
+        if(mysqli_num_rows($result) === 1
+                && password_verify($password, mysqli_fetch_assoc($result)["Password"])) {
             $toRtn = true;
         }
         mysqli_stmt_close($stmt);

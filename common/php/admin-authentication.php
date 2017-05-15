@@ -11,7 +11,7 @@
     );
     //Username & Password
     $username = filter_input(INPUT_POST, "username");
-    $password = md5(filter_input(INPUT_POST, "password"));
+    $password = filter_input(INPUT_POST, "password");
 
     if (!isset($_SESSION["username"])) {
         if(isset($username) && isset($password)) {
