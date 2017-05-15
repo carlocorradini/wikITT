@@ -8,7 +8,7 @@
     $dbAddress = "localhost";
     $dbUsername = "root";
     $dbPassword = "";
-    $dbName = "wikitt-355d4a";
+    $dbName = "wikitt";
     //DB Usage
     connect($connection);
     //Set encoding UTF-8 -> Italian
@@ -55,20 +55,31 @@
     }
     function authentication_session() {
         $toRtn = false;
-        if(isset($_SESSION["credentials"])) {
-            $toRtn = authentication_param(getUsername(), getPassword());
+        if(isset($_SESSION["username"])) {
+            $result = query("SELECT * FROM amministratore WHERE BINARY NomeUtente='".getUsername()."' LIMIT 1;");
+            if(mysqli_num_rows($result) == 1) {
+               $toRtn = true;
+            }
         }
         return $toRtn;
     }
     function getUsername() {
-        if(isset($_SESSION["credentials"])) {
-            return $_SESSION["credentials"]["username"];
+        if(isset($_SESSION["username"])) {
+            return $_SESSION["username"];
         }
     }
-    function getPassword() {
-        if(isset($_SESSION["credentials"])) {
-            return $_SESSION["credentials"]["password"];
-        }
+    //Administrator Info
+    function getAdminCreationDateTime() {
+        $result = query("SELECT DataCreazione FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
+        return mysqli_fetch_array($result)["DataCreazione"];
+    }
+    function getAdminVideoCount() {
+        $result = query("SELECT COUNT(*) AS VideoCount FROM video V WHERE V.NomeAmm='".getUsername()."';");
+        return mysqli_fetch_array($result)["VideoCount"];
+    }
+    function getAdminUserCount() {
+        $result = query("SELECT COUNT(*) AS UserCount FROM autore A WHERE A.NomeAmm='".getUsername()."';");
+        return mysqli_fetch_array($result)["UserCount"];
     }
     /*END Authentication*/
     
