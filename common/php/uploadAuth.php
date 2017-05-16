@@ -17,7 +17,7 @@
     $gender = filter_input(INPUT_POST, "gender");
     $colore = filter_input(INPUT_POST, "colore");
     $icona = filter_input(INPUT_POST, "icona");  
-    $nomeAmm = $_SESSION['username'];
+    $nomeAmm = getUsername();
     
     /*if($gender=="M") {
         
