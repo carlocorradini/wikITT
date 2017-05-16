@@ -24,43 +24,7 @@
     <!--END Framweworks-->
 </head>
 <style>
-    .line{
-        width: 60%!important;
-        margin: auto!important;
-        height: 19%;
-        
-    }
-    .floating-box{
-        margin:auto;
-        display: flex;
-        
-    }
-    .miniatura{
-        float:left;
-        display:inline-block;
-        width: 200px;
-        height: 150px;
-        vertical-align: central;
-       
-    }
-    .categoria-autore{
-        margin-left: 15px;
-        display:flex;
-    }
-    .titolo{
-        margin-left: 15px;
-        display:flex;
-    }
-    .descrizione{
-        margin-left: 15px;
-        display:flex;
-    }
-    .visite-data{
-        margin-top: 40px;
-        margin-left: 15px;
-        display:flex;
-    }
-
+    
     
     
     
@@ -117,11 +81,11 @@
         position: relative!important;
 
     }
-    .card {
-        position: relative;
-        width: 100%;
-        min-height: 100px;
-        margin-top: 1em!important;
+    .ui.items.bordo{
+        margin-bottom: 1em!important;  
+    }
+    .bordo {
+        
         padding: 1em;
         border-radius: 3px;
         -webkit-border-radius: 3px;
@@ -277,12 +241,18 @@ if(isset($_REQUEST['search'])){
                 $vid = $row['Cod'];
                 $resultautori = query("SELECT DISTINCT a.Nome as nomeAutore, a.Cognome as cognomeAutore, a.ID as idAutore FROM autore a, realizza r WHERE r.CodVideo ='$vid' AND a.ID = r.IDAutore");
                 ?>
-                <div class="line card floating-box" style="cursor: pointer;" onclick="window.location='http://localhost/informatica/index.php?v=<?php echo $row['VideoID'];?>'" > 
-                    <img class="miniatura" src="https://img.youtube.com/vi/<?php echo $row['VideoID']; ?>/sddefault.jpg">    
-                    <div>
+                
+                <div class=' container'>
+                <div class="ui items bordo" style="cursor: pointer;" onclick="window.location='http://localhost/informatica/index.php?v=<?php echo $row['VideoID'];?>'" > 
+                    <div class="item">
+                        <div class="image">
+                            <img src="https://img.youtube.com/vi/<?php echo $row['VideoID']; ?>/sddefault.jpg">    
+                        </div>
+                    
+                    
                         
+                        <?php /*
                         <div class="categoria-autore">
-                            <div class="ui <?php echo $color?> label"><?php echo $row['materia']?></div>
                             <?php
                             echo "<i class='users icon'></i>";
                             if(mysqli_num_rows($resultautori) > 0){
@@ -291,25 +261,34 @@ if(isset($_REQUEST['search'])){
                                     <?php
                                 }
                             }
-                            ?>
-                            
+                            ?> 
                         </div>
-                        <div class="content titolo">
-                            <div><h2><a href="#"><?php echo $row['titoloVideo']?></a></h2></div>                        
-                        </div>
-                        <div class="descrizione">
-                            <p><?php echo $row['Descrizione'];?></p>
-                        </div>
-                        <div class="visite-data">
-                            <div class="ui teal tag label large" id="video-views">
-                                <span><?php echo number_format(stampaStat($row['VideoID'])->items[0]->statistics->viewCount, 0, ',', '.');?></span> Visualizzazioni
+                        
+                         */?>
+                        
+
+                        <div class="content">
+                            <h2><a class="header" href="#"><?php echo $row['titoloVideo']?></a></h2>                       
+       
+                            <div class="description">
+                                <p><?php echo $row['Descrizione'];?></p>
                             </div>
-                            <div class="ui label" style="float: right;">
-                                <i class="calendar icon"></i>
-                                <?php echo $row["DataPub"]?>
+                            <div class="extra">
+                                <div class="ui label">
+                                    <i class="calendar icon"></i>
+                                    <?php echo $row["DataPub"]?>
+                                </div>
+                                <div class="ui teal label">
+                                    <span><?php echo number_format(stampaStat($row['VideoID'])->items[0]->statistics->viewCount, 0, ',', '.');?></span> Visualizzazioni
+                                </div>
+                                
+                                <div class="ui <?php echo $color?> label"><?php echo $row['materia']?></div>
                             </div>
                         </div>
+                        
+                        
                     </div>
+                </div>
                 </div>
 
         <?php
