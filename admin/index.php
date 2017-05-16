@@ -10,7 +10,7 @@ session_start();
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <?php if (authentication_session()) { ?>
+        <?php if (authentication_session()) {?>
             <title>Admin | Control Panel</title>
         <?php } else { ?>
             <title>Admin | Sign In</title>
@@ -34,17 +34,73 @@ session_start();
             <?php
             if (authentication_session()) {
             ?>
-            <div class="ui card">
-                <div class="image">
-                    <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png" alt="administrator">
-                </div>
+            <style>
+                #form-change-password {
+                    display: none;
+                }
+            </style>
+            <script>
+                $(document).ready(function() {
+                    $('.ui.checkbox').checkbox();
+                    $("#change-password").on("click", function() {
+                        $("#form-change-password").transition("swing down");
+                    });
+                });
+            </script>
+            <div class="ui centered card">
                 <div class="content">
+                    <img class="right floated mini ui image" src="/common/image/profile/terminal.png" alt="administrator">
                     <div class="header"><?php echo getUsername();?></div>
                     <div class="meta">
-                        <span class="date">Creato il <?php echo getAdminCreationDateTime();?></span>
+                        <span class="date">Creato il <?php echo getAdminCreationDate();?> alle <?php echo getAdminCreationTime();?></span>
                     </div>
-                    <i class="video icon"></i> <?php echo getAdminVideoCount();?>
-                    <i class="user icon"></i> <?php echo getAdminUserCount()?>
+                    <div class="description">
+                        <span class="right floated">
+                            <i class="user icon"></i>
+                            <?php echo getAdminUserCount()?> Autori
+                        </span>
+                        <i class="video icon"></i>
+                        <?php echo getAdminVideoCount();?> Video
+                    </div>
+                </div>
+                <div class="extra content">
+                    <div class="ui two buttons large">
+                        <div class="ui orange inverted button">
+                            <i class="add icon"></i>
+                            Video
+                        </div>
+                        <div class="ui green inverted button">
+                            <i class="add icon"></i>
+                            Autore
+                        </div>
+                    </div>
+                </div>
+                <div class="extra content" id="form-change-password">
+                    <form class="ui form" action="#">
+                        <div class="field">
+                            <div class="ui left icon fluid input">
+                                <input type="password" name="old_password" placeholder="Vecchia Password" autocomplete="off" required>
+                                <i class="lock icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon fluid input">
+                                <input type="password" name="new_password" placeholder="Nuova Password" autocomplete="off" required>
+                                <i class="lock icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon fluid input">
+                                <input type="password" name="new_password_retype" placeholder="Ripeti Nuova Password" autocomplete="off" required>
+                                <i class="lock icon"></i>
+                            </div>
+                        </div>
+                        <button class="ui button" type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="ui bottom attached large blue button" id="change-password">
+                    <i class="lock icon"></i>
+                    Cambia Password
                 </div>
             </div>
             <?php } else {

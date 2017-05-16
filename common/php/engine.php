@@ -1,14 +1,14 @@
 
 <?php
     //---DB Access---
-    /*$dbAddress = "mysql.stackcp.com:21257";
+    $dbAddress = "mysql.stackcp.com:21257";
     $dbUsername = "wikitt-355d4a";
     $dbPassword = "1234password";
-    $dbName = "wikitt-355d4a";*/
-    $dbAddress = "localhost";
+    $dbName = "wikitt-355d4a";
+    /*$dbAddress = "localhost";
     $dbUsername = "root";
     $dbPassword = "";
-    $dbName = "wikitt-355d4a";
+    $dbName = "wikitt-355d4a";*/
     //---DB Usage---
     connect($connection);
     //---Encryption---
@@ -91,9 +91,13 @@
         }
     }
     //Administrator Info
-    function getAdminCreationDateTime() {
-        $result = query("SELECT DataCreazione FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
+    function getAdminCreationDate() {
+        $result = query("SELECT DATE(DataCreazione) AS DataCreazione FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
         return mysqli_fetch_array($result)["DataCreazione"];
+    }
+    function getAdminCreationTime() {
+        $result = query("SELECT TIME(DataCreazione) AS OraCreazione FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
+        return mysqli_fetch_array($result)["OraCreazione"];
     }
     function getAdminVideoCount() {
         $result = query("SELECT COUNT(*) AS VideoCount FROM video V WHERE V.NomeAmm='".getUsername()."';");
