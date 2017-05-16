@@ -661,6 +661,7 @@
                 curl_close($ch);
                 return json_decode($result);
             }
+            
             function getViewCount($vStat) {
                 return $vStat->items[0]->statistics->viewCount;
             }

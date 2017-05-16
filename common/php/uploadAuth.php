@@ -29,5 +29,5 @@
     
     $result = query("INSERT INTO autore(Nome, Cognome, Classe, AnnoS, Sesso, Miniatura, Colore) VALUES ('$nome', '$cognome', '$classe', '$annoS', '$gender', '$icona', '$colore');");
     setResponse($data, TRUE, "Author inserted correctly!");
-    
+
     echo json_encode($data);
