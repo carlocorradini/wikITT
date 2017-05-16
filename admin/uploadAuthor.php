@@ -46,6 +46,7 @@
                   ;
                   
                   $("#uploadAuth").submit(function() {    
+                       $(this).addClass("loading");
                         var url = "/common/php/uploadAuth.php";
                         $.ajax({
                             type: 'POST',
@@ -54,7 +55,8 @@
                             success: function (data) {
                                 //If all is correct show success message else prompt error
                                 if (data.status) {
-                                    alert("Inserimento riuscito");
+                                    //alert("Inserimento riuscito");
+                                    $("#uploadAuth").removeClass("loading");
                                 }
                                 else
                                     alert("Inserimento fallito");
@@ -71,14 +73,9 @@
         <?php
         // put your code here
         ?>
-        <div class="main">
-                <div class="wrapper">
-
-                    <div class="row">
-                        <div class="col-xs-4"></div>
-                        <div class="col-xs-4">
-
-                            <h1 class="center_aligned">Aggiunta nuovo autore</h1>
+        <div class="main"> 
+            <div class="ui container">
+                <h1 class="center_aligned">Aggiunta nuovo autore</h1>
 
                             <form class="ui form" id="uploadAuth">
                                 <div class="field">
@@ -196,7 +193,7 @@
                                         </div>
                                         <div class="item" data-value="orange">
                                           <div class="ui orange empty circular label"></div>
-                                          Blu
+                                          Arancione
                                         </div>
                                         <div class="item" data-value="yellow">
                                           <div class="ui yellow empty circular label"></div>
@@ -303,20 +300,17 @@
                                             <img class="ui avatar image" src="/common/image/profile/9m.png"> 
                                         </div>
                                       </div>
-                                    </div>
                                   </div>
+                                </div>
                                 </div>
                                 
                                   
                                 <div class="field">                                                               
-                                <button type="submit" class="ui button">LOGIN</button>  
+                                <button type="submit" class="ui button blue">Aggiungi</button>  
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-xs-4"></div>
-                    </div>
-                </div>
-        </div>           
+                            </form>  
+            </div>
+            </div>           
         </div>
         <!--#include virtual="/common/component/footer.html" -->
     </body>
