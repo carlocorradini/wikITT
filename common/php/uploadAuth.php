@@ -1,6 +1,8 @@
 <?php
     //Require engine PHP page
     require 'engine.php';
+    //Inizio sessione amministratore
+    session_start();
     //Prepare response for JS
     header('Content-Type: application/json');
     $data = array(
@@ -15,6 +17,7 @@
     $gender = filter_input(INPUT_POST, "gender");
     $colore = filter_input(INPUT_POST, "colore");
     $icona = filter_input(INPUT_POST, "icona");  
+    $nomeAmm = $_SESSION['username'];
     
     /*if($gender=="M") {
         
@@ -24,7 +27,7 @@
     }*/
     
     
-    $result = query("INSERT INTO autore VALUES ('$nome', '$cognome', '$classe', '$annoS', '$gender', '$icona', '$colore');");
+    $result = query("INSERT INTO autore(Nome, Cognome, Classe, AnnoS, Sesso, Miniatura, Colore) VALUES ('$nome', '$cognome', '$classe', '$annoS', '$gender', '$icona', '$colore');");
     setResponse($data, TRUE, "Author inserted correctly!");
     
     echo json_encode($data);
