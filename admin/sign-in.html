@@ -47,11 +47,11 @@
                 }
             },
             onSuccess: function () {
-                return submitForm(form);
+                return submitSignInForm(form);
             }
         });
     });
-    function submitForm(form) {
+    function submitSignInForm(form) {
         //Send Data for Validation
         $(form).addClass("loading");
         var username = $(form).find('input[name=username]').val();
@@ -129,6 +129,6 @@
     </form>
     <div id="message" class="ui large bottom attached message">
         <i class="send icon"></i>
-        <span>Inserisci le credenziali per autenticarsi</span>
+        <span>Inserisci le credenziali per essere autenticato</span>
     </div>
 </div>

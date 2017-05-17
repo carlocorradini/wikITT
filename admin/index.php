@@ -90,9 +90,44 @@ session_start();
                                     }
                                 ]
                             }
+                        },
+                        onSuccess: function () {
+                            return submitChangePasswordForm($("#form-change-password form"));
                         }
                     });
                 });
+                function submitChangePasswordForm(form) {
+                    //Send Data for Validation
+                    $(form).addClass("loading");
+                    var url = "/common/php/administrator.php";
+                    /*$.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: {
+                            type: 1,
+                            username: username,
+                            password: password
+                        },
+                        success: function (data) {
+                            $(form).removeClass("loading");
+                            var message = $("#message");
+                            if (data.status) {
+                                $(message).removeClass("error").addClass("success");
+                                $(message).find("i").removeClass().addClass("checkmark icon");
+                                $(message).find("span").html(data.message + ' - Redirecting in <span id="redirect-timeout"></span>');
+                                redirect(3, $("#message #redirect-timeout"), "index.php");
+                            } else {
+                                $(message).removeClass("success").addClass("error");
+                                $(message).find("i").removeClass().addClass("remove icon");
+                                $(message).find("span").html(data.message);
+                            }
+                            console.info("[AUTHENTICATION]: " + data.message);
+                        }, error: function (jqXHR, status, error) {
+                            console.error("[AUTHENTICATION]: " + error);
+                        }
+                    });*/
+                    return false;
+                }
             </script>
             <div class="ui centered card">
                 <div class="content">
