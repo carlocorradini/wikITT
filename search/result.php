@@ -243,52 +243,52 @@ if(isset($_REQUEST['search'])){
                 ?>
                 
                 <div class=' container'>
-                <div class="ui items bordo" style="cursor: pointer;" onclick="window.location='http://localhost/informatica/index.php?v=<?php echo $row['VideoID'];?>'" > 
-                    <div class="item">
-                        <div class="image">
-                            <img src="https://img.youtube.com/vi/<?php echo $row['VideoID']; ?>/sddefault.jpg">    
-                        </div>
-                    
-                    
-                        
-                        <?php /*
-                        <div class="categoria-autore">
-                            <?php
-                            echo "<i class='users icon'></i>";
-                            if(mysqli_num_rows($resultautori) > 0){
-                                while ($rowautori = mysqli_fetch_array($resultautori)){?>
-                                    <a style='margin-left: 4px;' href="../author/index.php?a=<?php echo $rowautori['idAutore'];?>"><?php echo $rowautori['nomeAutore']." ".$rowautori['cognomeAutore'];?> </a>
-                                    <?php
-                                }
-                            }
-                            ?> 
-                        </div>
-                        
-                         */?>
-                        
+                    <div class="ui items bordo" style="cursor: pointer;" onclick="window.location='http://localhost/informatica/index.php?v=<?php echo $row['VideoID'];?>'" > 
+                        <div class="item">
+                            <div class="image">
+                                <img src="https://img.youtube.com/vi/<?php echo $row['VideoID']; ?>/sddefault.jpg">    
+                            </div>
 
-                        <div class="content">
-                            <h2><a class="header" href="#"><?php echo $row['titoloVideo']?></a></h2>                       
-       
-                            <div class="description">
-                                <p><?php echo $row['Descrizione'];?></p>
+
+
+                            <?php /*
+                            <div class="categoria-autore">
+                                <?php
+                                echo "<i class='users icon'></i>";
+                                if(mysqli_num_rows($resultautori) > 0){
+                                    while ($rowautori = mysqli_fetch_array($resultautori)){?>
+                                        <a style='margin-left: 4px;' href="../author/index.php?a=<?php echo $rowautori['idAutore'];?>"><?php echo $rowautori['nomeAutore']." ".$rowautori['cognomeAutore'];?> </a>
+                                        <?php
+                                    }
+                                }
+                                ?> 
                             </div>
-                            <div class="extra">
-                                <div class="ui label">
-                                    <i class="calendar icon"></i>
-                                    <?php echo $row["DataPub"]?>
+
+                             */?>
+
+
+                            <div class="content">
+                                <h2><a class="header" href="#"><?php echo $row['titoloVideo']?></a></h2>                       
+
+                                <div class="description">
+                                    <p><?php echo $row['Descrizione'];?></p>
                                 </div>
-                                <div class="ui teal label">
-                                    <span><?php echo number_format(stampaStat($row['VideoID'])->items[0]->statistics->viewCount, 0, ',', '.');?></span> Visualizzazioni
+                                <div class="extra">
+                                    <div class="ui label">
+                                        <i class="calendar icon"></i>
+                                        <?php echo $row["DataPub"]?>
+                                    </div>
+                                    <div class="ui teal label">
+                                        <span><?php echo number_format(stampaStat($row['VideoID'])->items[0]->statistics->viewCount, 0, ',', '.');?></span> Visualizzazioni
+                                    </div>
+
+                                    <div class="ui <?php echo $color?> label"><?php echo $row['materia']?></div>
                                 </div>
-                                
-                                <div class="ui <?php echo $color?> label"><?php echo $row['materia']?></div>
                             </div>
+
+
                         </div>
-                        
-                        
                     </div>
-                </div>
                 </div>
 
         <?php
