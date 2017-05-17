@@ -45,6 +45,53 @@ session_start();
                     $("#change-password").on("click", function() {
                         $("#form-change-password").transition("swing down");
                     });
+                    $("#form-change-password form").form({
+                        fields: {
+                            old_password: {
+                                identifier: 'old_password',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Vecchia password obbligatoria'
+                                    },
+                                    {
+                                        type: 'minLength[6]',
+                                        prompt: 'Lunghezza vecchia password minimo 6 caratteri'
+                                    }
+                                ]
+                            },
+                            new_password: {
+                                identifier: 'new_password',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Nuova password obbligatoria'
+                                    },
+                                    {
+                                        type: 'minLength[6]',
+                                        prompt: 'Lunghezza nuova password minimo 6 caratteri'
+                                    },
+                                    {
+                                        type: 'match[new_password_retype]',
+                                        prompt: 'Le password devono combaciare'
+                                    }
+                                ]
+                            },
+                            new_password_retype: {
+                                identifier: 'new_password_retype',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Nuova password obbligatoria'
+                                    },
+                                    {
+                                        type: 'match[new_password]',
+                                        prompt: 'Le password devono combaciare'
+                                    }
+                                ]
+                            }
+                        }
+                    });
                 });
             </script>
             <div class="ui centered card">
@@ -96,6 +143,7 @@ session_start();
                             </div>
                         </div>
                         <button class="ui button" type="submit">Submit</button>
+                        <div class="ui error message"></div>
                     </form>
                 </div>
                 <div class="ui bottom attached large blue button" id="change-password">
@@ -108,6 +156,5 @@ session_start();
             }
             ?>
         </div>
-        <!--#include virtual="/common/component/footer.html" -->
     </body>
 </html>

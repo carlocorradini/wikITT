@@ -44,7 +44,7 @@ $(document).ready(function() {
             $.ajax({
                 type: 'POST',
                 url: url,
-                data: { email: email.val() },
+                data: { email: email.val()},
                 success: function (data) {
                     //If all is correct show success message else prompt error
                     if (data.status) {

@@ -24,14 +24,14 @@
         echo "Appropriate Cost Found: " . $cost . "\n";
     */
     //Options for password_hash
-    //$psw = password_hash("[String.To.Encrypt]", PASSWORD_BCRYPT, $options);
     $options = [
         'cost' => 12,
         //PHP 5
-        mcrypt_create_iv(22, MCRYPT_DEV_URANDOM)
+        'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM)
         //PHP 7
         //'salt' => random_bytes(22)
     ];
+    //$psw = password_hash("[String.To.Encrypt]", PASSWORD_BCRYPT, $options);
     //---Set encoding UTF-8 -> Italian---
     query("SET character_set_results=utf8");
     mb_language("uni");
@@ -78,7 +78,7 @@
     function authentication_session() {
         $toRtn = false;
         if(isset($_SESSION["username"])) {
-            $result = query("SELECT * FROM amministratore WHERE BINARY NomeUtente='".getUsername()."' LIMIT 1;");
+            $result = query("SELECT NomeUtente FROM amministratore WHERE BINARY NomeUtente='".getUsername()."' LIMIT 1;");
             if(mysqli_num_rows($result) == 1) {
                $toRtn = true;
             }
@@ -90,7 +90,7 @@
             return $_SESSION["username"];
         }
     }
-    //Administrator Info
+    //Administrator
     function getAdminCreationDate() {
         $result = query("SELECT DATE(DataCreazione) AS DataCreazione FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
         return mysqli_fetch_array($result)["DataCreazione"];
