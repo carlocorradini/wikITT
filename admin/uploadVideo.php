@@ -92,7 +92,7 @@ require '../common/php/engine.php';
                         <div class="field">
                             <label>YouTube VideoID</label>
                             <div class="ui right icon input">
-                                 <i class="student icon"></i>
+                                 <i class="video play icon"></i>
                                  <input type="text"  id="user" name="videoID" placeholder="VideoID">
                             </div>
                         </div>
