@@ -735,6 +735,7 @@
                             <a class="ui blue ribbon label">Presentazione</a>
                             <p><br>
                             « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
+                            <br>
                             (Edsger Wybe Dijkstra)
                             <br><br>
                             La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.

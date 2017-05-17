@@ -736,12 +736,14 @@
                         <div class="ui raised segment" style="margin-bottom: 30px">
                             <a class="ui orange ribbon label">Presentazione</a>
                             <p><br>
-                            « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
-                            (Edsger Wybe Dijkstra)
+                            « L’elettronica è il lego dei grandi. »
+                            <br>
+                            (Anonimo)
+
                             <br><br>
-                            La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.
-                            Contrariamente a ciò che si pensa non si tratta però di una cosa solo per “smanettoni” ma bensì è una vera e propria scienza aperta a tutti coloro appassionati di logica e di tecnologia.
-                            Con questi video avrai la possibilità di approfondire alcuni degli infiniti argomenti che compongono questa materia risolvendo i tuoi dubbi o semplicemente incuriosendoti verso questo vasto ed interessante mondo.
+                            L’elettronica è la scienza e la tecnica che studia la propagazione degli elettroni nel vuoto o nella materia. Inizialmente l’elettronica era solo una branca dell’elettrotecnica ma, nel corso degl’anni, è andata a svilupparsi fino a diventare una discplina a se stante.
+                            Grazie a questi video potrai approfondire argomenti riguardanti per esempio lo studio di impianti, la produzione di energia oppure la domotica.
+
                             </p>
                         </div>
 
@@ -760,7 +762,7 @@
                                 $nVideoDB = 0;
                                 $nVideo = 4; 
                                 $risCount = mysqli_query($connection, "SELECT COUNT(*) AS 'numeroVideo' FROM video") or die (mysqli_error($connection));
-                                $risRand = mysqli_query($connection, "SELECT DISTINCT v.dataPub, m.nome, v.titolo as titoloVideo, v.descrizione as descrizioneVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, v.pathMiniatura, a.id as idAutore FROM video v, materia m, autore a, realizza r WHERE m.NomeIndirizzo = 'Informatica' AND v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY v.DataPub LIMIT 4 ") or die (mysqli_error($connetti));      
+                                $risRand = mysqli_query($connection, "SELECT DISTINCT v.dataPub, m.nome, v.titolo as titoloVideo, v.descrizione as descrizioneVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, v.pathMiniatura, a.id as idAutore FROM video v, materia m, autore a, realizza r WHERE m.NomeIndirizzo = 'Elettrotecnica' AND v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY v.DataPub LIMIT 4 ") or die (mysqli_error($connetti));      
 
                                 $color = 'orange';
                                 if(mysqli_num_rows($risRand) > 0){

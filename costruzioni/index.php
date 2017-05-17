@@ -737,12 +737,14 @@
                         <div class="ui raised segment" style="margin-bottom: 30px">
                             <a class="ui brown ribbon label">Presentazione</a>
                             <p><br>
-                            « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
-                            (Edsger Wybe Dijkstra)
+                            « L'architettura è musica nello spazio, una sorta di musica congelata. »       
+                            <br>
+                            (Friedrich Schelling)
+
                             <br><br>
-                            La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.
-                            Contrariamente a ciò che si pensa non si tratta però di una cosa solo per “smanettoni” ma bensì è una vera e propria scienza aperta a tutti coloro appassionati di logica e di tecnologia.
-                            Con questi video avrai la possibilità di approfondire alcuni degli infiniti argomenti che compongono questa materia risolvendo i tuoi dubbi o semplicemente incuriosendoti verso questo vasto ed interessante mondo.
+                            L’edilizia è l’insieme delle tecniche e delle conoscenze finalizzate alla progettazione e realizzazione di un edificio. E’ sotto il nome di edilizia che ricadono tutte le operazioni che mirano alla riparazione, alla  modifica o demolizione di una costruzione.
+                            Questi brevi video ti permetteranno di comprendere meglio argomenti riguardanti materie come la topografia o la progettazione e costruzione di impianti.
+
                             </p>
                         </div>
 
@@ -761,7 +763,7 @@
                                 $nVideoDB = 0;
                                 $nVideo = 4; 
                                 $risCount = mysqli_query($connection, "SELECT COUNT(*) AS 'numeroVideo' FROM video") or die (mysqli_error($connection));
-                                $risRand = mysqli_query($connection, "SELECT DISTINCT v.dataPub, m.nome, v.titolo as titoloVideo, v.descrizione as descrizioneVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, v.pathMiniatura, a.id as idAutore FROM video v, materia m, autore a, realizza r WHERE m.NomeIndirizzo = 'Informatica' AND v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY v.DataPub LIMIT 4 ") or die (mysqli_error($connetti));      
+                                $risRand = mysqli_query($connection, "SELECT DISTINCT v.dataPub, m.nome, v.titolo as titoloVideo, v.descrizione as descrizioneVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, v.pathMiniatura, a.id as idAutore FROM video v, materia m, autore a, realizza r WHERE m.NomeIndirizzo = 'Costruzioni' AND v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY v.DataPub LIMIT 4 ") or die (mysqli_error($connetti));      
 
                                 $color = 'brown';
                                 if(mysqli_num_rows($risRand) > 0){
