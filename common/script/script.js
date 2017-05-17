@@ -28,27 +28,28 @@ $(document).ready(function() {
 
     //Submit form
     $("#form-newsletter").submit(function() {
-        var input = $(this).find("input");
+        var email = $(this).find("input[name=email]");
         var btnProgress = $(".coming-soon .form .progress-btn");
         
-        if(!input.val() || !isEmail(input.val())) {
-            input.addClass("error");
+        if(!email.val() || !isEmail(email.val())) {
+            email.addClass("error");
             $($(this).find(".field-wrap")).transition("shake");
         } else {
-            input.prop("disabled", true);
+            email.prop("disabled", true);
             btnProgress.prop("disabled", true);
             btnProgress.find(".btn").text("INVIANDO...");
             btnProgress.addClass("active");
             //Send Email To Register Service
-            var url = "/common/php/newsletter.php?email="+input.val();
+            var url = "/common/php/newsletter.php";
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: url,
+                data: { email: email.val()},
                 success: function (data) {
                     //If all is correct show success message else prompt error
                     if (data.status) {
                         console.info("[NEWSLETTER]: "+data.message);
-                        newsletterSuccess(input.val());
+                        newsletterSuccess(email.val());
                     }
                     else
                         console.error("[NEWSLETTER]: "+data.message);

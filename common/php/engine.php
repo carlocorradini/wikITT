@@ -1,13 +1,38 @@
 
 <?php
-    //DB Access
+    //---DB Access---
     $dbAddress = "mysql.stackcp.com:21257";
     $dbUsername = "wikitt-355d4a";
     $dbPassword = "1234password";
     $dbName = "wikitt-355d4a";
-    //DB Usage
+    /*$dbAddress = "localhost";
+    $dbUsername = "root";
+    $dbPassword = "";
+    $dbName = "wikitt-355d4a";*/
+    //---DB Usage---
     connect($connection);
-    //Set encoding UTF-8 -> Italian
+    //---Encryption---
+    /*Benchmark server to determine cost
+        $timeTarget = 0.05; // 50 milliseconds 
+        $cost = 8;
+        do {
+            $cost++;
+            $start = microtime(true);
+            password_hash("test", PASSWORD_BCRYPT, ["cost" => $cost]);
+            $end = microtime(true);
+        } while (($end - $start) < $timeTarget);
+        echo "Appropriate Cost Found: " . $cost . "\n";
+    */
+    //Options for password_hash
+    $options = [
+        'cost' => 12,
+        //PHP 5
+        'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM)
+        //PHP 7
+        //'salt' => random_bytes(22)
+    ];
+    //$psw = password_hash("[String.To.Encrypt]", PASSWORD_BCRYPT, $options);
+    //---Set encoding UTF-8 -> Italian---
     query("SET character_set_results=utf8");
     mb_language("uni");
     mb_internal_encoding("UTF-8");
@@ -39,11 +64,12 @@
     function authentication_param($username, $password) {
         global $connection;
         $toRtn = false;
-        $stmt = mysqli_prepare($connection, "SELECT * FROM amministratore WHERE NomeUtente=? and Password=? LIMIT 1;");
-        mysqli_stmt_bind_param($stmt, "ss", $username, $password);
+        $stmt = mysqli_prepare($connection, "SELECT Password FROM amministratore WHERE BINARY NomeUtente=? LIMIT 1;");
+        mysqli_stmt_bind_param($stmt, "s", $username);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_store_result($stmt);
-        if(mysqli_stmt_num_rows($stmt) === 1) {
+        $result = mysqli_stmt_get_result($stmt);
+        if(mysqli_num_rows($result) === 1
+                && password_verify($password, mysqli_fetch_assoc($result)["Password"])) {
             $toRtn = true;
         }
         mysqli_stmt_close($stmt);
@@ -51,20 +77,35 @@
     }
     function authentication_session() {
         $toRtn = false;
-        if(isset($_SESSION["credentials"])) {
-            $toRtn = authentication_param(getUsername(), getPassword());
+        if(isset($_SESSION["username"])) {
+            $result = query("SELECT NomeUtente FROM amministratore WHERE BINARY NomeUtente='".getUsername()."' LIMIT 1;");
+            if(mysqli_num_rows($result) == 1) {
+               $toRtn = true;
+            }
         }
         return $toRtn;
     }
     function getUsername() {
-        if(isset($_SESSION["credentials"])) {
-            return $_SESSION["credentials"]["username"];
+        if(isset($_SESSION["username"])) {
+            return $_SESSION["username"];
         }
     }
-    function getPassword() {
-        if(isset($_SESSION["credentials"])) {
-            return $_SESSION["credentials"]["password"];
-        }
+    //Administrator
+    function getAdminCreationDate() {
+        $result = query("SELECT DATE(DataCreazione) AS DataCreazione FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
+        return mysqli_fetch_array($result)["DataCreazione"];
+    }
+    function getAdminCreationTime() {
+        $result = query("SELECT TIME(DataCreazione) AS OraCreazione FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
+        return mysqli_fetch_array($result)["OraCreazione"];
+    }
+    function getAdminVideoCount() {
+        $result = query("SELECT COUNT(*) AS VideoCount FROM video V WHERE V.NomeAmm='".getUsername()."';");
+        return mysqli_fetch_array($result)["VideoCount"];
+    }
+    function getAdminUserCount() {
+        $result = query("SELECT COUNT(*) AS UserCount FROM autore A WHERE A.NomeAmm='".getUsername()."';");
+        return mysqli_fetch_array($result)["UserCount"];
     }
     /*END Authentication*/
     

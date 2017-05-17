@@ -1,9 +1,21 @@
+<?php
+//Require engine PHP page
+require '../common/php/engine.php';
+//Start Session
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin | Sign In</title>
+        <?php if (authentication_session()) {?>
+            <title>Admin | Control Panel</title>
+        <?php } else { ?>
+            <title>Admin | Sign In</title>
+        <?php } ?>
+
         <link rel="icon" href="/common/image/icon.ico" type="image/x-icon">
 
         <!--Frameworks-->
@@ -15,125 +27,134 @@
         <!--Semantic-UI-->
         <link rel="stylesheet" type="text/css" href="/common/framework/semantic-UI/semantic.min.css"/>
         <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
-        <style>
-            #sign-in {
-                width: 600px;
-                max-width: 100%;
-                margin: 25px auto;
-                padding: 10px;
-            }
-            body {
-                background-image: url(https://s-media-cache-ak0.pinimg.com/originals/03/95/6f/03956fed74537b3d7b0858e9a814748d.jpg);
-                background-position: center center;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-size: cover;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-color: #ffffff;
-            }
-        </style>
     </head>
     <body>
-        <script>
-            $(document).ready(function () {
-                var form = $("#sign-in").find("form");
-                $(form).form({
-                    fields: {
-                        username: {
-                            identifier: 'username',
-                            rules: [
-                                {
-                                    type: 'empty',
-                                    prompt: 'Username Obbligatorio'
-                                }
-                            ]
-                        },
-                        password: {
-                            identifier: 'password',
-                            rules: [
-                                {
-                                    type: 'empty',
-                                    prompt: 'Password Obbligatoria'
-                                },
-                                {
-                                    type: 'minLength[6]',
-                                    prompt: 'Lunghezza password minimo 6 caratteri'
-                                }
-                            ]
-                        }
-                    },
-                    onSuccess: function () {
-                        return submitForm(form);
-                    }
-                });
-            });
-            function submitForm(form) {
-                //Send Data for Validation
-                $(form).addClass("loading");
-                var username = $(form).find("input[name=username]").val();
-                var password = $(form).find("input[name=password]").val();
-                var url = "/common/php/admin-authentication.php?"
-                        + "username=" + username + "&password=" + password;
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function (data) {
-                        $(form).removeClass("loading");
-                        var message = $("#message");
-                        if (data.status) {
-                            $(message).removeClass("error").addClass("success");
-                            $(message).find("i").removeClass().addClass("checkmark icon");
-                            $(message).find("span").html(data.message+" - Redirecting...");
-                        } else {
-                            $(message).removeClass("success").addClass("error");
-                            $(message).find("i").removeClass().addClass("remove icon");
-                            $(message).find("span").html(data.message);
-                        }
-                        console.info("[AUTHENTICATION]: " + data.message);
-                    }, error: function (jqXHR, status, error) {
-                        console.error("[AUTHENTICATION]: " + error);
-                    }
-                });
-                return false;
-            }
-        </script>
         <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
-            <div id="sign-in">
-                <form class="ui attached form segment big">
-                    <h1 class="ui horizontal divider header">
-                        <i class="shield icon"></i>
-                        Admin | Sign In
-                    </h1>
-                    <div class="field">
-                        <label>Username</label>
-                        <div class="ui left icon input">
-                            <input type="text" name="username" placeholder="Username" autocomplete="off" required>
+            <?php
+            if (authentication_session()) {
+            ?>
+            <style>
+                #form-change-password {
+                    display: none;
+                }
+            </style>
+            <script>
+                $(document).ready(function() {
+                    $('.ui.checkbox').checkbox();
+                    $("#change-password").on("click", function() {
+                        $("#form-change-password").transition("swing down");
+                    });
+                    $("#form-change-password form").form({
+                        fields: {
+                            old_password: {
+                                identifier: 'old_password',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Vecchia password obbligatoria'
+                                    },
+                                    {
+                                        type: 'minLength[6]',
+                                        prompt: 'Lunghezza vecchia password minimo 6 caratteri'
+                                    }
+                                ]
+                            },
+                            new_password: {
+                                identifier: 'new_password',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Nuova password obbligatoria'
+                                    },
+                                    {
+                                        type: 'minLength[6]',
+                                        prompt: 'Lunghezza nuova password minimo 6 caratteri'
+                                    },
+                                    {
+                                        type: 'match[new_password_retype]',
+                                        prompt: 'Le password devono combaciare'
+                                    }
+                                ]
+                            },
+                            new_password_retype: {
+                                identifier: 'new_password_retype',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Nuova password obbligatoria'
+                                    },
+                                    {
+                                        type: 'match[new_password]',
+                                        prompt: 'Le password devono combaciare'
+                                    }
+                                ]
+                            }
+                        }
+                    });
+                });
+            </script>
+            <div class="ui centered card">
+                <div class="content">
+                    <img class="right floated mini ui image" src="/common/image/profile/terminal.png" alt="administrator">
+                    <div class="header"><?php echo getUsername();?></div>
+                    <div class="meta">
+                        <span class="date">Creato il <?php echo getAdminCreationDate();?> alle <?php echo getAdminCreationTime();?></span>
+                    </div>
+                    <div class="description">
+                        <span class="right floated">
                             <i class="user icon"></i>
+                            <?php echo getAdminUserCount()?> Autori
+                        </span>
+                        <i class="video icon"></i>
+                        <?php echo getAdminVideoCount();?> Video
+                    </div>
+                </div>
+                <div class="extra content">
+                    <div class="ui two buttons large">
+                        <div class="ui orange inverted button">
+                            <i class="add icon"></i>
+                            Video
+                        </div>
+                        <div class="ui green inverted button">
+                            <i class="add icon"></i>
+                            Autore
                         </div>
                     </div>
-                    <div class="field">
-                        <label>Password</label>
-                        <div class="ui left icon input">
-                            <input type="password" name="password" placeholder="Password" autocomplete="off" required>
-                            <i class="lock icon"></i>
+                </div>
+                <div class="extra content" id="form-change-password">
+                    <form class="ui form" action="#">
+                        <div class="field">
+                            <div class="ui left icon fluid input">
+                                <input type="password" name="old_password" placeholder="Vecchia Password" autocomplete="off" required>
+                                <i class="lock icon"></i>
+                            </div>
                         </div>
-                    </div>
-                    <button class="ui animated fade teal fluid big button" type="submit" tabindex="0">
-                        <div class="visible content">Submit</div>
-                        <div class="hidden content">
-                            <i class="send icon"></i>
+                        <div class="field">
+                            <div class="ui left icon fluid input">
+                                <input type="password" name="new_password" placeholder="Nuova Password" autocomplete="off" required>
+                                <i class="lock icon"></i>
+                            </div>
                         </div>
-                    </button>
-                    <div class="ui error message"></div>
-                </form>
-                <div id="message" class="ui large bottom attached message">
-                    <i class="send icon"></i>
-                    <span>Inserisci le credenziali per essere autenticato</span>
+                        <div class="field">
+                            <div class="ui left icon fluid input">
+                                <input type="password" name="new_password_retype" placeholder="Ripeti Nuova Password" autocomplete="off" required>
+                                <i class="lock icon"></i>
+                            </div>
+                        </div>
+                        <button class="ui button" type="submit">Submit</button>
+                        <div class="ui error message"></div>
+                    </form>
+                </div>
+                <div class="ui bottom attached large blue button" id="change-password">
+                    <i class="lock icon"></i>
+                    Cambia Password
                 </div>
             </div>
+            <?php } else {
+                require 'sign-in.html';
+            }
+            ?>
         </div>
     </body>
 </html>
