@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 require '../common/php/engine.php';
+session_start();
 ?>
 <html>
     <head>
@@ -72,7 +73,7 @@ require '../common/php/engine.php';
         <div class="wrapper">
         <!--#include virtual="/common/component/header.html" -->
         <?php
-        // put your code here
+        if(authentication_session()){
         ?>      
         <div class="main"> 
             <div class="ui container">
@@ -91,7 +92,7 @@ require '../common/php/engine.php';
                         <form class="ui form" id="uploadVideo1" method="post" action="/common/php/uploadVid.php">
                         <div class="field">
                             <label>YouTube VideoID</label>
-                            <div class="ui right icon input">
+                            <div class="ui left icon input">
                                  <i class="video play icon"></i>
                                  <input type="text"  id="user" name="videoID" placeholder="VideoID">
                             </div>
@@ -132,7 +133,13 @@ require '../common/php/engine.php';
                         </div>
                     </form>  
                 </div>
-            </div>           
+            </div> 
+        <?php
+        }
+        else {
+            header("Location: /admin/index.php");
+        }
+        ?>
         </div>
         <!--#include virtual="/common/component/footer.html" -->
     </body>

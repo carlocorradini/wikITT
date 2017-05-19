@@ -112,14 +112,18 @@ session_start();
                 </div>
                 <div class="extra content">
                     <div class="ui two buttons large">
-                        <div class="ui orange inverted button">
-                            <i class="add icon"></i>
-                            Video
-                        </div>
-                        <div class="ui green inverted button">
-                            <i class="add icon"></i>
-                            Autore
-                        </div>
+                        <a href="uploadVideo.php">
+                            <div class="ui orange inverted button">
+                                <i class="add icon"></i>
+                                Video
+                            </div>
+                        </a>
+                        <a href="uploadAuthor.php">
+                            <div class="ui green inverted button">
+                                <i class="add icon"></i>
+                                Autore
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="extra content" id="form-change-password">

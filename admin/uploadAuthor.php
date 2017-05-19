@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <?php
+require '../common/php/engine.php';
+session_start();
 ?>
 <html>
     <head>
@@ -44,6 +46,7 @@
                   $('#select')
                     .dropdown()
                   ;
+                                   
                   
                   $("#uploadAuth").submit(function() {    
                        $(this).addClass("loading");
@@ -57,10 +60,14 @@
                                 if (data.status) {
                                     //alert("Inserimento riuscito");
                                     $("#uploadAuth").removeClass("loading");
+                                    $("#form-author-msg").addClass("success");
+                                    $("#uploadAuth").form('clear');   
                                 }
                                 else
                                     alert("Inserimento fallito");
                             }, error: function (jqXHR, status, error) {
+                                $("#uploadAuth").removeClass("loading");
+                                $("#form-author-msg").addClass("error");
                                 console.error("[UPLOADAUUTHOR]: "+error);
                             }
                         });
@@ -71,18 +78,18 @@
         <div class="wrapper">
         <!--#include virtual="/common/component/header.html" -->
         <?php
-        // put your code here
+        if(authentication_session()){
         ?>
         <div class="main"> 
             <div class="ui container">
                 <h1 class="center_aligned">Aggiunta nuovo autore</h1>
 
-                            <form class="ui form" id="uploadAuth">
+                            <form class="ui form attached segment" id="uploadAuth">
                                 <div class="field">
                                     <label>Nome Autore</label>
-                                    <div class="ui right icon input">
+                                    <div class="ui left icon input">
                                          <i class="student icon"></i>
-                                         <input type="text"  id="user" name="Nome" placeholder="Nome">
+                                         <input type="text" id="user" name="Nome" placeholder="Nome">
                                     </div>
                                 </div>
                                 
@@ -117,7 +124,7 @@
 
                                 <div class="field">
                                     <label>Cognome Autore</label>
-                                    <div class="ui right icon input">
+                                    <div class="ui left icon input">
                                         <i class="user icon"></i>
                                         <input type="text" id="psw" name="Cognome" placeholder="Cognome">
                                     </div>
@@ -125,7 +132,7 @@
                                 
                                 <div class="field">
                                     <label>Classe Autore</label>
-                                    <div class="ui right icon input">
+                                    <div class="ui left icon input">
                                         <i class="users icon"></i>
                                         <input type="text" id="psw" name="Classe" placeholder="Classe">
                                     </div>
@@ -136,7 +143,7 @@
                                 
                                 <div class="field">
                                     <label>Anno Scolastico</label>
-                                    <div class="ui right icon input">
+                                    <div class="ui left icon input">
                                         <i class="calendar icon"></i>
                                         <input type="text" id="psw" name="AnnoS" placeholder="Anno scolastico">
                                     </div>
@@ -179,7 +186,7 @@
                                 <div class="ui floating dropdown labeled icon button">
                                     <input type="hidden" name="colore">
                                     <i class="paint brush icon"></i>
-                                    <span class="text">Colore utente</span>
+                                    <div class="default text">Colore utente</div>
                                     <div class="menu">
                                       <div class="ui icon search input">
                                         <i class="search icon"></i>
@@ -248,7 +255,7 @@
                                 <div class="ui floating dropdown labeled icon button">
                                     <input type="hidden" name="icona">
                                     <i class="image icon"></i>
-                                    <span class="text">Icona utente</span>
+                                    <div class="default text">Icona utente</div>
                                     <div class="menu">
                                       <div class="scrolling menu">
                                         <div class="item" data-value="1f">
@@ -307,10 +314,20 @@
                                   
                                 <div class="field">                                                               
                                 <button type="submit" class="ui button blue">Aggiungi</button>  
-                                </div>
-                            </form>  
+                                </div>                                
+                            </form>
+                <div id="form-author-msg" class="ui bottom attached message">
+                    <i class="send icon"></i>
+                    <span>Inserire dati autore</span>
+                </div>
             </div>
-            </div>           
+            </div>   
+            <?php
+            }
+            else {
+                header("Location: /admin/index.php");
+            }
+        ?>
         </div>
         <!--#include virtual="/common/component/footer.html" -->
     </body>

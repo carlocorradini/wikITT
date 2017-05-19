@@ -35,12 +35,17 @@
     $stat = getVideoStat();
     $autori_array=  explode(",", $autori);
     $num = count($autori_array);
-    echo 'funziona: ' .$num ." ". $autori_array[0];
+    //echo 'funziona: ' .$num ." ". $autori_array[0];
     
-    $cod = "INFO011_17";
+    
+    $cod = query("SELECT Cod FROM video WHERE CodMateria='$materia' ORDER BY Cod DESC LIMIT 1;");
     $cod = substr($cod, 4, 3);
     $codint = filter_var($cod, FILTER_SANITIZE_NUMBER_INT);
     //echo 'funziona:'. $stat->items[0]->snippet->description;
+    $titolo = $stat->items[0]->snippet->title;
+    $descrizione = $stat->items[0]->snippet->description;
+    $data = date('Y-m-d');
+    $nomeAmm = getUsername();
     
     $cod++;
     $lung = strlen((string)$cod);
@@ -51,10 +56,26 @@
             $cod= "0" .$cod;
     }
     
-    $codCompleto = "".$materia."".$cod."_".date("y");
+  $codCompleto = "".$materia."".$cod."_".date("y");
+    /*
+     * Dati necessari:
+     * COD $codCompleto
+     * Titolo $titolo
+     * Descrizione $descrizione
+     * VideoID $VideoID
+     * CodMateria $materia
+     * DataPub $data
+     * NomeAmm $nomeAmm
+     * 
+     * 
+     * Autori $autori_array
+     */
+    
+
     
     
             
     echo 'cod: '.$codCompleto;
+  
     
 ?>
