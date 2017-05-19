@@ -67,12 +67,12 @@
             },
             success: function (data) {
                 $(form).removeClass("loading");
-                var message = $("#message");
+                var message = $("#message-sign-in");
                 if (data.status) {
                     $(message).removeClass("error").addClass("success");
                     $(message).find("i").removeClass().addClass("checkmark icon");
                     $(message).find("span").html(data.message + ' - Redirecting in <span id="redirect-timeout"></span>');
-                    redirect(3, $("#message #redirect-timeout"), "index.php");
+                    redirect(3, $("message-sign-in #redirect-timeout"), "index.php");
                 } else {
                     $(message).removeClass("success").addClass("error");
                     $(message).find("i").removeClass().addClass("remove icon");
@@ -100,7 +100,7 @@
 </script>
 
 <div id="sign-in">
-    <form class="ui attached form segment big" action="#">
+    <form class="ui attached form segment large" action="#">
         <h1 class="ui horizontal divider header">
             <i class="shield icon"></i>
             Admin | Sign In
@@ -127,7 +127,7 @@
         </button>
         <div class="ui error message"></div>
     </form>
-    <div id="message" class="ui large bottom attached message">
+    <div id="message-sign-in" class="ui large bottom attached message">
         <i class="send icon"></i>
         <span>Inserisci le credenziali per essere autenticato</span>
     </div>

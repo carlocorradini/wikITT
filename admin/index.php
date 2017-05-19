@@ -33,6 +33,7 @@ session_start();
             <!--#include virtual="/common/component/header.html" -->
             <?php
             if (authentication_session()) {
+                //session_destroy();
             ?>
             <style>
                 #form-change-password {
@@ -100,22 +101,21 @@ session_start();
                     //Send Data for Validation
                     $(form).addClass("loading");
                     var url = "/common/php/administrator.php";
-                    /*$.ajax({
+                    $.ajax({
                         type: 'POST',
                         url: url,
                         data: {
-                            type: 1,
-                            username: username,
-                            password: password
+                            type: 2,
+                            old_password: $(form).find('input[name=old_password]').val(),
+                            new_password: $(form).find('input[name=new_password]').val()
                         },
                         success: function (data) {
                             $(form).removeClass("loading");
-                            var message = $("#message");
+                            var message = $("#form-change-password").find(".ui.bottom.attached.message");
                             if (data.status) {
                                 $(message).removeClass("error").addClass("success");
                                 $(message).find("i").removeClass().addClass("checkmark icon");
-                                $(message).find("span").html(data.message + ' - Redirecting in <span id="redirect-timeout"></span>');
-                                redirect(3, $("#message #redirect-timeout"), "index.php");
+                                $(message).find("span").html(data.message);
                             } else {
                                 $(message).removeClass("success").addClass("error");
                                 $(message).find("i").removeClass().addClass("remove icon");
@@ -125,7 +125,7 @@ session_start();
                         }, error: function (jqXHR, status, error) {
                             console.error("[AUTHENTICATION]: " + error);
                         }
-                    });*/
+                    });
                     return false;
                 }
             </script>
@@ -158,7 +158,7 @@ session_start();
                     </div>
                 </div>
                 <div class="extra content" id="form-change-password">
-                    <form class="ui form" action="#">
+                    <form class="ui attached form segment big" action="#">
                         <div class="field">
                             <div class="ui left icon fluid input">
                                 <input type="password" name="old_password" placeholder="Vecchia Password" autocomplete="off" required>
@@ -180,6 +180,10 @@ session_start();
                         <button class="ui button" type="submit">Submit</button>
                         <div class="ui error message"></div>
                     </form>
+                    <div class="ui large bottom attached message">
+                        <i class="send icon"></i>
+                        <span>Inserisci le credenziali per essere autenticato</span>
+                    </div>
                 </div>
                 <div class="ui bottom attached large blue button" id="change-password">
                     <i class="lock icon"></i>

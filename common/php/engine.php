@@ -1,43 +1,30 @@
 
-<?php
+<?php  
     //---DB Access---
     $dbAddress = "mysql.stackcp.com:21257";
     $dbUsername = "wikitt-355d4a";
     $dbPassword = "1234password";
     $dbName = "wikitt-355d4a";
-    /*$dbAddress = "localhost";
-    $dbUsername = "root";
-    $dbPassword = "";
-    $dbName = "wikitt-355d4a";*/
     //---DB Usage---
     connect($connection);
-    //---Encryption---
-    /*Benchmark server to determine cost
-        $timeTarget = 0.05; // 50 milliseconds 
-        $cost = 8;
-        do {
-            $cost++;
-            $start = microtime(true);
-            password_hash("test", PASSWORD_BCRYPT, ["cost" => $cost]);
-            $end = microtime(true);
-        } while (($end - $start) < $timeTarget);
-        echo "Appropriate Cost Found: " . $cost . "\n";
-    */
-    //Options for password_hash
-    $options = [
+    //---Encryption--
+    //Options for password
+    $min_password_length = 6;
+    $max_password_length = 20;
+    $password_hash_options = [
         'cost' => 12,
         //PHP 5
         'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM)
         //PHP 7
         //'salt' => random_bytes(22)
     ];
-    //$psw = password_hash("[String.To.Encrypt]", PASSWORD_BCRYPT, $options);
-    //---Set encoding UTF-8 -> Italian---
+    //---GENERAL---
+    //Set encoding UTF-8 -> Italian
     query("SET character_set_results=utf8");
     mb_language("uni");
     mb_internal_encoding("UTF-8");
 
-    /*Connection*/
+    //---Connection---
     function connect(&$connection) {
         global $dbAddress, $dbUsername, $dbPassword, $dbName;
         $connection = mysqli_connect($dbAddress, $dbUsername, $dbPassword, $dbName);
@@ -46,21 +33,21 @@
             die("Failed to connect to MySQL: " + mysqli_connect_error());
         }
     }
-    /*Close Connection*/
+    //Close Connection
     function connection_close() {
         global $connection;
         mysqli_close($connection);
     }
-    /*Query Execution*/
+    //Query Execution
     function query($query) {
         global $connection;
         $result = mysqli_query($connection, $query);
         if ($result === FALSE) { die(mysqli_error($connection));}
         else { return $result;}
     }
-    /*END Connection*/
+    //---END Connection---
     
-    /*Authentication*/
+    //---Authentication---
     function authentication_param($username, $password) {
         global $connection;
         $toRtn = false;
@@ -90,6 +77,10 @@
             return $_SESSION["username"];
         }
     }
+    function createPasswordHash($password) {
+        global $password_hash_options;
+        return password_hash($password, PASSWORD_BCRYPT, $password_hash_options);
+    }
     //Administrator
     function getAdminCreationDate() {
         $result = query("SELECT DATE(DataCreazione) AS DataCreazione FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
@@ -107,10 +98,12 @@
         $result = query("SELECT COUNT(*) AS UserCount FROM autore A WHERE A.NomeAmm='".getUsername()."';");
         return mysqli_fetch_array($result)["UserCount"];
     }
-    /*END Authentication*/
+    //---END Authentication---
     
-    /*Set Response*/
+    //---Response---
+    //Set Response
     function setResponse(&$response = null, $status = null, $message = null) {
         $response["status"] = $status;
         $response["message"] = $message;
     }
+    //---END Response---
