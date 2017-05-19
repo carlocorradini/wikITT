@@ -10,8 +10,8 @@
         "message" => null
     );
     /*Request Type
-     *  1 => authentication
-     *  2 => change password
+     *  1 => Authentication
+     *  2 => Change password
     */
     $type = filter_input(INPUT_POST, "type");
     
