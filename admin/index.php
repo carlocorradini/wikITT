@@ -29,13 +29,106 @@ session_start();
         <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
     </head>
     <body>
+        <script>
+            //return ISO datetime format
+            function ISODateTime(d) {
+                function pad(n) { return n<10 ? '0'+n : n;}
+                return d.getUTCFullYear()+'-'
+                    + pad(d.getMonth()+1)+'-'
+                    + pad(d.getDate()) +' '
+                    + pad(d.getHours())+':'
+                    + pad(d.getMinutes())+':'
+                    + pad(d.getSeconds());
+            }
+            //return GET parameter by name
+            function getParameterByName(name) {
+                url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+            //Show Snackbar
+            function showSnackbar(identifier, type, message, showTime) {
+                if(message) $(identifier).find("span").html(message);
+                if(type === "info" || type === "success" || type === "danger" || type === "error")
+                    $(identifier).addClass(type);
+                if(!showTime) showTime = 3000;
+                
+                $(identifier).transition("slide up");
+                setTimeout(function() {
+                    $(identifier).transition("slide up");
+                }, showTime);
+            }
+            //Redirect and Show to a component
+            function redirectAndShow(timeOut, component, target) {
+                $(component).html(timeOut);
+                setTimeout(countDown, 1000);
+                function countDown() {
+                    timeOut--;
+                    if (timeOut > 0)
+                        setTimeout(countDown, 1000);
+                    else
+                        window.location.href = target;
+                    $(component).html(timeOut);
+                }
+            }
+            //Redirect after a specified time
+            function redirect(target, time) {
+                if(!time) time = 3000;
+                if(target) {
+                    setTimeout(function() {
+                        window.location.href = target;
+                    }, time);
+                }
+            }
+        </script>
+        <style>
+            /*---Snackbar---*/
+            .snackbar {
+                position: fixed;
+                visibility: hidden;
+                min-width: 300px;
+                margin-left: -150px;
+                background-color: #333333;
+                color: #ffffff;
+                text-align: center;
+                border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                padding: 16px;
+                z-index: 10;
+                left: 50%;
+                bottom: 10px;
+                font-size: 17px;
+            }
+            .snackbar.fluid {
+                width: 100%;
+                min-width: 100%;
+                margin-left: 0;
+                left: 0%;
+            }
+            .snackbar.attached { bottom: 0px;}
+            .snackbar.info { background-color: #2185d0;}
+            .snackbar.success { background-color: #5cb85c;}
+            .snackbar.danger { background-color: #ff8000;}
+            .snackbar.error { background-color: #db2828;}
+            /*END Snackbar---*/
+        </style>
+        
         <div class="wrapper">
             <!--#include virtual="/common/component/header.html" -->
             <?php
             if (authentication_session()) {
-                //session_destroy();
             ?>
             <style>
+                #admin-navigator {
+                    width: 1000px;
+                    max-width: 100%;
+                    margin: 25px auto;
+                }
                 #admin-profile {
                     width: 450px;
                     max-width: 100%;
@@ -78,8 +171,8 @@ session_start();
                                         prompt: 'Lunghezza nuova password minimo \{ruleValue}\ caratteri'
                                     },
                                     {
-                                        type: 'match[new_password_retype]',
-                                        prompt: 'Le password devono combaciare'
+                                        type: 'different[old_password]',
+                                        prompt: 'Vecchia e nuova password devono essere differenti'
                                     }
                                 ]
                             },
@@ -129,35 +222,64 @@ session_start();
                             }
                             console.info("[AUTHENTICATION]: " + data.message);
                         }, error: function (jqXHR, status, error) {
+                            showSnackbar($("#action-message"), "error", "Errore interno, <br/> Sarai disconnesso tra 1 secondo");
+                            setTimeout(function() {
+                                document.getElementById("sign-out").submit();
+                            }, 1000);
                             console.error("[AUTHENTICATION]: " + error);
                         }
                     });
                     return false;
                 }
             </script>
-            <div class="ui labeled button" tabindex="0">
-                <div class="ui red button">
-                    <i class="power icon"></i>
+            <div class="ui menu stackable large" id="admin-navigator">
+                <div class="item" style="padding: 1px;">
+                    <img src="/common/image/profile/terminal.png" alt="administrator" class="ui centered image" style="width: 70px; height: 70px;">
                 </div>
-                <a class="ui basic red left pointing label">
-                    Sign out
-                </a>
+                <div class="item">
+                    <a href="/admin/index.php" class="ui labeled teal icon button fluid">
+                        <i class="block layout icon"></i>
+                        Pannello di Controllo
+                    </a>
+                </div>
+                <div class="right item">
+                    <form action="/common/php/administrator.php" method="POST" id="sign-out" style="width: 100%;">
+                        <input type="hidden" name="type" value="3">
+                        <button type="submit" class="ui labeled red icon button fluid">
+                            <i class="power icon"></i>
+                            Disconnetti
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div style="padding: 10px 10px 0 10px;">
+            <div style="padding: 0 10px 0 10px;">
                 <div class="ui centered card" id="admin-profile">
                     <div class="content">
                         <img class="right floated mini ui image" src="/common/image/profile/terminal.png" alt="administrator">
-                        <div class="header"><?php echo getUsername();?></div>
+                        <div class="header" style="font-size: 2em;">
+                            <i class="diamond icon">
+                            </i><?php echo getUsername();?>
+                        </div>
+                        <br/>
                         <div class="meta">
-                            <span class="date">Creato il <?php echo getAdminCreationDate();?> alle <?php echo getAdminCreationTime();?></span>
+                            <i class="add to calendar icon"></i>
+                            Creato il <?php echo getAdminCreationDate();?> alle <?php echo getAdminCreationTime();?>
+                        </div>
+                        <div class="meta">
+                            <i class="checked calendar icon"></i>
+                            Ultimo accesso il <?php echo getAdminLastAccessDate();?> alle <?php echo getAdminLastAccessTime();?>
+                        </div>
+                        <div class="meta">
+                            <i class="privacy icon"></i>
+                            <?php echo getAdminAccessCounter();?> accessi totali
                         </div>
                         <div class="description">
-                            <span class="right floated">
-                                <i class="user icon"></i>
-                                <?php echo getAdminUserCount()?> Autori
-                            </span>
                             <i class="video icon"></i>
-                            <?php echo getAdminVideoCount();?> Video
+                            <?php echo getAdminVideoCount();?> video aggiunti
+                        </div>
+                        <div class="description">
+                            <i class="user icon"></i>
+                            <?php echo getAdminUserCount()?> autori creati
                         </div>
                     </div>
                     <div class="extra content">
@@ -235,6 +357,10 @@ session_start();
                 </style>
                 <script>
                     $(document).ready(function () {
+                        //Show Snackbar if action is signout and hide
+                        if(getParameterByName("action") === "signout")
+                            showSnackbar($("#action-message"), "info");
+                        
                         var form = $("#sign-in").find("form");
                         $(form).form({
                             fields: {
@@ -276,7 +402,8 @@ session_start();
                             data: {
                                 type: 1,
                                 username: $(form).find('input[name=username]').val(),
-                                password: $(form).find('input[name=password]').val()
+                                password: $(form).find('input[name=password]').val(),
+                                accessDateTime: ISODateTime(new Date())
                             },
                             success: function (data) {
                                 $(form).removeClass("loading");
@@ -285,7 +412,7 @@ session_start();
                                     $(message).removeClass("error").addClass("success");
                                     $(message).find("i").removeClass().addClass("checkmark icon");
                                     $(message).find("span").html(data.message + ' - Redirecting in <span></span>');
-                                    redirect(3, $("#message-sign-in span span"), window.location.href);
+                                    redirectAndShow(3, $("#message-sign-in span span"), window.location.href);
                                 } else {
                                     $(message).removeClass("success").addClass("error");
                                     $(message).find("i").removeClass().addClass("remove icon");
@@ -293,22 +420,11 @@ session_start();
                                 }
                                 console.info("[AUTHENTICATION]: " + data.message);
                             }, error: function (jqXHR, status, error) {
+                                showSnackbar($("#action-message"), "error", "Errore interno, impossibile contattare il servizio di autenticazione");
                                 console.error("[AUTHENTICATION]: " + error);
                             }
                         });
                         return false;
-                    }
-                    function redirect(timeOut, component, target) {
-                        $(component).html(timeOut);
-                        setTimeout(countDown, 1000);
-                        function countDown() {
-                            timeOut--;
-                            if (timeOut > 0)
-                                setTimeout(countDown, 1000);
-                            else
-                                window.location.href = target;
-                            $(component).html(timeOut);
-                        }
                     }
                 </script>
                 <div id="sign-in">
@@ -345,6 +461,10 @@ session_start();
                     </div>
                 </div>
             <?php }?>
+            <div class="snackbar attached fluid" id="action-message">
+                <i class="info icon"></i>
+                <span>Ti sei disconnesso con successo</span>
+            </div>
         </div>
     </body>
 </html>

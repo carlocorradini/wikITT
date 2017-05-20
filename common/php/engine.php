@@ -1,10 +1,11 @@
 
 <?php  
     //---DB Access---
-    $dbAddress = "mysql.stackcp.com:21257";
+    $dbAddress = "mysql.stackcp.com";
+    $dbPort = 21257;
+    $dbName = "wikitt-355d4a";
     $dbUsername = "wikitt-355d4a";
     $dbPassword = "1234password";
-    $dbName = "wikitt-355d4a";
     //---DB Usage---
     connect($connection);
     //---Encryption--
@@ -26,8 +27,8 @@
 
     //---Connection---
     function connect(&$connection) {
-        global $dbAddress, $dbUsername, $dbPassword, $dbName;
-        $connection = mysqli_connect($dbAddress, $dbUsername, $dbPassword, $dbName);
+        global $dbAddress, $dbUsername, $dbPassword, $dbName, $dbPort;
+        $connection = mysqli_connect($dbAddress, $dbUsername, $dbPassword, $dbName, $dbPort);
         if(!$connection) {
             mysqli_close();
             die("Failed to connect to MySQL: " + mysqli_connect_error());
@@ -82,13 +83,28 @@
         return password_hash($password, PASSWORD_BCRYPT, $password_hash_options);
     }
     //Administrator
+    function getAdminInfo() {
+        return query("SELECT NomeUtente,DataCreazione,DataUltimoAccesso,CtrAccessi FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
+    }
     function getAdminCreationDate() {
-        $result = query("SELECT DATE(DataCreazione) AS DataCreazione FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
-        return mysqli_fetch_array($result)["DataCreazione"];
+        $result = getAdminInfo();
+        return date('d/m/Y', strtotime(mysqli_fetch_array($result)["DataCreazione"]));
     }
     function getAdminCreationTime() {
-        $result = query("SELECT TIME(DataCreazione) AS OraCreazione FROM amministratore WHERE NomeUtente='".getUsername()."' LIMIT 1;");
-        return mysqli_fetch_array($result)["OraCreazione"];
+        $result = getAdminInfo();
+        return date('H:i:s', strtotime(mysqli_fetch_array($result)["DataCreazione"]));
+    }
+    function getAdminLastAccessDate() {
+        $result = getAdminInfo();
+        return date('d/m/Y', strtotime(mysqli_fetch_array($result)["DataUltimoAccesso"]));
+    }
+    function getAdminLastAccessTime() {
+        $result = getAdminInfo();
+        return date('H:i:s', strtotime(mysqli_fetch_array($result)["DataUltimoAccesso"]));
+    }
+    function getAdminAccessCounter() {
+        $result = getAdminInfo();
+        return mysqli_fetch_array($result)["CtrAccessi"];
     }
     function getAdminVideoCount() {
         $result = query("SELECT COUNT(*) AS VideoCount FROM video V WHERE V.NomeAmm='".getUsername()."';");
@@ -107,3 +123,9 @@
         $response["message"] = $message;
     }
     //---END Response---
+
+    //---UTILITY---
+    function validateDate($date, $format = 'Y-m-d H:i:s') {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
+    }
