@@ -340,7 +340,7 @@ session_start();
                     #sign-in {
                         width: 600px;
                         max-width: 100%;
-                        margin: 25px auto;
+                        margin: 25px auto 0 auto;
                         padding: 10px;
                     }
                     body {

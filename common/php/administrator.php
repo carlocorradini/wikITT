@@ -71,7 +71,11 @@
                     session_destroy();
                     header('Location: /admin/index.php?action=signout');
                     die();
-                } else { echo 'Non sei autenticato | Non puoi disconnetterti';}
+                } else { 
+                    echo 'Non sei autenticato | Non puoi disconnetterti';
+                    header('Location: /admin/index.php');
+                    die();
+                }
                 break;
             default:
                 setResponse($data, FALSE, "Type non riconosciuto");

@@ -1,11 +1,16 @@
 
-<?php  
+<?php
     //---DB Access---
-    $dbAddress = "mysql.stackcp.com";
+    /*$dbAddress = "mysql.stackcp.com";
     $dbPort = 21257;
     $dbName = "wikitt-355d4a";
     $dbUsername = "wikitt-355d4a";
-    $dbPassword = "1234password";
+    $dbPassword = "1234password";*/
+    $dbAddress = "127.0.0.1";
+    $dbPort = 3306;
+    $dbName = "wikitt";
+    $dbUsername = "root";
+    $dbPassword = "";
     //---DB Usage---
     connect($connection);
     //---Encryption--
@@ -30,7 +35,6 @@
         global $dbAddress, $dbUsername, $dbPassword, $dbName, $dbPort;
         $connection = mysqli_connect($dbAddress, $dbUsername, $dbPassword, $dbName, $dbPort);
         if(!$connection) {
-            mysqli_close();
             die("Failed to connect to MySQL: " + mysqli_connect_error());
         }
     }
@@ -59,7 +63,8 @@
         if(mysqli_num_rows($result) === 1
                 && password_verify($password, mysqli_fetch_assoc($result)["Password"])) {
             $toRtn = true;
-        }
+       
+            }
         mysqli_stmt_close($stmt);
         return $toRtn;
     }
