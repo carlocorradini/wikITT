@@ -1,16 +1,11 @@
 
 <?php
     //---DB Access---
-    /*$dbAddress = "mysql.stackcp.com";
+    $dbAddress = "mysql.stackcp.com";
     $dbPort = 21257;
     $dbName = "wikitt-355d4a";
     $dbUsername = "wikitt-355d4a";
-    $dbPassword = "1234password";*/
-    $dbAddress = "127.0.0.1";
-    $dbPort = 3306;
-    $dbName = "wikitt-355d4a";
-    $dbUsername = "root";
-    $dbPassword = "";
+    $dbPassword = "1234password";
     //---DB Usage---
     connect($connection);
     //---Encryption--
