@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <?php
+require '../common/php/engine.php';
+session_start();
 ?>
 <html>
     <head>
@@ -23,6 +25,10 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/2.0.7/plyr.css"/>
         <script src="https://cdn.plyr.io/2.0.7/plyr.js" type="text/javascript"></script>
         <!--END Framweworks-->
+        
+        <!--Custom-->
+        <link rel="stylesheet" type="text/css" href="/common/style/style.css"/>
+        <script src="/common/script/script.js" type="text/javascript"></script>
     </head>
     <body>
         <script>
@@ -40,28 +46,50 @@
                   $('#select')
                     .dropdown()
                   ;
+                                   
+                  
+                  $("#uploadAuth").submit(function() {    
+                       $(this).addClass("loading");
+                        var url = "/common/php/uploadAuth.php";
+                        $.ajax({
+                            type: 'POST',
+                            data: $("#uploadAuth").serialize(),
+                            url: url,
+                            success: function (data) {
+                                //If all is correct show success message else prompt error
+                                if (data.status) {
+                                    //alert("Inserimento riuscito");
+                                    $("#uploadAuth").removeClass("loading");
+                                    $("#form-author-msg").addClass("success");
+                                    $("#uploadAuth").form('clear');   
+                                }
+                                else
+                                    alert("Inserimento fallito");
+                            }, error: function (jqXHR, status, error) {
+                                $("#uploadAuth").removeClass("loading");
+                                $("#form-author-msg").addClass("error");
+                                console.error("[UPLOADAUUTHOR]: "+error);
+                            }
+                        });
+                    return false;
+                    });
             });
         </script>
         <div class="wrapper">
         <!--#include virtual="/common/component/header.html" -->
         <?php
-        // put your code here
+        if(authentication_session()){
         ?>
-        <div class="main">
-                <div class="wrapper">
+        <div class="main"> 
+            <div class="ui container">
+                <h1 class="center_aligned">Aggiunta nuovo autore</h1>
 
-                    <div class="row">
-                        <div class="col-xs-4"></div>
-                        <div class="col-xs-4">
-
-                            <h1 class="center_aligned">Aggiunta nuovo autore</h1>
-
-                            <form class="ui form" id="uploadAuth" action="#" method="POST" onsubmit="load()">
+                            <form class="ui form attached segment" id="uploadAuth">
                                 <div class="field">
                                     <label>Nome Autore</label>
-                                    <div class="ui right icon input">
+                                    <div class="ui left icon input">
                                          <i class="student icon"></i>
-                                         <input type="text"  id="user" name="Nome" placeholder="Nome">
+                                         <input type="text" id="user" name="Nome" placeholder="Nome">
                                     </div>
                                 </div>
                                 
@@ -96,7 +124,7 @@
 
                                 <div class="field">
                                     <label>Cognome Autore</label>
-                                    <div class="ui right icon input">
+                                    <div class="ui left icon input">
                                         <i class="user icon"></i>
                                         <input type="text" id="psw" name="Cognome" placeholder="Cognome">
                                     </div>
@@ -104,7 +132,7 @@
                                 
                                 <div class="field">
                                     <label>Classe Autore</label>
-                                    <div class="ui right icon input">
+                                    <div class="ui left icon input">
                                         <i class="users icon"></i>
                                         <input type="text" id="psw" name="Classe" placeholder="Classe">
                                     </div>
@@ -115,7 +143,7 @@
                                 
                                 <div class="field">
                                     <label>Anno Scolastico</label>
-                                    <div class="ui right icon input">
+                                    <div class="ui left icon input">
                                         <i class="calendar icon"></i>
                                         <input type="text" id="psw" name="AnnoS" placeholder="Anno scolastico">
                                     </div>
@@ -158,7 +186,7 @@
                                 <div class="ui floating dropdown labeled icon button">
                                     <input type="hidden" name="colore">
                                     <i class="paint brush icon"></i>
-                                    <span class="text">Colore utente</span>
+                                    <div class="default text">Colore utente</div>
                                     <div class="menu">
                                       <div class="ui icon search input">
                                         <i class="search icon"></i>
@@ -172,7 +200,7 @@
                                         </div>
                                         <div class="item" data-value="orange">
                                           <div class="ui orange empty circular label"></div>
-                                          Blu
+                                          Arancione
                                         </div>
                                         <div class="item" data-value="yellow">
                                           <div class="ui yellow empty circular label"></div>
@@ -227,7 +255,7 @@
                                 <div class="ui floating dropdown labeled icon button">
                                     <input type="hidden" name="icona">
                                     <i class="image icon"></i>
-                                    <span class="text">Icona utente</span>
+                                    <div class="default text">Icona utente</div>
                                     <div class="menu">
                                       <div class="scrolling menu">
                                         <div class="item" data-value="1f">
@@ -279,20 +307,27 @@
                                             <img class="ui avatar image" src="/common/image/profile/9m.png"> 
                                         </div>
                                       </div>
-                                    </div>
                                   </div>
+                                </div>
                                 </div>
                                 
                                   
                                 <div class="field">                                                               
-                                <button type="submit" class="ui button">LOGIN</button>  
-                                </div>
+                                <button type="submit" class="ui button blue">Aggiungi</button>  
+                                </div>                                
                             </form>
-                        </div>
-                        <div class="col-xs-4"></div>
-                    </div>
+                <div id="form-author-msg" class="ui bottom attached message">
+                    <i class="send icon"></i>
+                    <span>Inserire dati autore</span>
                 </div>
-        </div>           
+            </div>
+            </div>   
+            <?php
+            }
+            else {
+                header("Location: /admin/index.php");
+            }
+        ?>
         </div>
         <!--#include virtual="/common/component/footer.html" -->
     </body>

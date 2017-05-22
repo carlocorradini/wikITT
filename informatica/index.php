@@ -682,11 +682,12 @@
                 curl_close($ch);
                 return json_decode($result);
             }
+            
             function getViewCount($vStat) {
                 return $vStat->items[0]->statistics->viewCount;
             }
             function getLikeCount($vStat) {
-                return $vStat->items[0]->statistics->dislikeCount;
+                return $vStat->items[0]->statistics->likeCount;
             }
             function getDisklikeCount($vStat) {
                 return $vStat->items[0]->statistics->dislikeCount;
