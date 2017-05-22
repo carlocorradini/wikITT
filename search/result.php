@@ -293,7 +293,13 @@ if(isset($_REQUEST['search'])){
 
         <?php
             }
-        }   
+        }else{?>
+            <div class=' container' style="margin-top: 2.5em;">
+                <h1 style="text-align: center;">Nessun video trovato <i class="rocket icon"></i></h1>
+            </div>
+
+<?php
+        }
 }
 
 
