@@ -14,7 +14,7 @@
 
 <div class="ui stackable four column grid" id="contenitore-4">
     <?php
-        require '../php/engine.php';
+        require_once $_SERVER["DOCUMENT_ROOT"].'/common/php/engine.php';
         $connection = null;
         //connessione database
         connect($connection);

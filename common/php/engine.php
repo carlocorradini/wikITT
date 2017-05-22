@@ -8,7 +8,7 @@
     $dbPassword = "1234password";*/
     $dbAddress = "127.0.0.1";
     $dbPort = 3306;
-    $dbName = "wikitt";
+    $dbName = "wikitt-355d4a";
     $dbUsername = "root";
     $dbPassword = "";
     //---DB Usage---

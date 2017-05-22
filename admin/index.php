@@ -358,7 +358,7 @@ session_start();
                                         },
                                         {
                                             type: 'minLength[<?php echo $min_password_length?>]',
-                                            prompt: 'Lunghezza vecchia password minimo \{ruleValue}\ caratteri'
+                                            prompt: 'Lunghezza password minimo \{ruleValue}\ caratteri'
                                         }
                                     ]
                                 }

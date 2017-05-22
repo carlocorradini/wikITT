@@ -15,12 +15,10 @@
         <!--Semantic-UI-->
         <link rel="stylesheet" type="text/css" href="/common/framework/semantic-UI/semantic.min.css"/>
         <script src="/common/framework/semantic-UI/semantic.min.js" type="text/javascript"></script>
-        
         <!--Plyr-->
-        <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/2.0.7/plyr.css"/>
-        <script src="https://cdn.plyr.io/2.0.7/plyr.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="/common/framework/plyr/plyr.css"/>
+        <script src="/common/framework/plyr/plyr.js" type="text/javascript"></script>
         <!--END Framweworks-->
-
         <!--Google API-->
         <meta name="google-signin-client_id" content="1093951573337-n44tvp7mtb48d5ehei7e0sfak31mrh68.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
