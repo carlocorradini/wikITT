@@ -42,3 +42,5 @@ DOWNLOAD => http://www.flaticon.com/free-icon/file_138601#term=download&page=1&p
 NOSCRIPT BG => https://www.toptal.com/designers/subtlepatterns/giftly/
 
 PROFILE IMAGE => https://semantic-ui.com/images/avatar/large/<nomeImmagine.estensione>
+
+TERMINAL => https://www.iconfinder.com/icons/285695/terminal_icon#size=128
