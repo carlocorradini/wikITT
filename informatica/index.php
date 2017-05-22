@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -38,7 +37,6 @@
                 color: #ffffff!important;
                 border-color: #ffffff;
             }
-
             /*Materia Colore*/
             .font.informatica { color: #2185d0!important;}
             .font.meccanica { color: #21ba45!important;}
@@ -61,7 +59,6 @@
             .scrollbar.chimica::-webkit-scrollbar-thumb { background-color: #db2828;}
             .scrollbar.elettrotecnica::-webkit-scrollbar-thumb { background-color: #f2711c;}
             .scrollbar.costruzioni::-webkit-scrollbar-thumb { background-color: #a5673f;}
-
             /*General*/
             #video-navigation,
             #video-content {
@@ -110,7 +107,6 @@
                 font-style: italic;
                 font-size: 1.1em;
             }
-
             /*Video Navigation*/
             #video-navigation {
                 width: 20%;
@@ -167,7 +163,6 @@
                 50%{background-position:100% 19%}
                 100%{background-position:0% 82%}
             }
-
             #video-navigation .close {
                 position: fixed;
                 bottom: 3px;
@@ -212,11 +207,9 @@
                 -moz-transition: background-color ease-in-out 0.2s;
                 -o-transition: background-color ease-in-out 0.2s;
             }
-
             #video-navigation .close:hover {background-color: #db2828;}
             #video-navigation .close:hover span:before,
             #video-navigation .close:hover span:after { background-color: #ffffff;}
-
             /*Attachment*/
             .attachment {
                 position: relative;
@@ -233,7 +226,6 @@
                 box-shadow: inset 0 0 0 2px #00b5ad;
             }
             .attachment:not(:last-child) { margin-right: 5px;}
-
             .attachment::before,
             .attachment::after {
                 position: absolute;
@@ -258,7 +250,6 @@
             .attachment:hover::after,
             .attachment:active::before,
             .attachment:active::after { width: 0;}
-
             /*Attachment Image*/
             .attachment .image {
                 width: 128px;
@@ -275,7 +266,6 @@
                 transition: background-image 0.5s ease-in-out;
             }
             .attachment:hover .image { background-image: url("/common/image/download.png")!important;}
-
             /*Attachment Divider*/
             .attachment .divider {
                 height: 0;
@@ -293,7 +283,6 @@
                 color: #8c8b8b;
                 font-size: 15px;
             }
-
             /*Attachment Description*/
             .attachment .desc {
                 text-align: center;
@@ -302,7 +291,6 @@
                 font-weight: bold;
             }
             .attachment:hover .desc { color: #2185d0;}
-
             /*Attachment File Type*/
             /*AI*/
             .attachment.ai {
@@ -542,7 +530,6 @@
                 box-shadow: inset 0 0 0 2px #fb7a24;
             }
             .attachment.xampp .image { background-image: url("/common/image/file_extension/xampp.png");}
-
             /*---Media Query---*/
             @media screen and (max-width: 1000px) {
                 #video-navigation,
@@ -568,7 +555,6 @@
                     width: 100%;
                     left: 0;
                 }
-
                 /*Video Description & Card*/
                 #video-descrition {
                     position: absolute;
@@ -580,7 +566,6 @@
                     margin-top: 0.5em;
                     padding: 0.5em;
                 }
-
                 /*Feedback*/
                 /*Feedback*/
                 #feedback .button,
@@ -640,27 +625,6 @@
                 #btnShowVideoNavigation,
                 #video-navigation.transition.visible .close { display: block;}
             }
-            
-            
-           
-            
-            
-            .card{
-                width: 225px!important;
-                display: inline-block!important;
-            }
-            #contenitore-4{
-                margin-top: 10px!important;
-                width: 1000px;
-                vertical-align: middle;
-                max-width: 100%;
-                margin:auto;
-            }
-            
-            
-            
-            
-            
         </style>
     </head>
     <body>
@@ -682,12 +646,11 @@
                 curl_close($ch);
                 return json_decode($result);
             }
-            
             function getViewCount($vStat) {
                 return $vStat->items[0]->statistics->viewCount;
             }
             function getLikeCount($vStat) {
-                return $vStat->items[0]->statistics->likeCount;
+                return $vStat->items[0]->statistics->dislikeCount;
             }
             function getDisklikeCount($vStat) {
                 return $vStat->items[0]->statistics->dislikeCount;
@@ -793,7 +756,6 @@
                     console.log("Query Google in esecuzione");
                     //https://developers.google.com/apis-explorer/#search/rate/m/youtube/v3/youtube.videos.rate?id=RjUlmco7v2M&rating=like&_h=1&            
                     //POST https://www.googleapis.com/youtube/v3/videos/rate?id=RjUlmco7v2M&rating=like&key=AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA
-
                     var request = gapi.client.request({
                         'method': 'POST',
                         'path': 'https://www.googleapis.com/youtube/v3/videos/rate',
@@ -803,7 +765,6 @@
                             'key': "AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA"
                         }
                     });
-
                     request.execute(function(response){
                         console.log(response);        
                     });
@@ -961,7 +922,7 @@
         </noscript>
 
         <div class="wrapper">
-            <!--#include virtual="/common/component/header.html" -->
+            <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/header.html";?>
             <button class="ui blue labeled icon button" id="btnShowVideoNavigation">
                 <i class="video icon"></i>
                 Visualizza elenco video
@@ -994,12 +955,10 @@
                         <h1>Informatica</h1>
                     </div>
 
-
-                        <div class="ui raised segment" style="margin-bottom: 30px">
-                            <a class="ui blue ribbon label">Presentazione</a>
-                            <p><br>
+                    <div class="ui raised segment">
+                        <a class="ui red ribbon label">Presentazione</a>
+                        <p><br>
                             « L’informatica non riguarda i computer più di quanto l’astronomia riguardi i telescopi. »
-                            <br>
                             (Edsger Wybe Dijkstra)
                             <br><br>
                             La parola informatica deriva dal verbo tedesco “Informatik” ossia informarsi da se stessi. L’informatica si occupa proprio di questo, ottenere informazioni dal trattamento automatico di dati.
@@ -1008,67 +967,61 @@
                         </p>
                     </div>
 
+                    <div class="ui horizontal divider">
+                        <i class="code icon"></i>
+                    </div>
 
-                        <div class="ui horizontal divider">
-                            <h3>Ultimi video</h3>
+                    <div class="ui three column stackable grid">
+                        <div class="column">
+                            <div class="ui raised segment">
+                                <a class="ui green ribbon label">Database</a>
+                                <div class="ui ordered list">                               
+                                    <a class="item">Progettazione</a>
+                                    <a class="item">MySql</a>
+                                </div>
+                            </div>
                         </div>
 
-                       
-                                    
-                        
-                     
-                        
-                        <div class="ui stackable four column grid" id="contenitore-4">
-                            <?php
-                                $nVideoDB = 0;
-                                $nVideo = 4; 
-                                $risCount = mysqli_query($connection, "SELECT COUNT(*) AS 'numeroVideo' FROM video") or die (mysqli_error($connection));
-                                $risRand = mysqli_query($connection, "SELECT DISTINCT v.dataPub, m.nome, v.titolo as titoloVideo, v.descrizione as descrizioneVideo, a.nome as nomeAutore, a.cognome as cognomeAutore, v.pathMiniatura, a.id as idAutore FROM video v, materia m, autore a, realizza r WHERE m.NomeIndirizzo = 'Informatica' AND v.CodMateria = m.Cod AND a.ID = r.IDAutore AND v.Cod = r.CodVideo ORDER BY v.DataPub LIMIT 4 ") or die (mysqli_error($connetti));      
-
-                                $color = 'blue';
-                                if(mysqli_num_rows($risRand) > 0){
-                                        while($row=mysqli_fetch_array($risRand)){                                         
-                                        ?>
-                            
-                                        <div class="column">
-                                            <div class="ui card <?php echo $color?>">
-                                                <a class="image">
-                                                    <div class="ui <?php echo $color?> ribbon label"><?php echo $row['nome']?></div>
-                                                    <img src="http://scritti9212.altervista.org/scritti9212guide/wp-content/uploads/2013/07/codice-binario.jpg">
-                                                    <!--<img src="<?php echo $row['pathMiniatura']?>">-->
-                                                </a>
-                                            <div class="content">
-                                                <div><h2><a href="#"><?php echo $row['titoloVideo']?></a></h2></div>
-                                                <!--
-                                                <div class="description">
-                                                    <?php echo $row['descrizioneVideo']?>
-                                                </div>
-                                                -->
-                                            </div>
-                                                <div class="extra content">
-                                                    <a href="/author/index.php?a=<?php echo $row['idAutore'];?>">
-                                                        <i class="users icon"></i>
-                                                        <?php echo $row['nomeAutore']." ".$row['cognomeAutore']?>
-                                                    </a>
-                                                </div>
-                                                <div class="extra content">
-                                                        <?php echo $row['dataPub']?>
-                                                </div>
-                                            </div>
+                        <div class="column">
+                            <div class="ui raised segment">
+                                <a class="ui green ribbon label">Argomenti</a>
+                                <div class="ui ordered list">
+                                    <div class="item">
+                                        <a>Database</a>
+                                        <div class="list">
+                                            <a class="item">Progettazione</a>
+                                            <a class="item">MySql</a>
                                         </div>
-                                        <?php
-                                        }
-                                    }
-                                ?>
-                        </div>                       
-                                             
-                        
-                        
-                        
-                                     
-                                                                                              
-                                                                                                                                                            
-                    
+                                    </div>
+                                    <a class="item">Php</a>
+                                    <a class="item">Html</a>
+                                    <a class="item">CSS</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="ui raised segment">
+                                <a class="ui green ribbon label">Argomenti</a>
+                                <div class="ui ordered list">
+                                    <div class="item">
+                                        <a>Database</a>
+                                        <div class="list">
+                                            <a class="item">Progettazione</a>
+                                            <a class="item">MySql</a>
+                                        </div>
+                                    </div>
+                                    <a class="item">Php</a>
+                                    <a class="item">Html</a>
+                                    <a class="item">CSS</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui horizontal divider">
+                        <i class="code icon"></i>
+                    </div>
                 <?php } else {
                     //--All is set and Video exist--
                     //Set Video statistics variable
@@ -1096,7 +1049,6 @@
                                     <div class="ui basic green button small">
                                         <i class="thumbs up icon"></i>
                                         <span>Like</span>
-
                                     </div>
                                     <a class="ui green left pointing label">
                                         <?php echo getLikeCount($vStat);?>
@@ -1205,7 +1157,7 @@
                 </button>
             </div>
         </div>
-        <!--#include virtual="/common/component/footer.html" -->
+        <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/footer.html";?>
         <script>plyr.setup();</script>
     </body>
 </html>
