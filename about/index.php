@@ -37,7 +37,7 @@
     </head>
     <body>
         <div class="wrapper">
-            <!--#include virtual="/common/component/header.html" -->
+            <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/header.html";?>
             <div class="container-fluid">    
                 <div class="row rowStyle">
                     <div class="col-sm-3"></div>
@@ -96,6 +96,6 @@
                 </div>
             </div>
         </div>
-        <!--#include virtual="/common/component/footer.html" -->
+        <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/footer.html";?>
     </body>
 </html>

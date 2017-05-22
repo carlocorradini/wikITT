@@ -15,7 +15,6 @@ session_start();
         <?php } else { ?>
             <title>Admin | Accedi</title>
         <?php } ?>
-
         <link rel="icon" href="/common/image/icon.ico" type="image/x-icon">
 
         <!--Frameworks-->
@@ -122,13 +121,9 @@ session_start();
             <!--#include virtual="/common/component/header.html" -->
             <?php
             if (authentication_session()) {
+                require 'admin_navigator.php';
             ?>
             <style>
-                #admin-navigator {
-                    width: 1000px;
-                    max-width: 100%;
-                    margin: 25px auto;
-                }
                 #admin-profile {
                     width: 450px;
                     max-width: 100%;
@@ -232,26 +227,7 @@ session_start();
                     return false;
                 }
             </script>
-            <div class="ui menu stackable large" id="admin-navigator">
-                <div class="item" style="padding: 1px;">
-                    <img src="/common/image/profile/terminal.png" alt="administrator" class="ui centered image" style="width: 70px; height: 70px;">
-                </div>
-                <div class="item">
-                    <a href="/admin/index.php" class="ui labeled teal icon button fluid">
-                        <i class="block layout icon"></i>
-                        Pannello di Controllo
-                    </a>
-                </div>
-                <div class="right item">
-                    <form action="/common/php/administrator.php" method="POST" id="sign-out" style="width: 100%;">
-                        <input type="hidden" name="type" value="3">
-                        <button type="submit" class="ui labeled red icon button fluid">
-                            <i class="power icon"></i>
-                            Disconnetti
-                        </button>
-                    </form>
-                </div>
-            </div>
+            
             <div style="padding: 0 10px 0 10px;">
                 <div class="ui centered card" id="admin-profile">
                     <div class="content">
@@ -284,14 +260,14 @@ session_start();
                     </div>
                     <div class="extra content">
                         <div class="ui two buttons large">
-                            <div class="ui orange inverted button">
+                            <a href="video/upload.php" class="ui orange inverted button">
                                 <i class="add icon"></i>
                                 Video
-                            </div>
-                            <div class="ui green inverted button">
+                            </a>
+                            <a href="autore/upload.php" class="ui green inverted button">
                                 <i class="add icon"></i>
                                 Autore
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="extra content" id="form-change-password">
@@ -382,7 +358,7 @@ session_start();
                                         },
                                         {
                                             type: 'minLength[<?php echo $min_password_length?>]',
-                                            prompt: 'Lunghezza vecchia password minimo \{ruleValue}\ caratteri'
+                                            prompt: 'Lunghezza password minimo \{ruleValue}\ caratteri'
                                         }
                                     ]
                                 }

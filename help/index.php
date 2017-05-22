@@ -53,7 +53,7 @@
     </head>
     <body style="overflow: auto;">
         <div class="wrapper">
-            <!--#include virtual="/common/component/header.html" -->
+            <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/header.html";?>
             <div class="banner">
                 <img src="banner.jpg" alt="banner"/>
                 <h1 class="help">CONTATTACI</h1>
@@ -67,6 +67,6 @@
                 </div>
             </div>
         </div>
-        <!--#include virtual="/common/component/footer.html" -->
+        <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/footer.html";?>
     </body>
 </html>

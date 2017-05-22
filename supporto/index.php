@@ -84,8 +84,7 @@
     </head>
     <body>
         <div class="wrapper">
-            <!--#include virtual="/common/component/header.html" -->
-            
+            <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/header.html";?>
             <h1 id="titolo">SUPPORTO</h1>
             <section class="cd-faq">
                 <div class="cd-faq-items">
@@ -166,6 +165,6 @@
                 </div>
             </section>
         </div>
-        <!--#include virtual="/common/component/footer.html" -->
+        <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/footer.html";?>
     </body>
 </html>
