@@ -67,7 +67,7 @@
                     <div class="col-sm-6 text-left">                 
                         <div class="col-sm-1"></div>
                         <div class="col-sm-10"> 
-                            <h2 class="text-center"> Cos'è WikITT? </h2>
+                            <h2 style="text-align: center;"> Cos'è WikITT? </h2>
                             <br/>
                             <p>WikITT è un progetto nato dall’idea di alcuni professori dell’istituto ITT Buonarroti – Pozzo di Trento e sviluppato dalla classe 5A (A.S. 2016/17) 
                                 dell’indirizzo informatico sin dalle sue prime fasi.
@@ -85,7 +85,7 @@
                     <div class="col-sm-6 text-left">                 
                         <div class="col-sm-1"></div>
                         <div class="col-sm-10">
-                            <h2 class="text-center"> Chi siamo? </h2>
+                            <h2 style="text-align: center;"> Chi siamo? </h2>
                             <br/>
                             <p>Siamo dei ragazzi di 18-21 anni, abbiamo hobby e interessi diversi ma siamo accumunati dalla stessa passione verso il mondo della tecnologia che,
                                 fin da bambini, ci ha sempre affascinati.
@@ -101,18 +101,18 @@
                 <div class="row rowStyle">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
-                        <h2 class="text-center"> I gruppi </h2>
+                        <h2 style="text-align: center;"> I gruppi </h2>
                         <br/>
                         <div class="col-sm-6">
-                            <img src="../common/image/gruppo_video.jpg" class="image" alt="gruppo_grafica">
+                            <img src="/common/image/gruppo_video.jpg" class="image" alt="gruppo_grafica">
                             <br/>
-                            <h3 class="text-center">Gruppo Video</h3>                            
+                            <h3 style="text-align: center;">Gruppo Video</h3>                            
                         </div>
 
                         <div class="col-sm-6"> 
-                            <img src="../common/image/gruppo_prog.jpg" class="image" alt="gruppo_programmazione">
+                            <img src="/common/image/gruppo_prog.jpg" class="image" alt="gruppo_programmazione">
                             <br/>
-                            <h3 class="text-center">Gruppo Programmazione</h3>
+                            <h3 style="text-align: center;">Gruppo Programmazione</h3>
                         </div>
                     </div>
                     <div class="col-sm-2"></div>
