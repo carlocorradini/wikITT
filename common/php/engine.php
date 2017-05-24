@@ -1,23 +1,32 @@
-
 <?php
-    //DB Access
-    $dbAddress = "127.0.0.1";
-    $dbUsername = "root";
-    //$dbPassword = "1234password";
+$dbAddress = "mysql.stackcp.com";
+    $dbPort = 21257;
     $dbName = "wikitt-355d4a";
-    //DB Usage
+    $dbUsername = "wikitt-355d4a";
+    $dbPassword = "1234password";
+    //---DB Usage---
     connect($connection);
+    //---Encryption--
+    //Options for password
+    $min_password_length = 6;
+    $max_password_length = 20;
+    $password_hash_options = [
+        'cost' => 12,
+        //PHP 5
+        'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM)
+        //PHP 7
+        //'salt' => random_bytes(22)
+    ];
+    //---GENERAL---
     //Set encoding UTF-8 -> Italian
     query("SET character_set_results=utf8");
     mb_language("uni");
     mb_internal_encoding("UTF-8");
-
-    /*Connection*/
+    //---Connection---
     function connect(&$connection) {
-        global $dbAddress, $dbUsername, $dbPassword, $dbName;
-        $connection = mysqli_connect($dbAddress, $dbUsername, $dbPassword, $dbName);
+        global $dbAddress, $dbUsername, $dbPassword, $dbName, $dbPort;
+        $connection = mysqli_connect($dbAddress, $dbUsername, $dbPassword, $dbName, $dbPort);
         if(!$connection) {
-            mysqli_close();
             die("Failed to connect to MySQL: " + mysqli_connect_error());
         }
     }

@@ -216,7 +216,7 @@ if(isset($_REQUEST['search'])){
     function printResult($term){
         
         $color;
-        $result = query("SELECT DISTINCT v.VideoID, v.Descrizione, m.nomeIndirizzo as materia, v.Titolo as titoloVideo, v.Cod, v.DataPub FROM (SELECT v1.VideoID, v1.DataPub, v1.Titolo, v1.CodMateria, v1.Cod, v1.Descrizione, LOCATE('%$term', v1.Titolo) as score FROM video v1 WHERE v1.Titolo LIKE '%$term%' ORDER BY score) v, materia m WHERE v.CodMateria = m.Cod");
+        $result = query("SELECT DISTINCT v.VideoID, v.Descrizione, m.nomeIndirizzo as materia, v.Titolo as titoloVideo, v.Cod, v.DataPub FROM (SELECT v1.VideoID, v1.DataPub, v1.Titolo, v1.CodMateria, v1.Cod, v1.Descrizione, LOCATE('$term', v1.Titolo) as score FROM video v1 WHERE LOCATE('$term', v1.Titolo)>0 ORDER BY score) v, materia m WHERE v.CodMateria = m.Cod");
         
         if(mysqli_num_rows($result) > 0){
             while ($row = mysqli_fetch_array($result)){
