@@ -189,7 +189,7 @@
             }
         </script>
         <div class="wrapper">
-            <!--#include virtual="../common/component/header.html" -->
+            <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/header.html";?>
             <form id="search-form" action="#" method="POST">
                 <div class="ui icon input huge">
                     <input id="cerca-result" name='cerca-result' type="text" value="<?php
@@ -302,6 +302,6 @@
             }
             ?>
         </div>
-        <!--#include virtual="/common/component/footer.html" -->
+        <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/footer.html";?>
     </body>
 </html>

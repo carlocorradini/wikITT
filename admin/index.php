@@ -442,5 +442,6 @@ session_start();
                 <span>Ti sei disconnesso con successo</span>
             </div>
         </div>
+        <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/footer.html";?>
     </body>
 </html>
