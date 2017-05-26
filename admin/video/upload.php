@@ -134,10 +134,7 @@ if (!authentication_session()) {
                         <span>Inserire dati video</span>
                     </div>
                 </div>
-            <?php } else {
-                header("Location: /admin/index.php");
-                die();
-            }?>
+            <?php }?>
         </div>
     </body>
 </html>
