@@ -3,6 +3,10 @@
 require '../../common/php/engine.php';
 //Start Session
 session_start();
+if (!authentication_session()) {
+    header("Location: /admin/index.php");
+    die();
+}
 ?>
 
 <!DOCTYPE html>

@@ -3,6 +3,10 @@
 require '../../common/php/engine.php';
 //Start Session
 session_start();
+if (!authentication_session()) {
+    header("Location: /admin/index.php");
+    die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -266,10 +270,7 @@ session_start();
                         <span>Inserire dati autore</span>
                     </div>
                 </div>
-            <?php } else {
-                header("Location: /admin/index.php");
-                die();
-            }?>
+            <?php }?>
         </div>
     </body>
 </html>
