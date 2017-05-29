@@ -196,7 +196,7 @@
                     for(var i=0; i<data.length; i++) {
                         var li = document.createElement("li");
                         var a = document.createElement("a");
-                        a.setAttribute("href", 'http://localhost/informatica/index.php?v='+data[i].vId);
+                        a.setAttribute("href", "https://www.youtube.com/watch?v="+data[i].vId);
                         a.innerHTML = "<b>"+data[i].titolo+"</b>";
                         var span = document.createElement("span");
                         span.innerHTML = " - <i>"+data[i].materia+"</i>";
@@ -216,10 +216,10 @@
                 liveSearch.appendChild(ul);
             }
             function checkSubmit(e) {
-                if(e && e.keyCode == 13) {
+                if(e && e.keyCode === 13) {
                    document.getElementById('cerca').submit();
                 }
-            }          
+            }           
             
         </script>
         <div class="wrapper">
