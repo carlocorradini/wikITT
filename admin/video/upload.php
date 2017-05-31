@@ -26,8 +26,8 @@ session_start();
     <body>
         <script>
             $(document).ready(function() {
-                $('.ui.dropdown').dropdown(
-                    {allowAdditions: true
+                $('.ui.dropdown').dropdown({
+                    allowAdditions: true
                 });
                 $('.ui.dropdown').dropdown();
                 $('#select').dropdown();
@@ -44,11 +44,17 @@ session_start();
                                 if (data.status) {
                                     //alert("Inserimento riuscito");
                                     $("#uploadVideo").removeClass("loading");
+                                    $("#form-video-msg").addClass("success");
+                                    $("#form-video-msg").text("Inserimento video avvenuto");                                   
+                                    $("#uploadVideo").form('clear');
                                 }
-                                else
-                                    alert("Inserimento fallito");
-                                console.info("[UPLOAD_VIDEO]: " + data.message);
+                                else{
+                                    console.info("[UPLOAD_VIDEO]: " + data.message);
+                                }
                             }, error: function (jqXHR, status, error) {
+                                $("#uploadVideo").removeClass("loading");
+                                $("#form-video-msg").addClass("error");
+                                $("#form-video-msg").text("Inserimento video non avvenuto");
                                 console.error("[UPLOAD_VIDEO]: " + error);
                             }
                         });
@@ -76,7 +82,7 @@ session_start();
                             Descrizione
                             -->
 
-                        <form class="ui form" id="uploadVideo1" method="post" action="/common/php/uploadVid.php">
+                        <form class="ui form attached segment" id="uploadVideo">
                             <div class="field">
                                 <label>YouTube VideoID</label>
                                 <div class="ui left icon input">
@@ -114,6 +120,10 @@ session_start();
                             </div>
                             <button type="submit" class="ui button blue">Aggiungi</button>  
                         </form>  
+                        <div id="form-video-msg" class="ui bottom attached message">
+                            <i class="send icon"></i>
+                            <span>Inserire dati video</span>
+                        </div>
                     </div>
                 </div> 
             <?php } else {

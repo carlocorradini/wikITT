@@ -34,17 +34,31 @@
             
     $stat = getVideoStat();
     $autori_array=  explode(",", $autori);
-    $num = count($autori_array);
+    $numAutori = count($autori_array);
     //echo 'funziona: ' .$num ." ". $autori_array[0];
+    $date = date('Y');
     
     
-    $cod = query("SELECT Cod FROM video WHERE CodMateria='$materia' ORDER BY Cod DESC LIMIT 1;");
-    $cod = substr($cod, 4, 3);
-    $codint = filter_var($cod, FILTER_SANITIZE_NUMBER_INT);
+    $cod = query("SELECT Cod FROM video WHERE CodMateria='$materia' AND year(video.DataPub) = $date ORDER BY Cod DESC LIMIT 1;");
+    if(mysql_num_rows($result)==0){
+        $codint=001;
+    }
+    else {
+        $cod = substr($cod, 4, 3);
+        $cod++;
+        $lung = strlen((string)$cod);
+        if($lung==1){
+                $cod= "00" .$cod;
+        }
+        if($lung==2){
+                $cod= "0" .$cod;
+        }
+   }
+    
     //echo 'funziona:'. $stat->items[0]->snippet->description;
     $titolo = $stat->items[0]->snippet->title;
     $descrizione = $stat->items[0]->snippet->description;
-    $data = date('Y-m-d');
+    
     $nomeAmm = getUsername();
     
     $cod++;
@@ -56,7 +70,9 @@
             $cod= "0" .$cod;
     }
     
-  $codCompleto = "".$materia."".$cod."_".date("y");
+    $dataCompleta = date(Y-m-d);
+    
+  $codCompleto = "".$materia."".$cod."_".$date;
     /*
      * Dati necessari:
      * COD $codCompleto
@@ -64,18 +80,29 @@
      * Descrizione $descrizione
      * VideoID $VideoID
      * CodMateria $materia
-     * DataPub $data
+     * DataPub $dataCompleta
      * NomeAmm $nomeAmm
      * 
      * 
      * Autori $autori_array
-     */
-    
-
-    
-    
-            
-    echo 'cod: '.$codCompleto;
+     */        
   
+    //INSERT VIDEO
+    $result = query("INSERT INTO video(Cod, Titolo, Descrizione, VideoID, CodMateria, DataPub, NomeAmm) VALUES ('$codCompleto', '$titolo', '$descrizione', '$VideoID', '$materia', '$dataCompleta', '$nomeAmm');");
+    if($result)
+        setResponse($data, TRUE, "Video inserted correctly!");
+    else 
+       setResponse($data, FALSE, "Video not inserted correctly!");
     
+    //INSERT REALIZZA
+    for($i=0; $i<$numAutori; $i++){
+        $result = query("INSERT INTO realizza(IDAutore, CodVideo) VALUES ('$autori_array[$i]', '$codCompleto');");
+        if($result)
+            setResponse($data, TRUE, "Author-Video inserted correctly!");
+        else 
+            setResponse($data, FALSE, "Author-Video not inserted correctly!");
+    
+    }
+    
+    echo json_encode($data);
 ?>

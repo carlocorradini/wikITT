@@ -44,14 +44,15 @@ session_start();
                                 //alert("Inserimento riuscito");
                                 $("#uploadAuth").removeClass("loading");
                                 $("#form-author-msg").addClass("success");
+                                $("#form-author-msg").text("Inserimento autore avvenuto");
                                 $("#uploadAuth").form('clear');
-                            } else
-                                alert("Inserimento fallito");
-                            console.info("[UPLOAD_AUTHOR]: " + data.message);
+                            }else
+                                console.info("[UPLOAD_AUTHOR]: " + data.message);
                         },
                         error: function (jqXHR, status, error) {
                             $("#uploadAuth").removeClass("loading");
                             $("#form-author-msg").addClass("error");
+                            $("#form-author-msg").text("Inserimento autore non avvenuto");
                             console.error("[UPLOAD_AUTHOR]: " + error);
                         }
                     });
@@ -89,7 +90,7 @@ session_start();
                                 <label>Classe Autore</label>
                                 <div class="ui left icon input">
                                     <i class="users icon"></i>
-                                    <input type="text" id="psw" name="Classe" placeholder="Classe">
+                                    <input type="text" id="psw" name="Classe" placeholder="Classe (Es formato: 5 INA)">
                                 </div>
                                 <div class="hidden ui pointing label">
                                     Esempio formato: 5 INA
@@ -100,7 +101,7 @@ session_start();
                                 <label>Anno Scolastico</label>
                                 <div class="ui left icon input">
                                     <i class="calendar icon"></i>
-                                    <input type="text" id="psw" name="AnnoS" placeholder="Anno scolastico">
+                                    <input type="text" id="psw" name="AnnoS" placeholder="Anno scolastico (Es formato: 16/17)">
                                 </div>
                                 <div class="hidden ui pointing label">
                                     Esempio formato: 16/17

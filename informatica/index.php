@@ -750,6 +750,16 @@
             }
             function handleAuthClick(rating) {
                 if (GoogleAuth.isSignedIn.get()) {
+                    
+                    if(rating==="dislike"){
+                        $('#dislikeButton').addClass("red");
+                        $('#dislikeCount').addClass("red");
+                    }
+                    
+                    if(rating==="like"){
+                        $('#likeButton').addClass("green");
+                        $('#likeCount').addClass("green");
+                    }
                     // User is authorized and has clicked 'Sign out' button
                     console.log("Query Google in esecuzione");
                     //https://developers.google.com/apis-explorer/#search/rate/m/youtube/v3/youtube.videos.rate?id=RjUlmco7v2M&rating=like&_h=1&            
@@ -763,6 +773,8 @@
                             'key': "AIzaSyD0BBciTgJ2cBLphgjwIVYtxZ6Ey9UDpTA"
                         }
                     });
+                    
+                    
                     request.execute(function(response){
                         console.log(response);        
                     });
@@ -1044,20 +1056,20 @@
                             <!--Like & Dislike-->
                             <div id="feedback">
                                 <div class="ui labeled button" id="like" tabindex="0">
-                                    <div class="ui basic green button small">
+                                    <div id="likeButton" class="ui basic button small">
                                         <i class="thumbs up icon"></i>
                                         <span>Like</span>
                                     </div>
-                                    <a class="ui green left pointing label">
+                                    <a id="likeCount" class="ui left pointing label">
                                         <?php echo getLikeCount($vStat);?>
                                     </a>
                                 </div>
                                 <div class="ui labeled button" id="dislike" tabindex="0">
-                                    <div class="ui basic red button small">
+                                    <div id="dislikeButton" class="ui basic button small">
                                         <i class="thumbs down icon"></i>
                                         <span>Dislike</span>
                                     </div>
-                                    <a class="ui red left pointing label">
+                                    <a id="dislikeCount" class="ui left pointing label">
                                         <?php echo getDisklikeCount($vStat);?>
                                     </a>
                                 </div>
