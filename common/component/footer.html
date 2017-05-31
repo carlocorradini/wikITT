@@ -1,21 +1,21 @@
 <!--
 ISTRUZIONI PER INSERIRE IL FOOTER NELLE ALTRE PAGINE:
-
 Tutto il contenuto della pagina deve essere contenuto all'interno di un <div class="wrapper">
 con classe wrapper.
-
 Il footer deve essere incluso fuori e dopo il <div class="wrapper"> con il comando:
 #include virtual="/common/component/footer.html"
       
-<!--
-    ES:
-    <div class="wrapper">
-        <form>
-            .. contenuto .. 
-        </form>
-    </div>
-    #include virtual="/common/component/footer.html" 
+            ES:
+        <div class="wrapper">
+            <form>
+                .. contenuto .. 
+            </form>
+        </div>
+        #include virtual="/common/component/footer.html" 
 -->
+<head>
+    
+
 <style>
     .bounce {
         -webkit-animation: bounce 2s infinite;
@@ -92,7 +92,6 @@ Il footer deve essere incluso fuori e dopo il <div class="wrapper"> con il coman
         width: 20%;
         margin-left: auto!important;
         margin-right: auto!important;
-
     }
     
     @media only screen and (max-width: 700px){
@@ -157,15 +156,14 @@ Il footer deve essere incluso fuori e dopo il <div class="wrapper"> con il coman
         z-index: 1;
         cursor: pointer;
     }
-
     /*sticky footer*/
     .wrapper {
         min-height: calc(100vh - 165px);
     }
     footer {
         height: 50px!important;
-        background-color: #ffffff;
     }
+    
 </style>
 
 <script>
@@ -177,23 +175,21 @@ Il footer deve essere incluso fuori e dopo il <div class="wrapper"> con il coman
         });
     });
 </script>
-<!--<footer class="arrow_box footer">-->
-<footer class="footer">
+
+
+<footer class="arrow_box footer">
     <img id="scroll-top" class="arrow bounce" src="/common/image/arrow-up-black.png" alt="Go up"/>
     <div class="responsive">
-        <img src="/common/image/icon-large.png" class="logo" alt="wikITT_icon"/>
+        <img src="/common/image/icon-large.png" class="logo" alt="icon"/>
     </div>
-    <div class="ui vertical footer segment" style="background-color: #ffffff;">
+    <div class="ui vertical footer segment">
         <div class="ui center aligned container" >         
             <div class="ui horizontal small divided link list">
-                <span class="item font-color">© 2017 wikITT</span> 
-                <a href="/about/index.php" class="item font-color">About Us</a>
-                <a href="/admin/index.php" class="item font-color">Admin</a>
-                <a href="/aiutaci/index.php" class="item font-color">Aiutaci</a>
-                <a href="/autore/index.php" class="item font-color">Autori</a>
-                <a href="/cerca/index.php" class="item font-color">Cerca</a>
-                <a href="/help/index.php" class="item font-color">Help</a>
-                <a href="/supporto/index.php" class="item font-color">Supporto</a>
+                <p class="item font-color">© 2017 wikITT</p> 
+                <a href="/terms-and-conditions/index.html" class="item font-color">Terms and conditions</a>
+                <a href="/about/index.html" class="item font-color">About Us</a>
+                <a href="#" class="item font-color">Sitemap</a>
+                <a href="/supporto/index.html" class="item font-color">Supporto</a>
             </div>
         </div>
     </div>
