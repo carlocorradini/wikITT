@@ -53,7 +53,7 @@
 
                 </div>
                     <div class="extra content">
-                        <a href="/author/index.php?a=<?php echo $row['idAutore'];?>">
+                        <a href="/autore/index.php?a=<?php echo $row['idAutore'];?>">
                             <i class="users icon"></i>
                             <?php echo $row['nomeAutore']." ".$row['cognomeAutore']?>
                         </a>
