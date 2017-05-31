@@ -228,7 +228,7 @@
                 <!--Logo-->
                 <img class="ui large image center" src="/common/image/icon-large.png" alt="wikITT"/>
                 <!--Search-bar-->
-                <form id="search-form" action="/search/result.php" method="post">
+                <form id="search-form" action="/cerca/index.php" method="post">
                     <div class="ui icon input huge">
                             <input id="cerca" name="search" type="text" placeholder="Cerca..." autocomplete="off" onkeyup="showResult(this.value)" onfocus="showResult(this.value)" onkeypress="checkSubmit()">
                         <i class="circular search link icon"></i>
