@@ -22,29 +22,52 @@
             .container-fluid {
                 font:20px/185% Verdana;
             }
-
             .rowStyle{
-                margin-top: 5em;
+                margin-top: 1em;
                 min-height: 15em;
             }
-            .foto{
+            
+            .image{
                 margin: auto;
-                max-height: 250px;
-                max-width: 300px;
+                max-height: 70%;
+                max-width: 80%;
                 display: block;
+                -webkit-transition: all 250ms ease-in-out;
+                -moz-transition: all 250ms ease-in-out;
+                -ms-transition: all 250ms ease-in-out;
+                -o-transition: all 250ms ease-in-out;
+                transition: all 250ms ease-in-out;
+            }
+            
+            .image:hover {
+                -webkit-transform: scale(1.1,1.1);
+                -moz-transform: scale(1.1,1.1);
+                -o-transform: scale(1.1,1.1);
+                -ms-transform: scale(1.1,1.1);
+                transform: scale(1.05,1.05);
+                opacity: 0.9;
+            }
+            
+            .banner{
+                display: block;
+                margin-right: -1em;
+                min-height: 100%;
+                max-width: 100%;
             }
         </style>
     </head>
     <body>
         <div class="wrapper">
             <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/header.html";?>
-            <div class="container-fluid">    
+            <div class="container-fluid">  
+                <br>
+                <img src="banner.jpeg" class="banner">
                 <div class="row rowStyle">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-6 text-left">                 
                         <div class="col-sm-1"></div>
                         <div class="col-sm-10"> 
-                            <h2 class="text-center"> Cos'è WikITT? </h2>
+                            <h2 style="text-align: center;"> Cos'è WikITT? </h2>
                             <br/>
                             <p>WikITT è un progetto nato dall’idea di alcuni professori dell’istituto ITT Buonarroti – Pozzo di Trento e sviluppato dalla classe 5A (A.S. 2016/17) 
                                 dell’indirizzo informatico sin dalle sue prime fasi.
@@ -62,7 +85,7 @@
                     <div class="col-sm-6 text-left">                 
                         <div class="col-sm-1"></div>
                         <div class="col-sm-10">
-                            <h2 class="text-center"> Chi siamo? </h2>
+                            <h2 style="text-align: center;"> Chi siamo? </h2>
                             <br/>
                             <p>Siamo dei ragazzi di 18-21 anni, abbiamo hobby e interessi diversi ma siamo accumunati dalla stessa passione verso il mondo della tecnologia che,
                                 fin da bambini, ci ha sempre affascinati.
@@ -78,18 +101,18 @@
                 <div class="row rowStyle">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
-                        <h3 class="text-center"> I gruppi </h3>
+                        <h2 style="text-align: center;"> I gruppi </h2>
                         <br/>
                         <div class="col-sm-6">
-                            <h3 class="text-center">Gruppo Video</h3>
+                            <img src="/common/image/gruppo_video.jpg" class="image" alt="gruppo_grafica">
                             <br/>
-                            <img src="http://learnonline.canberra.edu.au/pluginfile.php/844029/mod_book/chapter/1788/groups.jpg" class="foto" alt="gruppo_grafica">
+                            <h3 style="text-align: center;">Gruppo Video</h3>                            
                         </div>
 
                         <div class="col-sm-6"> 
-                            <h3 class="text-center">Gruppo Programmazione</h3>
+                            <img src="/common/image/gruppo_prog.jpg" class="image" alt="gruppo_programmazione">
                             <br/>
-                            <img src="http://learnonline.canberra.edu.au/pluginfile.php/844029/mod_book/chapter/1788/groups.jpg" class="foto" alt="gruppo_programmazione">
+                            <h3 style="text-align: center;">Gruppo Programmazione</h3>
                         </div>
                     </div>
                     <div class="col-sm-2"></div>

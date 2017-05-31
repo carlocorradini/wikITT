@@ -3,6 +3,10 @@
 require '../../common/php/engine.php';
 //Start Session
 session_start();
+if (!authentication_session()) {
+    header("Location: /admin/index.php");
+    die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +14,7 @@ session_start();
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin | Add Video</title>
+        <title>Admin | Aggiungi Video</title>
         <link rel="icon" href="/common/image/icon.ico" type="image/x-icon">
         
         <!--Frameworks-->
@@ -62,12 +66,20 @@ session_start();
                 });
             });
         </script>
+        <style>
+            #upload-video-panel {
+                width: 1000px;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0 10px;
+            }
+        </style>
         <div class="wrapper">
-            <!--#include virtual="/common/component/header.html" -->
-            <?php
+            <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/header.html";
             if(authentication_session()){
                 require '../admin_navigator.php';
             ?>
+
             <div class="main">
                 <div class="ui container">
                     <h1 class="center_aligned">Aggiunta nuovo video</h1>
@@ -89,48 +101,45 @@ session_start();
                                     <i class="video play icon"></i>
                                     <input type="text"  id="user" name="videoID" placeholder="VideoID">
                                 </div>
+
                             </div>
 
-                            <div class="ui fluid search selection dropdown field ">
-                                <input name="materia" type="hidden">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Materia</div>
-                                <div class="menu">
-                                    <?php
-                                        $ris = query("SELECT DISTINCT m.Cod, m.Nome FROM materia m, indirizzo i ORDER BY i.Nome;");
-                                        while ($row= mysqli_fetch_array($ris)){
-                                            echo "<div class='item' data-value=$row[Cod]>$row[Nome] ($row[Cod])</div>";
-                                        }
-                                    ?>
-                                </div>
+                        <div class="ui fluid search selection dropdown field ">
+                            <input name="materia" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Materia</div>
+                            <div class="menu">
+                                <?php
+                                    $ris = query("SELECT DISTINCT m.Cod, m.Nome FROM materia m, indirizzo i ORDER BY i.Nome;");
+                                    while ($row= mysqli_fetch_array($ris)){
+                                        echo "<div class='item' data-value=$row[Cod]>$row[Nome] ($row[Cod])</div>";
+                                    }
+                                ?>
                             </div>
+                        </div>
 
-                            <div class="ui fluid multiple search selection dropdown field">
-                                <input name="autori" type="hidden">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Autori</div>
-                                <div class="menu">
-                                    <?php
-                                        $ris = query("SELECT a.ID, a.Nome, a.Cognome, a.Classe FROM autore a ORDER BY a.Classe, a.Cognome, a.Nome;");
-                                        while ($row= mysqli_fetch_array($ris)){
-                                            echo "<div class='item' data-value=$row[ID]>$row[Cognome] $row[Nome] ($row[Classe])</div>";
-                                        }
-                                    ?>
-                                </div>
+                        <div class="ui fluid multiple search selection dropdown field">
+                            <input name="autori" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Autori</div>
+                            <div class="menu">
+                                <?php
+                                    $ris = query("SELECT a.ID, a.Nome, a.Cognome, a.Classe FROM autore a ORDER BY a.Classe, a.Cognome, a.Nome;");
+                                    while ($row= mysqli_fetch_array($ris)){
+                                        echo "<div class='item' data-value=$row[ID]>$row[Cognome] $row[Nome] ($row[Classe])</div>";
+                                    }
+                                ?>
                             </div>
-                            <button type="submit" class="ui button blue">Aggiungi</button>  
+                            <button type="submit" class="ui button blue">Aggiungi</button> 
+                          </div>
                         </form>  
                         <div id="form-video-msg" class="ui bottom attached message">
                             <i class="send icon"></i>
                             <span>Inserire dati video</span>
                         </div>
                     </div>
-                </div> 
-            <?php } else {
-                header("Location: /admin/index.php");
-                die();
-            }?>
+                </div>
+            <?php }?>
         </div>
-        <!--#include virtual="/common/component/footer.html" -->
     </body>
 </html>

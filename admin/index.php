@@ -118,7 +118,7 @@ session_start();
         </style>
         
         <div class="wrapper">
-            <!--#include virtual="/common/component/header.html" -->
+            <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/header.html";?>
             <?php
             if (authentication_session()) {
                 require 'admin_navigator.php';
@@ -442,5 +442,6 @@ session_start();
                 <span>Ti sei disconnesso con successo</span>
             </div>
         </div>
+        <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/footer.html";?>
     </body>
 </html>

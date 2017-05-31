@@ -185,7 +185,7 @@
             }
         </script>
         <div class="wrapper">
-            <!--#include virtual="/common/component/header.html" -->
+            <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/header.html";?>
             <div class="center" id="tab">
                 <div class="ui stackable four column grid">
                     <?php
@@ -213,7 +213,6 @@
                         }
                     } else {
                         ?>
-                    </div>
                 </div>
             </div>
             <div class="center">
@@ -319,5 +318,7 @@
                 }
                 ?>
             </div>
+        </div>
+        <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/footer.html";?>
     </body>
 </html>
