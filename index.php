@@ -156,6 +156,9 @@
                 cursor: default;
                 margin-left: 12px;
             }
+            .ui.grid>.row{
+                margin:auto;
+            }
         </style>
     </head>
     <body>
@@ -216,102 +219,106 @@
                 if(e && e.keyCode === 13) {
                    document.getElementById('cerca').submit();
                 }
-            }          
+            }           
             
         </script>
         <div class="wrapper">
             <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/header.html";?>
-            <!--Logo-->
-            <img class="ui large image center" src="/common/image/icon-large.png" alt="wikITT"/>
-            <!--Search-bar-->
-            <form id="search-form" action="/cerca/index.php" method="POST">
-                <div class="ui icon input huge">
-                        <input id="cerca" name="search" type="text" placeholder="Cerca..." autocomplete="off" onkeyup="showResult(this.value)" onfocus="showResult(this.value)" onkeypress="checkSubmit()">
-                    <i class="circular search link icon"></i>
-                </div>
-                <div id="livesearch" style="display: block;"></div>
-            </form>
-            <!--Subjects-->
-            <div id="tab" class="center">
-                <div class="ui stackable three column grid">
-                    <div class="column hvr-grow">
-                        <div class="ui segment">
-                            <a href="/informatica/index.php">
-                                <div class="ui blue ribbon label">Informatica</div>
-                                <img class="ui fluid image" src="/common/image/subjects/it.png" alt="informatica"/>
-                            </a>
+            <div class="container">
+                <!--Logo-->
+                <img class="ui large image center" src="/common/image/icon-large.png" alt="wikITT"/>
+                <!--Search-bar-->
+                <form id="search-form" action="/search/result.php" method="post">
+                    <div class="ui icon input huge">
+                            <input id="cerca" name="search" type="text" placeholder="Cerca..." autocomplete="off" onkeyup="showResult(this.value)" onfocus="showResult(this.value)" onkeypress="checkSubmit()">
+                        <i class="circular search link icon"></i>
+                    </div>
+                    <div id="livesearch" style="display: block;"></div>
+                </form>
+                <!--Subjects-->
+                <div id="tab" class="center">
+                    <div class="ui grid doubling three column">
+                        <div class="row ">
+                            <div class="column hvr-grow">
+                                <div class="ui segment">
+                                    <a href="/informatica/index.php">
+                                        <div class="ui blue ribbon label">Informatica</div>
+                                        <img class="ui fluid image" src="/common/image/subjects/it.png" alt="informatica"/>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="column hvr-grow">
+                                <div class="ui segment">
+                                    <a href="/meccanica/index.html">
+                                        <div class="ui green ribbon label ">Meccanica</div>
+                                        <img class="ui fluid image" src="/common/image/subjects/mechanic.png" alt="meccanica"/>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="column hvr-grow">
+                                <div class="ui segment">
+                                    <a href="/chimica/index.html">
+                                        <div class="ui red ribbon label">Chimica</div>
+                                        <img class="ui fluid image" src="/common/image/subjects/chemistry.png" alt="chimica"/>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="column hvr-grow">
-                        <div class="ui segment">
-                            <a href="/meccanica/index.html">
-                                <div class="ui green ribbon label ">Meccanica</div>
-                                <img class="ui fluid image" src="/common/image/subjects/mechanic.png" alt="meccanica"/>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="column hvr-grow">
-                        <div class="ui segment">
-                            <a href="/chimica/index.html">
-                                <div class="ui red ribbon label">Chimica</div>
-                                <img class="ui fluid image" src="/common/image/subjects/chemistry.png" alt="chimica"/>
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="ui stackable three column centered grid">
-                    <div class="column hvr-grow">
-                        <div class="ui segment">
-                            <a href="/elettrotecnica/index.html">
-                                <div class="ui orange ribbon label">Elettrotecnica</div>
-                                <img class="ui fluid image" src="/common/image/subjects/electrotech.png" alt="elettrotecnica"/>
-                            </a>
+                    <div class="ui doubling three column centered grid">
+                        <div class="column hvr-grow">
+                            <div class="ui segment">
+                                <a href="/elettrotecnica/index.html">
+                                    <div class="ui orange ribbon label">Elettrotecnica</div>
+                                    <img class="ui fluid image" src="/common/image/subjects/electrotech.png" alt="elettrotecnica"/>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="column hvr-grow">
-                        <div class="ui segment">
-                            <a href="/costruzioni/index.html">
-                                <div class="ui brown ribbon label">Costruzioni</div>
-                                <img class="ui fluid image" src="/common/image/subjects/constructions.png" alt="costruzioni"/>
-                            </a>
+                        <div class="column hvr-grow">
+                            <div class="ui segment">
+                                <a href="/costruzioni/index.html">
+                                    <div class="ui brown ribbon label">Costruzioni</div>
+                                    <img class="ui fluid image" src="/common/image/subjects/constructions.png" alt="costruzioni"/>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--Menu popup-->
-            <ul id="popup" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
-                <li class="mfb-component__wrap">
-                    <a class="mfb-component__button--main" id="social">
-                        <i class="mfb-component__main-icon--resting ion-arrow-up-b"></i>
-                        <i class="mfb-component__main-icon--active ion-arrow-down-b"></i>
-                    </a>
-                    <ul class="mfb-component__list">
-                        <li>
-                            <a href="https://github.com/carlocorradini/wikITT" target="_blank" data-mfb-label="Seguici su Github" class="mfb-component__button--child" id="github">
-                                <i class="mfb-component__child-icon ion-social-github"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.youtube.com/channel/UC3CagkpTNwQNIyN51df7moA" data-mfb-label="Seguici su Youtube" target="_blank" class="mfb-component__button--child" id="youtube">
-                                <i class="mfb-component__child-icon ion-social-youtube"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-mfb-label="Seguici su Facebook" target="_blank" class="mfb-component__button--child" id="facebook">
-                                <i class="mfb-component__child-icon ion-social-facebook"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/help/index.html" data-mfb-label="Il sito è in beta, per problemi contatta qui gli amministratori" class="mfb-component__button--child" id="help">
-                                <i class="mfb-component__child-icon ion-alert"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/advise-video.php";?>
+                <!--Menu popup-->
+                <ul id="popup" class="mfb-component--br mfb-zoomin" data-mfb-toggle="hover">
+                    <li class="mfb-component__wrap">
+                        <a class="mfb-component__button--main" id="social">
+                            <i class="mfb-component__main-icon--resting ion-arrow-up-b"></i>
+                            <i class="mfb-component__main-icon--active ion-arrow-down-b"></i>
+                        </a>
+                        <ul class="mfb-component__list">
+                            <li>
+                                <a href="https://github.com/carlocorradini/wikITT" target="_blank" data-mfb-label="Seguici su Github" class="mfb-component__button--child" id="github">
+                                    <i class="mfb-component__child-icon ion-social-github"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/channel/UC3CagkpTNwQNIyN51df7moA" data-mfb-label="Seguici su Youtube" target="_blank" class="mfb-component__button--child" id="youtube">
+                                    <i class="mfb-component__child-icon ion-social-youtube"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-mfb-label="Seguici su Facebook" target="_blank" class="mfb-component__button--child" id="facebook">
+                                    <i class="mfb-component__child-icon ion-social-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/help/index.html" data-mfb-label="Il sito è in beta, per problemi contatta qui gli amministratori" class="mfb-component__button--child" id="help">
+                                    <i class="mfb-component__child-icon ion-alert"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/advise-video.php";?>
+            </div>       
         </div>
-        <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/footer.html";?>
+         <?php include $_SERVER["DOCUMENT_ROOT"]."/common/component/footer.html";?>
     </body>
-</html>
+</html>  
